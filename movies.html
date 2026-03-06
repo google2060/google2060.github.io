@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Movies – Spark TV</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/firebase@8.10.1/firebase-app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/firebase@8.10.1/firebase-auth.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/firebase@8.10.1/firebase-database.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.12/hls.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/4.7.4/dash.all.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.min.js"></script>
+<style>
+:root{--spark:#ff4d00;--spark2:#ff7b2e;--sg:rgba(255,77,0,.22);--accent:#00c8ff;--gold:#f5c842;--bg:#080b14;--bg2:#10141f;--card:#141926;--card2:#1c2236;--card3:#232c42;--b2:rgba(255,255,255,.07);--t1:#eef1fc;--t2:#8e9abf;--mt:#4a5278;--mt2:#222840;--green:#00e676;--red:#ff3d3d;--sh:rgba(0,0,0,.7);--nh:60px;--bh:60px;--r:14px;}
+[data-theme="light"]{--bg:#f2f4fb;--bg2:#e6eaf6;--card:#fff;--card2:#f4f6fb;--card3:#eaecf6;--b2:rgba(0,0,0,.07);--t1:#0d0f1a;--t2:#3a4060;--mt:#8a94b8;--mt2:#d0d4e8;--sh:rgba(0,0,30,.1);}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;font-family:'Nunito',sans-serif;background:var(--bg);color:var(--t1);overflow-x:hidden;}
+h1,h2,h3{font-family:'Syne',sans-serif;}
+::-webkit-scrollbar{width:4px;height:4px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--mt2);border-radius:2px;}
+.topnav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nh);background:rgba(8,11,20,.95);border-bottom:1px solid var(--b2);display:flex;align-items:center;padding:0 16px;gap:10px;backdrop-filter:blur(20px);}
+[data-theme="light"] .topnav{background:rgba(242,244,251,.97);}
+.brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.brand-icon{width:36px;height:36px;border-radius:10px;flex-shrink:0;background:linear-gradient(135deg,var(--spark),var(--spark2));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#fff;}
+.brand-name{font-size:19px;font-weight:800;background:linear-gradient(135deg,var(--spark),var(--spark2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-sp{flex:1;}
+.nav-srch{position:relative;display:flex;align-items:center;}
+.nav-srch input{background:var(--card2);border:1px solid var(--b2);border-radius:24px;padding:7px 32px 7px 34px;font-family:'Nunito',sans-serif;font-size:13px;color:var(--t1);outline:none;width:190px;transition:width .22s,border-color .2s;}
+.nav-srch input:focus{border-color:var(--spark);width:240px;}
+.nav-srch input::placeholder{color:var(--mt);}
+.si{position:absolute;left:11px;color:var(--mt);font-size:11px;pointer-events:none;}
+.sc{position:absolute;right:9px;color:var(--mt);font-size:11px;cursor:pointer;display:none;}
+.nb{width:34px;height:34px;border-radius:50%;border:1px solid var(--b2);background:var(--card2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t2);font-size:13px;transition:border-color .18s,color .18s;}
+.nb:hover{border-color:var(--spark);color:var(--spark);}
+.main{padding-top:calc(var(--nh)+8px);padding-bottom:calc(var(--bh)+10px);min-height:100vh;padding-left:14px;padding-right:14px;}
+.page-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin:14px 0 10px;display:flex;align-items:center;gap:10px;}
+.page-title i{color:var(--spark);}
+.cat-bar{display:flex;gap:5px;flex-wrap:nowrap;overflow-x:auto;margin-bottom:13px;padding-bottom:2px;}
+.cat-bar::-webkit-scrollbar{display:none;}
+.cc{padding:4px 11px;border-radius:16px;font-size:11px;font-weight:700;border:1px solid var(--b2);background:var(--card2);color:var(--t2);cursor:pointer;transition:all .13s;white-space:nowrap;flex-shrink:0;}
+.cc:hover{border-color:var(--spark);color:var(--spark);}
+.cc.active{background:var(--spark);border-color:var(--spark);color:#fff;}
+.mv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;}
+.ch-card{background:var(--card);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s,transform .2s;position:relative;}
+.ch-card:hover{border-color:rgba(255,77,0,.55);transform:translateY(-3px);box-shadow:0 10px 28px rgba(255,77,0,.16);}
+.ch-thumb{width:100%;aspect-ratio:2/3;background:var(--bg2);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.ch-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .28s;}
+.ch-card:hover .ch-thumb img{transform:scale(1.05);}
+.ch-fb{width:52px;height:52px;border-radius:9px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--mt);}
+.ch-hov{position:absolute;inset:0;background:rgba(0,0,0,.44);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .18s;pointer-events:none;}
+.ch-card:hover .ch-hov{opacity:1;}
+.ch-hov i{font-size:40px;color:#fff;}
+.ch-info{padding:8px 10px 10px;}
+.ch-name{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;}
+.ch-tag{font-size:9px;font-weight:700;color:var(--mt);background:var(--card2);border-radius:4px;padding:2px 5px;}
+.cn{position:absolute;top:7px;right:7px;background:rgba(0,0,0,.75);color:#fff;font-size:9px;font-weight:800;padding:2px 6px;border-radius:5px;z-index:2;}
+.sec-cnt{font-size:11px;color:var(--mt);font-weight:600;margin-bottom:10px;}
+.bot-nav{position:fixed;bottom:0;left:0;right:0;z-index:300;height:var(--bh);background:rgba(8,11,20,.97);border-top:1px solid var(--b2);display:flex;align-items:center;justify-content:space-around;backdrop-filter:blur(20px);}
+[data-theme="light"] .bot-nav{background:rgba(242,244,251,.97);}
+.bn{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;color:var(--mt);transition:color .18s;flex:1;padding:6px 0;text-decoration:none;min-width:0;}
+.bn.active{color:var(--spark);}
+.bn i{font-size:18px;}
+.bn span{font-size:9px;font-weight:700;white-space:nowrap;}
+.pl-ov{position:fixed;inset:0;z-index:500;background:#000;display:none;flex-direction:column;}
+.pl-ov.open{display:flex;animation:fi .16s ease;}
+@keyframes fi{from{opacity:0;}to{opacity:1;}}
+.pl-top{display:flex;align-items:center;gap:10px;padding:12px 14px;flex-shrink:0;background:linear-gradient(to bottom,rgba(0,0,0,.85),transparent);}
+.pl-bk{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:14px;transition:all .18s;}
+.pl-bk:hover{background:rgba(255,77,0,.3);border-color:var(--spark);}
+.pl-cn{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#fff;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pl-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 14px 10px;min-height:0;}
+.pl-wrap{width:100%;max-width:960px;border-radius:12px;overflow:hidden;background:#000;}
+:root{--plyr-color-main:var(--spark)!important;}
+.sub-ov{position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.93);display:none;align-items:center;justify-content:center;padding:16px;}
+.sub-ov.open{display:flex;animation:fi .18s ease;}
+.sub-card{background:var(--card);border:1px solid rgba(255,77,0,.35);border-radius:20px;padding:28px 24px;max-width:400px;width:100%;text-align:center;}
+.sub-card h2{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;margin-bottom:8px;}
+.sub-promo{background:rgba(255,77,0,.07);border:1px solid rgba(255,77,0,.2);border-radius:12px;padding:11px 13px;margin-bottom:14px;font-size:12px;}
+.sub-promo strong{color:var(--spark);font-size:14px;}
+.sub-msg{font-size:13px;color:var(--t2);margin-bottom:8px;}
+.sub-status-badge{display:inline-block;padding:5px 14px;border-radius:18px;font-size:11px;font-weight:700;margin-bottom:16px;background:rgba(255,61,61,.12);color:var(--red);border:1px solid rgba(255,61,61,.25);}
+.sub-btns{display:flex;gap:8px;justify-content:center;}
+.sbd{padding:9px 22px;border-radius:10px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--b2);background:var(--card2);color:var(--t2);}
+.sbu{padding:9px 22px;border-radius:10px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:none;background:linear-gradient(135deg,var(--spark),var(--spark2));color:#fff;}
+.toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%) translateY(80px);z-index:800;padding:9px 18px;border-radius:26px;font-size:12px;font-weight:700;background:var(--card3);border:1px solid var(--b2);box-shadow:0 8px 26px var(--sh);opacity:0;transition:all .26s cubic-bezier(.22,1,.36,1);pointer-events:none;white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+.toast.ok{border-color:rgba(0,230,118,.3);color:var(--green);}
+.toast.err{border-color:rgba(255,61,61,.3);color:var(--red);}
+.sk-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;}
+.sk-c{background:var(--card);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden;}
+.sk-t{width:100%;aspect-ratio:2/3;background:linear-gradient(90deg,var(--card2) 25%,var(--card3) 50%,var(--card2) 75%);background-size:300%;animation:sh 1.8s infinite linear;}
+@keyframes sh{from{background-position:100%}to{background-position:-100%}}
+.sk-b{padding:8px 10px;}.sk-l{height:9px;border-radius:3px;background:var(--card3);margin-bottom:6px;animation:sh 1.8s infinite linear;}.sk-l.s{width:50%;}
+.empty{text-align:center;padding:50px 20px;color:var(--mt);grid-column:1/-1;}
+.empty i{font-size:44px;margin-bottom:10px;display:block;}
+.empty h3{font-family:'Syne',sans-serif;font-size:16px;color:var(--t2);margin-bottom:6px;}
+@media(max-width:580px){.nav-srch{display:none;}.mv-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));}}
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <a class="brand" href="sparktv.html">
+    <div class="brand-icon">S</div>
+    <span class="brand-name">Spark TV</span>
+  </a>
+  <div class="nav-sp"></div>
+  <div class="nav-srch">
+    <i class="fa fa-magnifying-glass si"></i>
+    <input type="text" id="srch" placeholder="Search movies…" oninput="onSearch(this.value)" autocomplete="off"/>
+    <i class="fa fa-xmark sc" id="sc" onclick="clearSrch()"></i>
+  </div>
+  <div class="nb" id="theme-toggle" title="Theme"><i class="fa fa-moon" id="th-ic"></i></div>
+</nav>
+
+<div class="main">
+  <div class="page-title"><i class="fa fa-film"></i> Movies &amp; VOD</div>
+  <div class="cat-bar" id="mv-cats"></div>
+  <div class="sec-cnt" id="mv-cnt"></div>
+  <div class="mv-grid" id="mv-grid"></div>
+  <button style="width:100%;margin-top:10px;padding:11px;border-radius:14px;border:1px solid var(--b2);background:var(--card2);font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:var(--t2);cursor:pointer;display:none;" id="mv-more" onclick="loadMore()">Load More</button>
+</div>
+
+<nav class="bot-nav">
+  <a class="bn" href="sparktv.html"><i class="fa fa-house"></i><span>Home</span></a>
+  <a class="bn active" href="movies.html"><i class="fa fa-film"></i><span>Movies</span></a>
+  <a class="bn" href="weather.html"><i class="fa fa-cloud-sun"></i><span>Weather</span></a>
+  <a class="bn" href="news.html"><i class="fa fa-newspaper"></i><span>News</span></a>
+  <a class="bn" href="more.html"><i class="fa fa-grid-2"></i><span>More</span></a>
+  <a class="bn" href="sparktv.html#profile"><i class="fa fa-circle-user"></i><span>Profile</span></a>
+</nav>
+
+<div class="pl-ov" id="pl-ov">
+  <div class="pl-top">
+    <div class="pl-bk" onclick="closePl()"><i class="fa fa-arrow-left"></i></div>
+    <div class="pl-cn" id="pl-name">Movie</div>
+  </div>
+  <div class="pl-main">
+    <div class="pl-wrap"><video id="vid" playsinline preload="none" crossorigin="anonymous"></video></div>
+  </div>
+</div>
+
+<div class="sub-ov" id="sub-ov">
+  <div class="sub-card">
+    <div style="font-size:48px;margin-bottom:12px;">🎬</div>
+    <h2>Subscription Required</h2>
+    <div class="sub-promo">Watch with just <strong>₦3,000 or ₦5,000</strong> for unlimited access!</div>
+    <div class="sub-msg" id="sub-msg">Upgrade your plan to watch all movies.</div>
+    <div class="sub-status-badge">Status: Inactive</div>
+    <div class="sub-btns">
+      <button class="sbd" onclick="closeSub()">Later</button>
+      <button class="sbu" onclick="closeSub()"><i class="fa fa-star"></i> Upgrade</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const TG_TOKEN="8700685464:AAEHRfSlwS3kI_cwCmWpD1O5kwCmjxzmC74";
+const TG_CHAT="@database_sparktv";
+const M3U_SOURCES=["https://raw.githubusercontent.com/google2060/google2060.github.io/refs/heads/main/playlist.m3u"];
+const PAGE_SIZE=60;
+const FB_CFG={apiKey:"AIzaSyDAnOaWAy-bC435Fu0suYKIAmH4A3j-I_Y",authDomain:"spark-tv-4ce3f.firebaseapp.com",databaseURL:"https://spark-tv-4ce3f-default-rtdb.firebaseio.com",projectId:"spark-tv-4ce3f",storageBucket:"spark-tv-4ce3f.firebasestorage.app",messagingSenderId:"1041124519612",appId:"1:1041124519612:web:00a37105e3def9ef14aab9"};
+firebase.initializeApp(FB_CFG);
+const _auth=firebase.auth(),_db=firebase.database();
+let currentUser=null,userSubStatus=false,userRecord=null,allMovies=[],filtered=[],catSel="All",page=0,plyrInst=null,hlsInst=null;
+let isDark=localStorage.getItem("sparktv-theme")!=="light";
+applyTheme(isDark);
+function applyTheme(d){isDark=d;document.documentElement.setAttribute("data-theme",d?"dark":"light");document.getElementById("th-ic").className=d?"fa fa-sun":"fa fa-moon";localStorage.setItem("sparktv-theme",d?"dark":"light");}
+document.getElementById("theme-toggle").addEventListener("click",()=>applyTheme(!isDark));
+_auth.onAuthStateChanged(async user=>{
+  if(user){currentUser=user;
+    if(!user.isAnonymous){const s=await _db.ref(`users/${user.uid}`).once("value");userRecord=s.val();userSubStatus=userRecord?.subscription?.sub_status==="true"||userRecord?.subscription?.sub_status===true;
+      _db.ref(`users/${user.uid}/subscription/sub_status`).on("value",s=>{const v=s.val();userSubStatus=v==="true"||v===true;});}
+  }
+  loadMovies();
+});
+async function loadMovies(){
+  document.getElementById("mv-grid").innerHTML=`<div class="sk-g">${Array(12).fill('<div class="sk-c"><div class="sk-t"></div><div class="sk-b"><div class="sk-l"></div></div></div>').join("")}</div>`;
+  let all=[];
+  for(const url of M3U_SOURCES){try{const r=await fetch(url,{cache:"force-cache"});const t=await r.text();const chs=parseSync(t);all=all.concat(chs.filter(isMov));}catch(e){}}
+  const seen=new Set();allMovies=all.filter(c=>{if(seen.has(c.url))return false;seen.add(c.url);return true;});
+  filtered=allMovies.slice();toast(`✓ ${allMovies.length} movies loaded`,"ok");renderMovies();
+}
+const MV=/\b(movie|movies|film|cinema|vod|drama|series|documentary)\b/i;
+const RD=/\b(radio|fm\b|am\b)\b/i;
+function isMov(c){return !RD.test(c.group)&&!RD.test(c.name)&&MV.test(c.group);}
+function parseSync(txt){const lines=txt.split(/\r?\n/);const out=[];let m=null;for(let i=0,L=lines.length;i<L;i++){const ln=lines[i].trim();if(!ln||ln==="#EXTM3U")continue;if(ln.startsWith("#EXTINF:")){const raw=ln.slice(8);const ap=raw.match(/^[^,]*/)[0];const a={};ap.replace(/(\S+?)="([^"]*)"/g,(_,k,v)=>{a[k.toLowerCase()]=v;});const nm=raw.match(/,(.+)$/);m={name:a["tvg-name"]||(nm?nm[1].trim():"Unknown"),logo:a["tvg-logo"]||"",group:(a["group-title"]||"General").split(";")[0].trim(),url:""};}else if(m&&ln&&!ln.startsWith("#")){m.url=ln;out.push(m);m=null;}}return out;}
+function renderMovies(){
+  const gs=[...new Set(allMovies.map(c=>c.group))].sort();
+  let h=`<div class="cc${catSel==="All"?" active":""}" onclick="setCat('All')">All (${allMovies.length})</div>`;
+  gs.forEach(g=>{const n=allMovies.filter(c=>c.group===g).length;h+=`<div class="cc${catSel===g?" active":""}" onclick="setCat('${g.replace(/'/g,"\\'")}')">${xe(g)} <small style="opacity:.5">${n}</small></div>`;});
+  document.getElementById("mv-cats").innerHTML=h;
+  const list=catSel==="All"?filtered:filtered.filter(c=>c.group===catSel);
+  document.getElementById("mv-cnt").textContent=`${list.length} title${list.length!==1?"s":""}`;
+  if(!list.length){document.getElementById("mv-grid").innerHTML='<div class="empty"><i class="fa fa-film"></i><h3>No movies found</h3></div>';document.getElementById("mv-more").style.display="none";return;}
+  const slice=list.slice(0,(page+1)*PAGE_SIZE);
+  document.getElementById("mv-grid").innerHTML=slice.map((c,i)=>`<div class="ch-card" onclick="play('${xe(c.url)}','${xe(c.name)}','${xe(c.group)}')"><div class="ch-thumb">${c.logo?`<img src="${xe(c.logo)}" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><div class="ch-fb" style="display:none;"><i class="fa fa-film"></i></div>`:`<div class="ch-fb"><i class="fa fa-film"></i></div>`}<div class="cn">#${i+1}</div><div class="ch-hov"><i class="fa fa-circle-play"></i></div></div><div class="ch-info"><div class="ch-name">${xe(c.name)}</div><span class="ch-tag">${xe(c.group)}</span></div></div>`).join("");
+  document.getElementById("mv-more").style.display=slice.length<list.length?"block":"none";
+}
+window.setCat=function(cat){catSel=cat;page=0;renderMovies();};
+window.loadMore=function(){page++;renderMovies();};
+window.onSearch=function(q){const v=q.toLowerCase().trim();document.getElementById("sc").style.display=v?"block":"none";filtered=v?allMovies.filter(c=>c.name.toLowerCase().includes(v)||c.group.toLowerCase().includes(v)):allMovies.slice();page=0;renderMovies();};
+window.clearSrch=function(){document.getElementById("srch").value="";document.getElementById("sc").style.display="none";filtered=allMovies.slice();renderMovies();};
+window.play=async function(url,name,group){
+  if(!currentUser){toast("Please sign in first","err");return;}
+  if(currentUser.isAnonymous){openPl(url,name);return;}
+  try{const s=await _db.ref(`users/${currentUser.uid}/subscription/sub_status`).once("value");const v=s.val();userSubStatus=v==="true"||v===true;}catch(e){userSubStatus=false;}
+  if(userSubStatus)openPl(url,name);else{document.getElementById("sub-msg").textContent=userRecord?.personal?.msg_for_user||"Upgrade to watch movies.";document.getElementById("sub-ov").classList.add("open");}
+};
+function openPl(url,name){
+  document.getElementById("pl-name").textContent=name;
+  document.getElementById("pl-ov").classList.add("open");
+  document.body.style.overflow="hidden";
+  if(plyrInst){try{plyrInst.destroy();}catch(e){}plyrInst=null;}
+  if(hlsInst){hlsInst.destroy();hlsInst=null;}
+  const vid=document.getElementById("vid");vid.src="";vid.load();
+  const isHLS=/\.m3u8/i.test(url);
+  if(isHLS&&Hls.isSupported()){hlsInst=new Hls({enableWorker:true,startLevel:-1});hlsInst.loadSource(url);hlsInst.attachMedia(vid);hlsInst.on(Hls.Events.MANIFEST_PARSED,()=>vid.play().catch(()=>{}));}
+  else{vid.src=url;vid.play().catch(()=>{});}
+  plyrInst=new Plyr(vid,{controls:["play","progress","current-time","mute","volume","fullscreen"],tooltips:{controls:true}});
+}
+window.closePl=function(){if(plyrInst){try{plyrInst.pause();plyrInst.destroy();}catch(e){}plyrInst=null;}if(hlsInst){hlsInst.destroy();hlsInst=null;}const vid=document.getElementById("vid");vid.src="";vid.load();document.getElementById("pl-ov").classList.remove("open");document.body.style.overflow="";};
+window.closeSub=function(){document.getElementById("sub-ov").classList.remove("open");};
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closePl();closeSub();}});
+let _tt;function toast(msg,type){const el=document.getElementById("toast");el.className=`toast ${type||""} show`;el.textContent=msg;clearTimeout(_tt);_tt=setTimeout(()=>{el.className="toast";},3500);}
+function xe(s){const d=document.createElement("div");d.textContent=String(s||"");return d.innerHTML;}
+</script>
+</body>
+</html>

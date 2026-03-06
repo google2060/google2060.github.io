@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>News – Spark TV</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root{--spark:#ff4d00;--spark2:#ff7b2e;--accent:#00c8ff;--gold:#f5c842;--bg:#080b14;--bg2:#10141f;--card:#141926;--card2:#1c2236;--card3:#232c42;--b2:rgba(255,255,255,.07);--t1:#eef1fc;--t2:#8e9abf;--mt:#4a5278;--mt2:#222840;--green:#00e676;--red:#ff3d3d;--nh:60px;--bh:60px;--r:14px;}
+[data-theme="light"]{--bg:#f2f4fb;--bg2:#e6eaf6;--card:#fff;--card2:#f4f6fb;--b2:rgba(0,0,0,.07);--t1:#0d0f1a;--t2:#3a4060;--mt:#8a94b8;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;font-family:'Nunito',sans-serif;background:var(--bg);color:var(--t1);overflow-x:hidden;}
+h1,h2,h3{font-family:'Syne',sans-serif;}
+.topnav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nh);background:rgba(8,11,20,.95);border-bottom:1px solid var(--b2);display:flex;align-items:center;padding:0 16px;gap:10px;backdrop-filter:blur(20px);}
+[data-theme="light"] .topnav{background:rgba(242,244,251,.97);}
+.brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.brand-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--spark),var(--spark2));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#fff;}
+.brand-name{font-size:19px;font-weight:800;background:linear-gradient(135deg,var(--spark),var(--spark2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-sp{flex:1;}
+.nb{width:34px;height:34px;border-radius:50%;border:1px solid var(--b2);background:var(--card2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t2);font-size:13px;transition:all .18s;}
+.nb:hover{border-color:var(--spark);color:var(--spark);}
+.main{padding:calc(var(--nh)+14px) 14px calc(var(--bh)+14px);}
+.cat-bar{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;padding-bottom:2px;}
+.cat-bar::-webkit-scrollbar{display:none;}
+.cc{padding:5px 13px;border-radius:16px;font-size:11px;font-weight:700;border:1px solid var(--b2);background:var(--card2);color:var(--t2);cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .13s;}
+.cc:hover{border-color:var(--spark);color:var(--spark);}
+.cc.active{background:var(--spark);border-color:var(--spark);color:#fff;}
+.news-grid{display:flex;flex-direction:column;gap:10px;}
+.news-card{background:var(--card);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:border-color .2s,transform .2s;display:flex;gap:0;text-decoration:none;color:var(--t1);}
+.news-card:hover{border-color:rgba(255,77,0,.4);transform:translateY(-2px);}
+.news-img{width:100px;flex-shrink:0;aspect-ratio:1/1;background:var(--bg2);overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--mt);font-size:28px;}
+.news-img img{width:100%;height:100%;object-fit:cover;}
+.news-body{padding:10px 12px;flex:1;min-width:0;}
+.news-source{font-size:10px;font-weight:700;color:var(--spark);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
+.news-title{font-size:13px;font-weight:700;line-height:1.45;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.news-date{font-size:10px;color:var(--mt);font-weight:600;}
+.news-cat-tag{font-size:9px;font-weight:700;background:var(--card2);color:var(--t2);padding:2px 7px;border-radius:6px;display:inline-block;margin-bottom:4px;}
+.page-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.page-title i{color:var(--spark);}
+.loading{text-align:center;padding:40px;color:var(--mt);}
+.bot-nav{position:fixed;bottom:0;left:0;right:0;z-index:300;height:var(--bh);background:rgba(8,11,20,.97);border-top:1px solid var(--b2);display:flex;align-items:center;justify-content:space-around;backdrop-filter:blur(20px);}
+[data-theme="light"] .bot-nav{background:rgba(242,244,251,.97);}
+.bn{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;color:var(--mt);transition:color .18s;flex:1;padding:6px 0;text-decoration:none;}
+.bn.active{color:var(--spark);}
+.bn i{font-size:18px;}
+.bn span{font-size:9px;font-weight:700;white-space:nowrap;}
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <a class="brand" href="sparktv.html">
+    <div class="brand-icon">S</div>
+    <span class="brand-name">Spark TV</span>
+  </a>
+  <div class="nav-sp"></div>
+  <div class="nb" id="theme-toggle"><i class="fa fa-moon" id="th-ic"></i></div>
+</nav>
+
+<div class="main">
+  <div class="page-title"><i class="fa fa-newspaper"></i> News</div>
+  <div class="cat-bar" id="cats"></div>
+  <div class="news-grid" id="news-grid"><div class="loading"><i class="fa fa-spinner fa-spin" style="font-size:32px;color:var(--accent);display:block;margin-bottom:10px;"></i>Loading news…</div></div>
+</div>
+
+<nav class="bot-nav">
+  <a class="bn" href="sparktv.html"><i class="fa fa-house"></i><span>Home</span></a>
+  <a class="bn" href="movies.html"><i class="fa fa-film"></i><span>Movies</span></a>
+  <a class="bn" href="weather.html"><i class="fa fa-cloud-sun"></i><span>Weather</span></a>
+  <a class="bn active" href="news.html"><i class="fa fa-newspaper"></i><span>News</span></a>
+  <a class="bn" href="more.html"><i class="fa fa-grid-2"></i><span>More</span></a>
+  <a class="bn" href="sparktv.html"><i class="fa fa-circle-user"></i><span>Profile</span></a>
+</nav>
+
+<script>
+let isDark=localStorage.getItem("sparktv-theme")!=="light";
+applyTheme(isDark);
+function applyTheme(d){isDark=d;document.documentElement.setAttribute("data-theme",d?"dark":"light");document.getElementById("th-ic").className=d?"fa fa-sun":"fa fa-moon";localStorage.setItem("sparktv-theme",d?"dark":"light");}
+document.getElementById("theme-toggle").addEventListener("click",()=>applyTheme(!isDark));
+
+const CATEGORIES=["general","technology","entertainment","sports","business","health","science"];
+let selCat="general",allItems=[];
+
+async function loadNews(cat){
+  selCat=cat;
+  buildCats();
+  document.getElementById("news-grid").innerHTML='<div class="loading"><i class="fa fa-spinner fa-spin" style="font-size:28px;color:var(--accent);display:block;margin-bottom:8px;"></i>Loading…</div>';
+  try{
+    // Using GNews (free tier) via CORS proxy
+    const url=`https://gnews.io/api/v4/top-headlines?category=${cat}&lang=en&max=20&apikey=demo`;
+    const r=await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://feeds.bbci.co.uk/news/${cat}/rss.xml&count=20`);
+    if(r.ok){
+      const d=await r.json();
+      if(d.items&&d.items.length){renderNews(d.items,d.feed?.title||"BBC News");return;}
+    }
+  }catch(e){}
+  // Fallback: use GNews public RSS
+  try{
+    const feedMap={general:"https://feeds.bbci.co.uk/news/rss.xml",technology:"https://feeds.bbci.co.uk/news/technology/rss.xml",entertainment:"https://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml",sports:"https://feeds.bbci.co.uk/news/sport/rss.xml",business:"https://feeds.bbci.co.uk/news/business/rss.xml",health:"https://feeds.bbci.co.uk/news/health/rss.xml",science:"https://feeds.bbci.co.uk/news/science_and_environment/rss.xml"};
+    const rss=feedMap[cat]||feedMap.general;
+    const r=await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rss)}&count=25`);
+    const d=await r.json();
+    if(d.items&&d.items.length){renderNews(d.items,"BBC News");}
+    else document.getElementById("news-grid").innerHTML='<div class="loading">No news available</div>';
+  }catch(e){
+    document.getElementById("news-grid").innerHTML=`<div class="loading" style="color:var(--red);">Could not load news. Check connection.</div>`;
+  }
+}
+
+function renderNews(items,src){
+  allItems=items;
+  document.getElementById("news-grid").innerHTML=items.map(item=>{
+    const date=item.pubDate?new Date(item.pubDate).toLocaleDateString("en",{month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"}):"";
+    const img=item.thumbnail||item.enclosure?.link||"";
+    return `<a class="news-card" href="${xe(item.link)}" target="_blank" rel="noopener">
+      <div class="news-img">${img?`<img src="${xe(img)}" alt="" loading="lazy" onerror="this.style.display='none'">`:'<i class="fa fa-newspaper"></i>'}</div>
+      <div class="news-body">
+        <div class="news-cat-tag">${selCat.toUpperCase()}</div>
+        <div class="news-source">${xe(src)}</div>
+        <div class="news-title">${xe(item.title||"")}</div>
+        <div class="news-date">${date}</div>
+      </div>
+    </a>`;
+  }).join("");
+}
+
+function buildCats(){
+  document.getElementById("cats").innerHTML=CATEGORIES.map(c=>`<div class="cc${c===selCat?" active":""}" onclick="loadNews('${c}')">${c.charAt(0).toUpperCase()+c.slice(1)}</div>`).join("");
+}
+
+buildCats();
+loadNews("general");
+function xe(s){const d=document.createElement("div");d.textContent=String(s||"");return d.innerHTML;}
+</script>
+</body>
+</html>
