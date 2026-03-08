@@ -98,6 +98,7 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
 .hbadge.plan{background:rgba(0,200,255,.12);color:var(--accent);border:1px solid rgba(0,200,255,.3);}
 .hbadge.verified{background:rgba(245,200,66,.12);color:var(--gold);border:1px solid rgba(245,200,66,.3);}
 .hbadge.country{background:rgba(168,85,247,.12);color:var(--purple);border:1px solid rgba(168,85,247,.3);}
+.hbadge.currency{background:rgba(0,230,118,.12);color:var(--green);border:1px solid rgba(0,230,118,.3);}
 
 /* HERO STATS */
 .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px;border-top:1px solid var(--b2);padding-top:16px;}
@@ -157,6 +158,8 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
 .btn-accent:hover{opacity:.9;transform:translateY(-1px);}
 .btn-gold{background:linear-gradient(135deg,var(--gold),#e0a800);color:#000;}
 .btn-gold:hover{opacity:.9;transform:translateY(-1px);}
+.btn-purple{background:linear-gradient(135deg,var(--purple),#7c3aed);color:#fff;}
+.btn-purple:hover{opacity:.9;transform:translateY(-1px);}
 .btn-full{width:100%;}
 .btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important;}
 .btn-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
@@ -179,7 +182,7 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
 .wallet-currency-lbl{font-size:11px;color:var(--t2);font-weight:600;margin-top:4px;}
 .wallet-rate{font-size:11px;color:var(--mt);margin-top:8px;font-weight:600;}
 .wallet-rate .rate-live{color:var(--green);font-weight:800;}
-.wallet-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;}
+.wallet-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px;}
 .w-action{background:var(--card2);border:1px solid var(--b2);border-radius:10px;padding:12px 8px;text-align:center;cursor:pointer;transition:all .18s;}
 .w-action:hover{border-color:var(--spark);background:rgba(255,77,0,.05);}
 .w-action i{font-size:18px;color:var(--spark);display:block;margin-bottom:4px;}
@@ -233,6 +236,7 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
 .search-result-item:hover{border-color:var(--accent);transform:translateY(-1px);}
 .sri-info{flex:1;}
 .sri-uid{font-size:9px;color:var(--mt);font-weight:700;font-family:monospace;}
+.currency-match-badge{font-size:9px;font-weight:800;padding:2px 7px;border-radius:6px;background:rgba(0,230,118,.12);color:var(--green);border:1px solid rgba(0,230,118,.3);}
 
 /* TRANSACTION */
 .tx-item{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--b2);}
@@ -300,6 +304,36 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
 .uid-display button{background:var(--card2);border:1px solid var(--b2);border-radius:6px;padding:4px 10px;font-size:10px;font-weight:700;cursor:pointer;color:var(--t2);white-space:nowrap;transition:all .15s;flex-shrink:0;}
 .uid-display button:hover{border-color:var(--spark);color:var(--spark);}
 
+/* SUPPORT */
+.support-option{display:flex;align-items:center;gap:14px;padding:14px;background:var(--card2);border:1px solid var(--b2);border-radius:12px;margin-bottom:10px;cursor:pointer;transition:all .18s;}
+.support-option:hover{border-color:var(--spark);transform:translateY(-1px);}
+.support-option-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.support-option-title{font-size:13px;font-weight:800;}
+.support-option-desc{font-size:11px;color:var(--mt);}
+.best-badge{font-size:9px;font-weight:800;padding:2px 7px;border-radius:6px;background:var(--green);color:#000;margin-left:8px;}
+
+/* STATS GRID */
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px;}
+.stat-card{background:var(--card2);border:1px solid var(--b2);border-radius:12px;padding:14px;text-align:center;}
+.stat-card-val{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--spark);}
+.stat-card-lbl{font-size:10px;color:var(--mt);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-top:3px;}
+
+/* DEVICE ITEM */
+.device-item{display:flex;align-items:center;gap:12px;padding:12px;background:var(--card2);border:1px solid var(--b2);border-radius:10px;margin-bottom:8px;}
+.device-icon{width:36px;height:36px;border-radius:8px;background:rgba(0,200,255,.1);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:16px;flex-shrink:0;}
+.device-info{flex:1;}
+.device-name{font-size:13px;font-weight:700;}
+.device-meta{font-size:10px;color:var(--mt);font-weight:600;margin-top:2px;}
+.device-active{font-size:9px;font-weight:800;padding:2px 7px;border-radius:6px;background:rgba(0,230,118,.12);color:var(--green);border:1px solid rgba(0,230,118,.3);}
+
+/* EMAIL SELECT */
+.email-option{display:flex;align-items:center;gap:12px;padding:14px;border:2px solid var(--b2);border-radius:12px;margin-bottom:10px;cursor:pointer;transition:all .18s;}
+.email-option:hover{border-color:var(--spark);}
+.email-option.selected{border-color:var(--spark);background:rgba(255,77,0,.06);}
+.email-option-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.email-option-addr{font-size:13px;font-weight:800;font-family:monospace;}
+.email-option-tag{font-size:10px;color:var(--mt);}
+
 /* DIALOGS */
 .dialog-ov{
   position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.88);
@@ -366,6 +400,12 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
 .sec-divider{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--mt);font-size:11px;font-weight:700;}
 .sec-divider::before,.sec-divider::after{content:'';flex:1;height:1px;background:var(--b2);}
 
+/* STREAMING STATS */
+.stream-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.stream-stat{background:var(--card2);border:1px solid var(--b2);border-radius:10px;padding:12px;text-align:center;}
+.stream-stat-val{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--accent);}
+.stream-stat-lbl{font-size:9px;color:var(--mt);font-weight:700;text-transform:uppercase;margin-top:2px;}
+
 /* RESPONSIVE */
 @media(max-width:500px){
   .field-row{grid-template-columns:1fr;}
@@ -374,8 +414,10 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
   .fund-grid{grid-template-columns:repeat(2,1fr);}
   .dialog-card{padding:20px 16px;}
   .hero-stats{grid-template-columns:repeat(2,1fr);}
-  .wallet-actions{grid-template-columns:1fr 1fr 1fr;}
+  .wallet-actions{grid-template-columns:1fr 1fr;}
   .referral-stats{grid-template-columns:1fr;}
+  .stats-grid{grid-template-columns:1fr;}
+  .stream-stat-row{grid-template-columns:1fr 1fr;}
 }
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
 </style>
@@ -455,10 +497,23 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
       <div class="ptab" onclick="switchTab('settings')"><i class="fa fa-gear"></i> Settings</div>
       <div class="ptab" onclick="switchTab('transactions')"><i class="fa fa-receipt"></i> History</div>
       <div class="ptab" onclick="switchTab('referral')"><i class="fa fa-gift"></i> Refer</div>
+      <div class="ptab" onclick="switchTab('support')"><i class="fa fa-headset"></i> Support</div>
     </div>
 
     <!-- ══════════════════════ TAB: PERSONAL ══════════════════════ -->
     <div class="tab-pane active" id="pane-personal">
+
+      <!-- STREAMING STATS -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fa fa-chart-bar"></i> Streaming Stats</div>
+        </div>
+        <div class="stream-stat-row">
+          <div class="stream-stat"><div class="stream-stat-val" id="stat-hours">0h</div><div class="stream-stat-lbl">Total Watch Time</div></div>
+          <div class="stream-stat"><div class="stream-stat-val" id="stat-sessions">0</div><div class="stream-stat-lbl">Sessions</div></div>
+          <div class="stream-stat"><div class="stream-stat-val" id="stat-subs">0</div><div class="stream-stat-lbl">Total Plans</div></div>
+        </div>
+      </div>
 
       <!-- BASIC INFO -->
       <div class="card">
@@ -484,6 +539,15 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
           <div class="card-title"><i class="fa fa-fingerprint"></i> Account Identity</div>
         </div>
         <div id="account-identity-rows"></div>
+      </div>
+
+      <!-- DEVICES -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fa fa-display"></i> Devices</div>
+          <button class="btn btn-secondary btn-sm" onclick="registerCurrentDevice()"><i class="fa fa-plus"></i> Add Device</button>
+        </div>
+        <div id="device-list"></div>
       </div>
 
       <!-- SECURITY -->
@@ -574,12 +638,15 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
           <div style="text-align:right;">
             <div style="font-size:10px;color:var(--mt);font-weight:700;margin-bottom:4px;">USD VALUE</div>
             <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--accent);" id="usd-equiv">$0.00</div>
+            <div style="font-size:10px;color:var(--mt);font-weight:700;margin-top:8px;">CURRENCY</div>
+            <div style="font-size:12px;font-weight:800;color:var(--gold);" id="wallet-currency-code">NGN</div>
           </div>
         </div>
         <div class="wallet-actions">
           <div class="w-action" onclick="scrollTo(0,document.getElementById('fund-card').offsetTop)"><i class="fa fa-plus-circle"></i><span>Fund</span></div>
           <div class="w-action" onclick="scrollTo(0,document.getElementById('transfer-card').offsetTop)"><i class="fa fa-paper-plane"></i><span>Send</span></div>
           <div class="w-action" onclick="switchTab('transactions')"><i class="fa fa-receipt"></i><span>History</span></div>
+          <div class="w-action" onclick="openDialog('dlg-contact-support')"><i class="fa fa-headset"></i><span>Support</span></div>
         </div>
       </div>
 
@@ -587,7 +654,7 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
         <div class="card-header">
           <div class="card-title"><i class="fa fa-plus-circle"></i> Fund Wallet</div>
         </div>
-        <p style="font-size:12px;color:var(--t2);margin-bottom:4px;">Select an amount to top up:</p>
+        <p style="font-size:12px;color:var(--t2);margin-bottom:4px;">Select an amount to top up your <strong id="fund-currency-label">NGN</strong> wallet:</p>
         <div class="fund-grid" id="fund-grid"></div>
         <div class="field-group">
           <label>Or enter custom amount</label>
@@ -602,6 +669,10 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
       <div class="card" id="transfer-card">
         <div class="card-header">
           <div class="card-title"><i class="fa fa-paper-plane"></i> Send to User</div>
+        </div>
+        <div style="background:rgba(0,200,255,.06);border:1px solid rgba(0,200,255,.2);border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:var(--t2);">
+          <i class="fa fa-circle-info" style="color:var(--accent);margin-right:6px;"></i>
+          You can only transfer to users with the same currency (<strong id="transfer-currency-note" style="color:var(--accent);">NGN</strong>).
         </div>
         <p style="font-size:12px;color:var(--t2);margin-bottom:14px;">Find users by email, username, or their User ID.</p>
         <div class="transfer-search">
@@ -716,7 +787,11 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
       </div>
 
       <div class="card">
-        <div class="card-title" style="margin-bottom:16px;"><i class="fa fa-globe"></i> Region & Currency</div>
+        <div class="card-title" style="margin-bottom:4px;"><i class="fa fa-globe"></i> Region & Profile Country</div>
+        <div style="font-size:11px;color:var(--mt);margin-bottom:14px;margin-top:6px;line-height:1.6;padding:10px;background:rgba(0,200,255,.05);border:1px solid rgba(0,200,255,.15);border-radius:8px;">
+          <i class="fa fa-circle-info" style="color:var(--accent);"></i> 
+          Changing your country <strong>does not</strong> change your wallet currency. To change your wallet currency, please contact support.
+        </div>
         <div class="field-group">
           <label>Country</label>
           <select id="settings-country" onchange="onSettingsCountryChange(this.value)">
@@ -726,7 +801,7 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
         <div id="currency-preview" style="display:none;margin-top:8px;">
           <div class="rate-badge"><i class="fa fa-coins"></i> <span id="currency-preview-text"></span></div>
         </div>
-        <button class="btn btn-primary btn-full" onclick="saveCountrySettings()" style="margin-top:12px;"><i class="fa fa-save"></i> Save Region Settings</button>
+        <button class="btn btn-primary btn-full" onclick="saveCountrySettings()" style="margin-top:12px;"><i class="fa fa-save"></i> Save Country</button>
       </div>
 
       <div class="card">
@@ -784,11 +859,11 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
     <div class="tab-pane" id="pane-referral">
       <div class="card">
         <div class="card-title" style="margin-bottom:16px;"><i class="fa fa-gift" style="color:var(--purple);"></i> Refer & Earn</div>
-        <p style="font-size:12px;color:var(--t2);margin-bottom:16px;line-height:1.7;">Share your referral code with friends. Earn wallet credits for every successful referral!</p>
+        <p style="font-size:12px;color:var(--t2);margin-bottom:16px;line-height:1.7;">Share your referral code with friends. Earn wallet credits for every successful referral! Your referral earnings are credited in your wallet currency.</p>
         <div class="referral-box">
           <div style="font-size:11px;color:var(--t2);font-weight:700;">Your Referral Code</div>
           <div class="referral-code" id="referral-code">SPARK-????</div>
-          <div style="font-size:11px;color:var(--mt);">Share to earn ₦500 per friend who subscribes</div>
+          <div style="font-size:11px;color:var(--mt);" id="ref-reward-text">Share to earn per friend who subscribes</div>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
           <button class="btn btn-gold" onclick="copyReferralCode()" style="flex:1;"><i class="fa fa-copy"></i> Copy Code</button>
@@ -802,13 +877,124 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
       </div>
 
       <div class="card">
-        <div class="card-title" style="margin-bottom:16px;"><i class="fa fa-user-plus"></i> Enter Referral Code</div>
-        <p style="font-size:12px;color:var(--t2);margin-bottom:14px;">If someone referred you, enter their code to credit them.</p>
-        <div class="field-group">
-          <label>Referral Code</label>
-          <input type="text" id="enter-ref-code" placeholder="SPARK-XXXXXX" style="text-transform:uppercase;letter-spacing:2px;"/>
+        <div class="card-title" style="margin-bottom:6px;"><i class="fa fa-list"></i> How It Works</div>
+        <div style="margin-top:12px;">
+          <div class="activity-item"><div class="activity-dot accent"></div><div class="activity-text"><strong>Step 1:</strong> Share your referral code or link with friends</div></div>
+          <div class="activity-item"><div class="activity-dot gold"></div><div class="activity-text"><strong>Step 2:</strong> Friend signs up using your code</div></div>
+          <div class="activity-item"><div class="activity-dot green"></div><div class="activity-text"><strong>Step 3:</strong> Friend subscribes to any plan — you get credited!</div></div>
+          <div class="activity-item"><div class="activity-dot spark"></div><div class="activity-text"><strong>Reward:</strong> <span id="ref-how-reward">₦500</span> added to your wallet per successful referral</div></div>
         </div>
-        <button class="btn btn-primary btn-full" onclick="applyReferralCode()"><i class="fa fa-check"></i> Apply Code</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title" style="margin-bottom:16px;"><i class="fa fa-user-plus"></i> Enter Referral Code</div>
+        <p style="font-size:12px;color:var(--t2);margin-bottom:14px;">If someone referred you, enter their code to credit them. You can only apply a referral code once.</p>
+        <div id="ref-already-applied" style="display:none;padding:12px;background:rgba(0,230,118,.07);border:1px solid rgba(0,230,118,.2);border-radius:10px;margin-bottom:12px;font-size:12px;color:var(--green);">
+          <i class="fa fa-check-circle"></i> You have already applied a referral code.
+        </div>
+        <div id="ref-apply-form">
+          <div class="field-group">
+            <label>Referral Code</label>
+            <input type="text" id="enter-ref-code" placeholder="SPARK-XXXXXX" style="text-transform:uppercase;letter-spacing:2px;"/>
+          </div>
+          <button class="btn btn-primary btn-full" onclick="applyReferralCode()"><i class="fa fa-check"></i> Apply Code</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════ TAB: SUPPORT ══════════════════════ -->
+    <div class="tab-pane" id="pane-support">
+      <div class="card">
+        <div class="card-title" style="margin-bottom:6px;"><i class="fa fa-headset"></i> Contact Support</div>
+        <p style="font-size:12px;color:var(--t2);margin:10px 0 16px;line-height:1.7;">Our team is ready to help you. Choose your preferred contact method below.</p>
+
+        <div class="support-option" onclick="openEmailSupport('primary','general')">
+          <div class="support-option-icon" style="background:rgba(255,77,0,.1);color:var(--spark);">
+            <i class="fa fa-envelope"></i>
+          </div>
+          <div style="flex:1;">
+            <div class="support-option-title">Email Support <span class="best-badge">FASTEST</span></div>
+            <div class="support-option-desc">ngs.spark.tv0@gmail.com · Fastest reply, usually within 1 hour</div>
+          </div>
+          <i class="fa fa-chevron-right" style="color:var(--mt);font-size:12px;"></i>
+        </div>
+
+        <div class="support-option" onclick="openEmailSupport('secondary','general')">
+          <div class="support-option-icon" style="background:rgba(0,200,255,.1);color:var(--accent);">
+            <i class="fa fa-envelope-open"></i>
+          </div>
+          <div style="flex:1;">
+            <div class="support-option-title">Backup Support Email</div>
+            <div class="support-option-desc">ng.spark.tv@gmail.com · Alternative contact</div>
+          </div>
+          <i class="fa fa-chevron-right" style="color:var(--mt);font-size:12px;"></i>
+        </div>
+
+        <div class="support-option" onclick="openDialog('dlg-contact-support')">
+          <div class="support-option-icon" style="background:rgba(168,85,247,.1);color:var(--purple);">
+            <i class="fa fa-ticket"></i>
+          </div>
+          <div style="flex:1;">
+            <div class="support-option-title">Submit a Ticket</div>
+            <div class="support-option-desc">Describe your issue and choose your preferred email</div>
+          </div>
+          <i class="fa fa-chevron-right" style="color:var(--mt);font-size:12px;"></i>
+        </div>
+
+        <div class="support-option" onclick="openEmailSupport('primary','payment')">
+          <div class="support-option-icon" style="background:rgba(0,230,118,.1);color:var(--green);">
+            <i class="fa fa-wallet"></i>
+          </div>
+          <div style="flex:1;">
+            <div class="support-option-title">Payment / Wallet Issue</div>
+            <div class="support-option-desc">Fund wallet, subscription not activated, transfer issues</div>
+          </div>
+          <i class="fa fa-chevron-right" style="color:var(--mt);font-size:12px;"></i>
+        </div>
+
+        <div class="support-option" onclick="openEmailSupport('primary','technical')">
+          <div class="support-option-icon" style="background:rgba(245,200,66,.1);color:var(--gold);">
+            <i class="fa fa-wrench"></i>
+          </div>
+          <div style="flex:1;">
+            <div class="support-option-title">Technical Issue</div>
+            <div class="support-option-desc">Streaming problems, buffering, login issues</div>
+          </div>
+          <i class="fa fa-chevron-right" style="color:var(--mt);font-size:12px;"></i>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title" style="margin-bottom:14px;"><i class="fa fa-circle-question"></i> Quick FAQs</div>
+        <div id="faq-list">
+          <div class="activity-item" style="flex-direction:column;align-items:flex-start;gap:4px;">
+            <div style="font-size:13px;font-weight:700;color:var(--t1);">How do I fund my wallet?</div>
+            <div style="font-size:12px;color:var(--t2);">Go to Wallet tab → Fund → Choose amount → Pay via email. We confirm and credit you.</div>
+          </div>
+          <div class="activity-item" style="flex-direction:column;align-items:flex-start;gap:4px;">
+            <div style="font-size:13px;font-weight:700;color:var(--t1);">My subscription isn't activated yet</div>
+            <div style="font-size:12px;color:var(--t2);">Email us at ngs.spark.tv0@gmail.com with your User ID and payment proof. We activate within 1 hour.</div>
+          </div>
+          <div class="activity-item" style="flex-direction:column;align-items:flex-start;gap:4px;">
+            <div style="font-size:13px;font-weight:700;color:var(--t1);">Can I change my wallet currency?</div>
+            <div style="font-size:12px;color:var(--t2);">Yes, contact support with your User ID. Currency changes require manual verification.</div>
+          </div>
+          <div class="activity-item" style="flex-direction:column;align-items:flex-start;gap:4px;">
+            <div style="font-size:13px;font-weight:700;color:var(--t1);">Why can I only transfer to same currency users?</div>
+            <div style="font-size:12px;color:var(--t2);">To avoid conversion issues and ensure fair value, transfers only work between accounts with the same currency.</div>
+          </div>
+          <div class="activity-item" style="flex-direction:column;align-items:flex-start;gap:4px;border-bottom:none;">
+            <div style="font-size:13px;font-weight:700;color:var(--t1);">Referral code not working?</div>
+            <div style="font-size:12px;color:var(--t2);">Codes are case-sensitive and must start with SPARK-. Make sure you haven't applied a code before.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title" style="margin-bottom:14px;"><i class="fa fa-info-circle"></i> Account Info for Support</div>
+        <p style="font-size:11px;color:var(--t2);margin-bottom:12px;">Include this when contacting us for faster resolution:</p>
+        <div id="support-account-info"></div>
+        <button class="btn btn-secondary btn-full" style="margin-top:12px;" onclick="copyAccountInfoForSupport()"><i class="fa fa-copy"></i> Copy Account Info</button>
       </div>
     </div>
 
@@ -819,9 +1005,9 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- ═══════════════════════════════════════════
+<!-- ═══════════════════════════════════════
      DIALOGS
-═══════════════════════════════════════════ -->
+═══════════════════════════════════════ -->
 
 <!-- EDIT PERSONAL -->
 <div class="dialog-ov dialog-border-spark" id="dlg-edit-personal">
@@ -976,9 +1162,28 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
       </div>
       <i class="fa fa-wallet" style="font-size:28px;color:rgba(0,230,118,.3);"></i>
     </div>
-    <p style="font-size:12px;color:var(--t2);line-height:1.7;margin-bottom:16px;">Send <strong id="fund-confirm-amount2" style="color:var(--green);">₦0</strong> via bank transfer or any supported method, then contact us to confirm.</p>
+    <p style="font-size:12px;color:var(--t2);line-height:1.7;margin-bottom:16px;">Send <strong id="fund-confirm-amount2" style="color:var(--green);">₦0</strong> via bank transfer or any supported method, then contact us to confirm and we credit your wallet.</p>
+    <div style="margin-bottom:14px;">
+      <div style="font-size:10px;font-weight:800;color:var(--mt);text-transform:uppercase;margin-bottom:8px;">Choose contact method:</div>
+      <div class="email-option selected" id="fund-email-opt-primary" onclick="selectFundEmail('primary')">
+        <div class="email-option-icon" style="background:rgba(255,77,0,.1);color:var(--spark);"><i class="fa fa-envelope"></i></div>
+        <div>
+          <div class="email-option-addr">ngs.spark.tv0@gmail.com</div>
+          <div class="email-option-tag">⚡ Primary — Fastest Reply</div>
+        </div>
+        <i class="fa fa-check-circle" style="color:var(--spark);margin-left:auto;font-size:16px;" id="fund-check-primary"></i>
+      </div>
+      <div class="email-option" id="fund-email-opt-secondary" onclick="selectFundEmail('secondary')">
+        <div class="email-option-icon" style="background:rgba(0,200,255,.1);color:var(--accent);"><i class="fa fa-envelope-open"></i></div>
+        <div>
+          <div class="email-option-addr">ng.spark.tv@gmail.com</div>
+          <div class="email-option-tag">Backup / Alternative</div>
+        </div>
+        <i class="fa fa-circle" style="color:var(--mt);margin-left:auto;font-size:16px;" id="fund-check-secondary"></i>
+      </div>
+    </div>
     <div class="btn-row" style="flex-direction:column;gap:8px;">
-      <button class="btn btn-green btn-full" onclick="payViaEmail()"><i class="fa fa-envelope"></i> Pay via Email</button>
+      <button class="btn btn-green btn-full" onclick="payViaEmail()"><i class="fa fa-envelope"></i> Open Email to Pay</button>
       <button class="btn btn-accent btn-full" onclick="copyPaymentDetails()"><i class="fa fa-copy"></i> Copy Payment Details</button>
       <button class="btn btn-secondary btn-full" onclick="closeDialog('dlg-fund')"><i class="fa fa-xmark"></i> Cancel</button>
     </div>
@@ -1046,6 +1251,55 @@ input,select,textarea,button{font-family:'Nunito',sans-serif;}
   </div>
 </div>
 
+<!-- CONTACT SUPPORT TICKET -->
+<div class="dialog-ov dialog-border-purple" id="dlg-contact-support">
+  <div class="dialog-card">
+    <div class="dialog-header">
+      <div class="dialog-title"><i class="fa fa-ticket" style="color:var(--purple);"></i> Submit Support Ticket</div>
+      <div class="dialog-close" onclick="closeDialog('dlg-contact-support')"><i class="fa fa-xmark"></i></div>
+    </div>
+    <div class="field-group">
+      <label>Issue Category</label>
+      <select id="support-category">
+        <option value="subscription">Subscription / Activation</option>
+        <option value="payment">Payment / Wallet</option>
+        <option value="technical">Technical / Streaming</option>
+        <option value="transfer">Transfer Issue</option>
+        <option value="referral">Referral Problem</option>
+        <option value="account">Account Access</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label>Describe your issue</label>
+      <textarea id="support-message" placeholder="Describe your issue in detail…" rows="4"></textarea>
+    </div>
+    <div class="field-group">
+      <label>Send To</label>
+      <div class="email-option selected" id="ticket-email-opt-primary" onclick="selectTicketEmail('primary')" style="margin-bottom:8px;">
+        <div class="email-option-icon" style="background:rgba(255,77,0,.1);color:var(--spark);font-size:14px;width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa fa-envelope"></i></div>
+        <div>
+          <div style="font-size:12px;font-weight:800;">ngs.spark.tv0@gmail.com <span class="best-badge">RECOMMENDED</span></div>
+          <div style="font-size:10px;color:var(--mt);">Fastest response</div>
+        </div>
+        <i class="fa fa-check-circle" style="color:var(--spark);margin-left:auto;font-size:14px;" id="ticket-check-primary"></i>
+      </div>
+      <div class="email-option" id="ticket-email-opt-secondary" onclick="selectTicketEmail('secondary')">
+        <div class="email-option-icon" style="background:rgba(0,200,255,.1);color:var(--accent);font-size:14px;width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa fa-envelope-open"></i></div>
+        <div>
+          <div style="font-size:12px;font-weight:800;">ng.spark.tv@gmail.com</div>
+          <div style="font-size:10px;color:var(--mt);">Backup email</div>
+        </div>
+        <i class="fa fa-circle" style="color:var(--mt);margin-left:auto;font-size:14px;" id="ticket-check-secondary"></i>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="closeDialog('dlg-contact-support')" style="flex:1;">Cancel</button>
+      <button class="btn btn-purple" onclick="submitSupportTicket()" id="ticket-submit-btn" style="flex:2;"><i class="fa fa-paper-plane"></i> Send Ticket</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ═══════════════════════════════════════
    FIREBASE CONFIG
@@ -1063,6 +1317,18 @@ firebase.initializeApp(FB_CFG);
 const _auth = firebase.auth();
 const _db   = firebase.database();
 
+/* ═══════════════════════════════════════
+   SUPPORT EMAILS
+   Primary = ngs.spark.tv0@gmail.com (fastest)
+   Secondary = ng.spark.tv@gmail.com (backup)
+═══════════════════════════════════════ */
+const EMAILS = {
+  primary: "ngs.spark.tv0@gmail.com",
+  secondary: "ng.spark.tv@gmail.com"
+};
+let selectedFundEmail = "primary";
+let selectedTicketEmail = "primary";
+
 const TG_TOKEN = "8700685464:AAEHRfSlwS3kI_cwCmWpD1O5kwCmjxzmC74";
 const TG_CHAT  = "@database_sparktv";
 
@@ -1070,106 +1336,108 @@ const TG_CHAT  = "@database_sparktv";
    COUNTRIES
 ═══════════════════════════════════════ */
 const COUNTRIES = [
-  {name:"Nigeria",code:"NG",currency:"NGN",symbol:"₦",initial:500,hourly:500,zone:"NGN"},
-  {name:"United States",code:"US",currency:"USD",symbol:"$",initial:5,hourly:5,zone:"USD"},
-  {name:"United Kingdom",code:"GB",currency:"GBP",symbol:"£",initial:4,hourly:4,zone:"EUR"},
-  {name:"Canada",code:"CA",currency:"CAD",symbol:"CA$",initial:7,hourly:7,zone:"USD"},
-  {name:"Australia",code:"AU",currency:"AUD",symbol:"A$",initial:8,hourly:8,zone:"USD"},
-  {name:"Germany",code:"DE",currency:"EUR",symbol:"€",initial:5,hourly:5,zone:"EUR"},
-  {name:"France",code:"FR",currency:"EUR",symbol:"€",initial:5,hourly:5,zone:"EUR"},
-  {name:"Italy",code:"IT",currency:"EUR",symbol:"€",initial:5,hourly:5,zone:"EUR"},
-  {name:"Spain",code:"ES",currency:"EUR",symbol:"€",initial:5,hourly:5,zone:"EUR"},
-  {name:"Netherlands",code:"NL",currency:"EUR",symbol:"€",initial:5,hourly:5,zone:"EUR"},
-  {name:"Belgium",code:"BE",currency:"EUR",symbol:"€",initial:5,hourly:5,zone:"EUR"},
-  {name:"Portugal",code:"PT",currency:"EUR",symbol:"€",initial:5,hourly:5,zone:"EUR"},
-  {name:"Sweden",code:"SE",currency:"SEK",symbol:"kr",initial:55,hourly:55,zone:"EUR"},
-  {name:"Norway",code:"NO",currency:"NOK",symbol:"kr",initial:55,hourly:55,zone:"EUR"},
-  {name:"Denmark",code:"DK",currency:"DKK",symbol:"kr",initial:35,hourly:35,zone:"EUR"},
-  {name:"Finland",code:"FI",currency:"EUR",symbol:"€",initial:5,hourly:5,zone:"EUR"},
-  {name:"Switzerland",code:"CH",currency:"CHF",symbol:"Fr",initial:5,hourly:5,zone:"EUR"},
-  {name:"Poland",code:"PL",currency:"PLN",symbol:"zł",initial:20,hourly:20,zone:"EUR"},
-  {name:"Czech Republic",code:"CZ",currency:"CZK",symbol:"Kč",initial:115,hourly:115,zone:"EUR"},
-  {name:"Hungary",code:"HU",currency:"HUF",symbol:"Ft",initial:1800,hourly:1800,zone:"EUR"},
-  {name:"Romania",code:"RO",currency:"RON",symbol:"lei",initial:24,hourly:24,zone:"EUR"},
-  {name:"Greece",code:"GR",currency:"EUR",symbol:"€",initial:5,hourly:5,zone:"EUR"},
-  {name:"Ireland",code:"IE",currency:"EUR",symbol:"€",initial:5,hourly:5,zone:"EUR"},
-  {name:"Austria",code:"AT",currency:"EUR",symbol:"€",initial:5,hourly:5,zone:"EUR"},
-  {name:"Ukraine",code:"UA",currency:"UAH",symbol:"₴",initial:200,hourly:200,zone:"EUR"},
-  {name:"Russia",code:"RU",currency:"RUB",symbol:"₽",initial:460,hourly:460,zone:"EUR"},
-  {name:"Turkey",code:"TR",currency:"TRY",symbol:"₺",initial:150,hourly:150,zone:"EUR"},
-  {name:"Ghana",code:"GH",currency:"GHS",symbol:"GH₵",initial:60,hourly:60,zone:"NGN"},
-  {name:"Kenya",code:"KE",currency:"KES",symbol:"KSh",initial:650,hourly:650,zone:"NGN"},
-  {name:"South Africa",code:"ZA",currency:"ZAR",symbol:"R",initial:95,hourly:95,zone:"NGN"},
-  {name:"Egypt",code:"EG",currency:"EGP",symbol:"E£",initial:160,hourly:160,zone:"NGN"},
-  {name:"Ethiopia",code:"ET",currency:"ETB",symbol:"Br",initial:300,hourly:300,zone:"NGN"},
-  {name:"Tanzania",code:"TZ",currency:"TZS",symbol:"TSh",initial:13000,hourly:13000,zone:"NGN"},
-  {name:"Uganda",code:"UG",currency:"UGX",symbol:"USh",initial:20000,hourly:20000,zone:"NGN"},
-  {name:"Cameroon",code:"CM",currency:"XAF",symbol:"FCFA",initial:3100,hourly:3100,zone:"NGN"},
-  {name:"Ivory Coast",code:"CI",currency:"XOF",symbol:"CFA",initial:3100,hourly:3100,zone:"NGN"},
-  {name:"Senegal",code:"SN",currency:"XOF",symbol:"CFA",initial:3100,hourly:3100,zone:"NGN"},
-  {name:"Zimbabwe",code:"ZW",currency:"USD",symbol:"$",initial:5,hourly:5,zone:"USD"},
-  {name:"Zambia",code:"ZM",currency:"ZMW",symbol:"ZK",initial:130,hourly:130,zone:"NGN"},
-  {name:"Rwanda",code:"RW",currency:"RWF",symbol:"RF",initial:6500,hourly:6500,zone:"NGN"},
-  {name:"India",code:"IN",currency:"INR",symbol:"₹",initial:420,hourly:420,zone:"USD"},
-  {name:"Pakistan",code:"PK",currency:"PKR",symbol:"₨",initial:1400,hourly:1400,zone:"USD"},
-  {name:"Bangladesh",code:"BD",currency:"BDT",symbol:"৳",initial:550,hourly:550,zone:"USD"},
-  {name:"Sri Lanka",code:"LK",currency:"LKR",symbol:"Rs",initial:1600,hourly:1600,zone:"USD"},
-  {name:"Nepal",code:"NP",currency:"NPR",symbol:"Rs",initial:670,hourly:670,zone:"USD"},
-  {name:"Japan",code:"JP",currency:"JPY",symbol:"¥",initial:750,hourly:750,zone:"USD"},
-  {name:"China",code:"CN",currency:"CNY",symbol:"¥",initial:36,hourly:36,zone:"USD"},
-  {name:"South Korea",code:"KR",currency:"KRW",symbol:"₩",initial:6700,hourly:6700,zone:"USD"},
-  {name:"Indonesia",code:"ID",currency:"IDR",symbol:"Rp",initial:80000,hourly:80000,zone:"USD"},
-  {name:"Malaysia",code:"MY",currency:"MYR",symbol:"RM",initial:24,hourly:24,zone:"USD"},
-  {name:"Singapore",code:"SG",currency:"SGD",symbol:"S$",initial:7,hourly:7,zone:"USD"},
-  {name:"Philippines",code:"PH",currency:"PHP",symbol:"₱",initial:285,hourly:285,zone:"USD"},
-  {name:"Thailand",code:"TH",currency:"THB",symbol:"฿",initial:180,hourly:180,zone:"USD"},
-  {name:"Vietnam",code:"VN",currency:"VND",symbol:"₫",initial:122000,hourly:122000,zone:"USD"},
-  {name:"Hong Kong",code:"HK",currency:"HKD",symbol:"HK$",initial:39,hourly:39,zone:"USD"},
-  {name:"Taiwan",code:"TW",currency:"TWD",symbol:"NT$",initial:160,hourly:160,zone:"USD"},
-  {name:"New Zealand",code:"NZ",currency:"NZD",symbol:"NZ$",initial:9,hourly:9,zone:"USD"},
-  {name:"Brazil",code:"BR",currency:"BRL",symbol:"R$",initial:26,hourly:26,zone:"USD"},
-  {name:"Mexico",code:"MX",currency:"MXN",symbol:"$",initial:88,hourly:88,zone:"USD"},
-  {name:"Argentina",code:"AR",currency:"ARS",symbol:"$",initial:4500,hourly:4500,zone:"USD"},
-  {name:"Colombia",code:"CO",currency:"COP",symbol:"$",initial:20000,hourly:20000,zone:"USD"},
-  {name:"Chile",code:"CL",currency:"CLP",symbol:"$",initial:4600,hourly:4600,zone:"USD"},
-  {name:"Saudi Arabia",code:"SA",currency:"SAR",symbol:"ر.س",initial:19,hourly:19,zone:"EUR"},
-  {name:"UAE",code:"AE",currency:"AED",symbol:"د.إ",initial:19,hourly:19,zone:"EUR"},
-  {name:"Qatar",code:"QA",currency:"QAR",symbol:"ر.ق",initial:19,hourly:19,zone:"EUR"},
-  {name:"Kuwait",code:"KW",currency:"KWD",symbol:"د.ك",initial:1.6,hourly:1.6,zone:"EUR"},
-  {name:"Israel",code:"IL",currency:"ILS",symbol:"₪",initial:19,hourly:19,zone:"EUR"},
-  {name:"Morocco",code:"MA",currency:"MAD",symbol:"د.م.",initial:50,hourly:50,zone:"NGN"},
-  {name:"Tunisia",code:"TN",currency:"TND",symbol:"DT",initial:16,hourly:16,zone:"NGN"},
-  {name:"Algeria",code:"DZ",currency:"DZD",symbol:"دج",initial:685,hourly:685,zone:"NGN"},
-  {name:"Sudan",code:"SD",currency:"SDG",symbol:"ج.س",initial:3000,hourly:3000,zone:"NGN"},
-  {name:"Other",code:"XX",currency:"USD",symbol:"$",initial:5,hourly:5,zone:"USD"}
+  {name:"Nigeria",code:"NG",currency:"NGN",symbol:"₦",monthly_full:5000,monthly_basic:3000,hourly:500,zone:"NGN"},
+  {name:"United States",code:"US",currency:"USD",symbol:"$",monthly_full:5,monthly_basic:3,hourly:0.5,zone:"USD"},
+  {name:"United Kingdom",code:"GB",currency:"GBP",symbol:"£",monthly_full:4,monthly_basic:2.5,hourly:0.4,zone:"EUR"},
+  {name:"Canada",code:"CA",currency:"CAD",symbol:"CA$",monthly_full:7,monthly_basic:4,hourly:0.7,zone:"USD"},
+  {name:"Australia",code:"AU",currency:"AUD",symbol:"A$",monthly_full:8,monthly_basic:5,hourly:0.8,zone:"USD"},
+  {name:"Germany",code:"DE",currency:"EUR",symbol:"€",monthly_full:5,monthly_basic:3,hourly:0.5,zone:"EUR"},
+  {name:"France",code:"FR",currency:"EUR",symbol:"€",monthly_full:5,monthly_basic:3,hourly:0.5,zone:"EUR"},
+  {name:"Italy",code:"IT",currency:"EUR",symbol:"€",monthly_full:5,monthly_basic:3,hourly:0.5,zone:"EUR"},
+  {name:"Spain",code:"ES",currency:"EUR",symbol:"€",monthly_full:5,monthly_basic:3,hourly:0.5,zone:"EUR"},
+  {name:"Netherlands",code:"NL",currency:"EUR",symbol:"€",monthly_full:5,monthly_basic:3,hourly:0.5,zone:"EUR"},
+  {name:"Belgium",code:"BE",currency:"EUR",symbol:"€",monthly_full:5,monthly_basic:3,hourly:0.5,zone:"EUR"},
+  {name:"Portugal",code:"PT",currency:"EUR",symbol:"€",monthly_full:5,monthly_basic:3,hourly:0.5,zone:"EUR"},
+  {name:"Sweden",code:"SE",currency:"SEK",symbol:"kr",monthly_full:55,monthly_basic:33,hourly:5.5,zone:"EUR"},
+  {name:"Norway",code:"NO",currency:"NOK",symbol:"kr",monthly_full:55,monthly_basic:33,hourly:5.5,zone:"EUR"},
+  {name:"Denmark",code:"DK",currency:"DKK",symbol:"kr",monthly_full:35,monthly_basic:21,hourly:3.5,zone:"EUR"},
+  {name:"Finland",code:"FI",currency:"EUR",symbol:"€",monthly_full:5,monthly_basic:3,hourly:0.5,zone:"EUR"},
+  {name:"Switzerland",code:"CH",currency:"CHF",symbol:"Fr",monthly_full:5,monthly_basic:3,hourly:0.5,zone:"EUR"},
+  {name:"Poland",code:"PL",currency:"PLN",symbol:"zł",monthly_full:20,monthly_basic:12,hourly:2,zone:"EUR"},
+  {name:"Czech Republic",code:"CZ",currency:"CZK",symbol:"Kč",monthly_full:115,monthly_basic:70,hourly:11.5,zone:"EUR"},
+  {name:"Hungary",code:"HU",currency:"HUF",symbol:"Ft",monthly_full:1800,monthly_basic:1100,hourly:180,zone:"EUR"},
+  {name:"Romania",code:"RO",currency:"RON",symbol:"lei",monthly_full:24,monthly_basic:14,hourly:2.4,zone:"EUR"},
+  {name:"Greece",code:"GR",currency:"EUR",symbol:"€",monthly_full:5,monthly_basic:3,hourly:0.5,zone:"EUR"},
+  {name:"Ireland",code:"IE",currency:"EUR",symbol:"€",monthly_full:5,monthly_basic:3,hourly:0.5,zone:"EUR"},
+  {name:"Austria",code:"AT",currency:"EUR",symbol:"€",monthly_full:5,monthly_basic:3,hourly:0.5,zone:"EUR"},
+  {name:"Ukraine",code:"UA",currency:"UAH",symbol:"₴",monthly_full:200,monthly_basic:120,hourly:20,zone:"EUR"},
+  {name:"Russia",code:"RU",currency:"RUB",symbol:"₽",monthly_full:460,monthly_basic:280,hourly:46,zone:"EUR"},
+  {name:"Turkey",code:"TR",currency:"TRY",symbol:"₺",monthly_full:150,monthly_basic:90,hourly:15,zone:"EUR"},
+  {name:"Ghana",code:"GH",currency:"GHS",symbol:"GH₵",monthly_full:60,monthly_basic:36,hourly:6,zone:"NGN"},
+  {name:"Kenya",code:"KE",currency:"KES",symbol:"KSh",monthly_full:650,monthly_basic:390,hourly:65,zone:"NGN"},
+  {name:"South Africa",code:"ZA",currency:"ZAR",symbol:"R",monthly_full:95,monthly_basic:57,hourly:9.5,zone:"NGN"},
+  {name:"Egypt",code:"EG",currency:"EGP",symbol:"E£",monthly_full:160,monthly_basic:96,hourly:16,zone:"NGN"},
+  {name:"Ethiopia",code:"ET",currency:"ETB",symbol:"Br",monthly_full:300,monthly_basic:180,hourly:30,zone:"NGN"},
+  {name:"Tanzania",code:"TZ",currency:"TZS",symbol:"TSh",monthly_full:13000,monthly_basic:7800,hourly:1300,zone:"NGN"},
+  {name:"Uganda",code:"UG",currency:"UGX",symbol:"USh",monthly_full:20000,monthly_basic:12000,hourly:2000,zone:"NGN"},
+  {name:"Cameroon",code:"CM",currency:"XAF",symbol:"FCFA",monthly_full:3100,monthly_basic:1860,hourly:310,zone:"NGN"},
+  {name:"Ivory Coast",code:"CI",currency:"XOF",symbol:"CFA",monthly_full:3100,monthly_basic:1860,hourly:310,zone:"NGN"},
+  {name:"Senegal",code:"SN",currency:"XOF",symbol:"CFA",monthly_full:3100,monthly_basic:1860,hourly:310,zone:"NGN"},
+  {name:"Zimbabwe",code:"ZW",currency:"USD",symbol:"$",monthly_full:5,monthly_basic:3,hourly:0.5,zone:"USD"},
+  {name:"Zambia",code:"ZM",currency:"ZMW",symbol:"ZK",monthly_full:130,monthly_basic:78,hourly:13,zone:"NGN"},
+  {name:"Rwanda",code:"RW",currency:"RWF",symbol:"RF",monthly_full:6500,monthly_basic:3900,hourly:650,zone:"NGN"},
+  {name:"India",code:"IN",currency:"INR",symbol:"₹",monthly_full:420,monthly_basic:252,hourly:42,zone:"USD"},
+  {name:"Pakistan",code:"PK",currency:"PKR",symbol:"₨",monthly_full:1400,monthly_basic:840,hourly:140,zone:"USD"},
+  {name:"Bangladesh",code:"BD",currency:"BDT",symbol:"৳",monthly_full:550,monthly_basic:330,hourly:55,zone:"USD"},
+  {name:"Sri Lanka",code:"LK",currency:"LKR",symbol:"Rs",monthly_full:1600,monthly_basic:960,hourly:160,zone:"USD"},
+  {name:"Nepal",code:"NP",currency:"NPR",symbol:"Rs",monthly_full:670,monthly_basic:400,hourly:67,zone:"USD"},
+  {name:"Japan",code:"JP",currency:"JPY",symbol:"¥",monthly_full:750,monthly_basic:450,hourly:75,zone:"USD"},
+  {name:"China",code:"CN",currency:"CNY",symbol:"¥",monthly_full:36,monthly_basic:22,hourly:3.6,zone:"USD"},
+  {name:"South Korea",code:"KR",currency:"KRW",symbol:"₩",monthly_full:6700,monthly_basic:4020,hourly:670,zone:"USD"},
+  {name:"Indonesia",code:"ID",currency:"IDR",symbol:"Rp",monthly_full:80000,monthly_basic:48000,hourly:8000,zone:"USD"},
+  {name:"Malaysia",code:"MY",currency:"MYR",symbol:"RM",monthly_full:24,monthly_basic:14,hourly:2.4,zone:"USD"},
+  {name:"Singapore",code:"SG",currency:"SGD",symbol:"S$",monthly_full:7,monthly_basic:4,hourly:0.7,zone:"USD"},
+  {name:"Philippines",code:"PH",currency:"PHP",symbol:"₱",monthly_full:285,monthly_basic:171,hourly:28.5,zone:"USD"},
+  {name:"Thailand",code:"TH",currency:"THB",symbol:"฿",monthly_full:180,monthly_basic:108,hourly:18,zone:"USD"},
+  {name:"Vietnam",code:"VN",currency:"VND",symbol:"₫",monthly_full:122000,monthly_basic:73200,hourly:12200,zone:"USD"},
+  {name:"Hong Kong",code:"HK",currency:"HKD",symbol:"HK$",monthly_full:39,monthly_basic:23,hourly:3.9,zone:"USD"},
+  {name:"Taiwan",code:"TW",currency:"TWD",symbol:"NT$",monthly_full:160,monthly_basic:96,hourly:16,zone:"USD"},
+  {name:"New Zealand",code:"NZ",currency:"NZD",symbol:"NZ$",monthly_full:9,monthly_basic:5,hourly:0.9,zone:"USD"},
+  {name:"Brazil",code:"BR",currency:"BRL",symbol:"R$",monthly_full:26,monthly_basic:16,hourly:2.6,zone:"USD"},
+  {name:"Mexico",code:"MX",currency:"MXN",symbol:"$",monthly_full:88,monthly_basic:53,hourly:8.8,zone:"USD"},
+  {name:"Argentina",code:"AR",currency:"ARS",symbol:"$",monthly_full:4500,monthly_basic:2700,hourly:450,zone:"USD"},
+  {name:"Colombia",code:"CO",currency:"COP",symbol:"$",monthly_full:20000,monthly_basic:12000,hourly:2000,zone:"USD"},
+  {name:"Chile",code:"CL",currency:"CLP",symbol:"$",monthly_full:4600,monthly_basic:2760,hourly:460,zone:"USD"},
+  {name:"Saudi Arabia",code:"SA",currency:"SAR",symbol:"ر.س",monthly_full:19,monthly_basic:11,hourly:1.9,zone:"EUR"},
+  {name:"UAE",code:"AE",currency:"AED",symbol:"د.إ",monthly_full:19,monthly_basic:11,hourly:1.9,zone:"EUR"},
+  {name:"Qatar",code:"QA",currency:"QAR",symbol:"ر.ق",monthly_full:19,monthly_basic:11,hourly:1.9,zone:"EUR"},
+  {name:"Kuwait",code:"KW",currency:"KWD",symbol:"د.ك",monthly_full:1.6,monthly_basic:1,hourly:0.16,zone:"EUR"},
+  {name:"Israel",code:"IL",currency:"ILS",symbol:"₪",monthly_full:19,monthly_basic:11,hourly:1.9,zone:"EUR"},
+  {name:"Morocco",code:"MA",currency:"MAD",symbol:"د.م.",monthly_full:50,monthly_basic:30,hourly:5,zone:"NGN"},
+  {name:"Tunisia",code:"TN",currency:"TND",symbol:"DT",monthly_full:16,monthly_basic:10,hourly:1.6,zone:"NGN"},
+  {name:"Algeria",code:"DZ",currency:"DZD",symbol:"دج",monthly_full:685,monthly_basic:411,hourly:68.5,zone:"NGN"},
+  {name:"Sudan",code:"SD",currency:"SDG",symbol:"ج.س",monthly_full:3000,monthly_basic:1800,hourly:300,zone:"NGN"},
+  {name:"Other",code:"XX",currency:"USD",symbol:"$",monthly_full:5,monthly_basic:3,hourly:0.5,zone:"USD"}
 ];
 
-const PLANS_CONFIG = {
-  NGN:[
-    {id:"1hr",    name:"1-Hour Pass",   cycle:"hourly",    days:0.042,limited:true, multiplier:1,  desc:"1 hour of streaming"},
-    {id:"1mo_lim",name:"1 Month Basic", cycle:"monthly",   days:30,   limited:true, multiplier:1,  desc:"SD quality, limited channels"},
-    {id:"1mo_ful",name:"1 Month Full",  cycle:"monthly",   days:30,   limited:false,multiplier:1,  desc:"All channels, HD quality",badge:"Best Value",badgeCls:"gold"},
-    {id:"3mo_ful",name:"3 Months Full", cycle:"quarterly", days:90,   limited:false,multiplier:3,  desc:"All channels × 3 months",badge:"Save 10%",badgeCls:"gold"},
-    {id:"6mo_ful",name:"6 Months Full", cycle:"biannual",  days:180,  limited:false,multiplier:6,  desc:"All channels × 6 months",badge:"Save 15%",badgeCls:"gold"},
-    {id:"1yr_ful",name:"1 Year Full",   cycle:"yearly",    days:365,  limited:false,multiplier:12, desc:"All channels × 12 months",badge:"Best Deal",badgeCls:"gold"},
-  ],
-  USD:[
-    {id:"1hr",    name:"1-Hour Pass",   cycle:"hourly",    days:0.042,limited:true, multiplier:1,  desc:"1 hour of streaming"},
-    {id:"1mo_lim",name:"1 Month Basic", cycle:"monthly",   days:30,   limited:true, multiplier:1,  desc:"SD quality, limited channels"},
-    {id:"1mo_ful",name:"1 Month Full",  cycle:"monthly",   days:30,   limited:false,multiplier:1,  desc:"All channels, HD quality",badge:"Best Value",badgeCls:"gold"},
-    {id:"3mo_ful",name:"3 Months Full", cycle:"quarterly", days:90,   limited:false,multiplier:3,  desc:"All channels × 3 months"},
-    {id:"6mo_ful",name:"6 Months Full", cycle:"biannual",  days:180,  limited:false,multiplier:6,  desc:"All channels × 6 months"},
-    {id:"1yr_ful",name:"1 Year Full",   cycle:"yearly",    days:365,  limited:false,multiplier:12, desc:"All channels × 12 months"},
-  ],
-  EUR:[
-    {id:"1hr",    name:"1-Hour Pass",   cycle:"hourly",    days:0.042,limited:true, multiplier:1,  desc:"1 hour of streaming"},
-    {id:"1mo_lim",name:"1 Month Basic", cycle:"monthly",   days:30,   limited:true, multiplier:1,  desc:"SD quality, limited channels"},
-    {id:"1mo_ful",name:"1 Month Full",  cycle:"monthly",   days:30,   limited:false,multiplier:1,  desc:"All channels, HD quality",badge:"Best Value",badgeCls:"gold"},
-    {id:"3mo_ful",name:"3 Months Full", cycle:"quarterly", days:90,   limited:false,multiplier:3,  desc:"All channels × 3 months"},
-    {id:"6mo_ful",name:"6 Months Full", cycle:"biannual",  days:180,  limited:false,multiplier:6,  desc:"All channels × 6 months"},
-    {id:"1yr_ful",name:"1 Year Full",   cycle:"yearly",    days:365,  limited:false,multiplier:12, desc:"All channels × 12 months"},
-  ]
-};
+/* ═══════════════════════════════════════
+   PLAN CONFIGS — Price uses country monthly_full/basic/hourly directly
+   Discount multipliers applied for multi-month plans
+   Discount: 3mo=10%, 6mo=15%, 12mo=20%
+═══════════════════════════════════════ */
+const PLAN_DEFS = [
+  {id:"1hr",    name:"1-Hour Pass",   cycle:"hourly",    days:0.042, type:"hourly",  multiplier:1,   discount:0,   desc:"1 hour of HD streaming"},
+  {id:"1mo_lim",name:"1 Month Basic", cycle:"monthly",   days:30,    type:"basic",   multiplier:1,   discount:0,   desc:"SD quality, limited channels"},
+  {id:"1mo_ful",name:"1 Month Full",  cycle:"monthly",   days:30,    type:"full",    multiplier:1,   discount:0,   desc:"All channels, HD quality",badge:"Best Value",badgeCls:"gold"},
+  {id:"3mo_ful",name:"3 Months Full", cycle:"quarterly", days:90,    type:"full",    multiplier:3,   discount:0.1, desc:"All channels × 3 months",badge:"Save 10%",badgeCls:"gold"},
+  {id:"6mo_ful",name:"6 Months Full", cycle:"biannual",  days:180,   type:"full",    multiplier:6,   discount:0.15,desc:"All channels × 6 months",badge:"Save 15%",badgeCls:"gold"},
+  {id:"1yr_ful",name:"1 Year Full",   cycle:"yearly",    days:365,   type:"full",    multiplier:12,  discount:0.2, desc:"All channels × 12 months",badge:"Best Deal",badgeCls:"gold"},
+];
+
+/* Calculate exact plan price from country info */
+function getPlanPrice(plan, info) {
+  let baseMonthly;
+  if (plan.type === "hourly") return Math.round(info.hourly);
+  if (plan.type === "basic")  baseMonthly = info.monthly_basic;
+  if (plan.type === "full")   baseMonthly = info.monthly_full;
+  const raw = baseMonthly * plan.multiplier;
+  const discounted = raw * (1 - plan.discount);
+  return Math.round(discounted);
+}
+
+function getCountryInfo(name) {
+  return COUNTRIES.find(c => c.name === name) || COUNTRIES[COUNTRIES.length - 1];
+}
 
 /* ═══════════════════════════════════════
    STATE
@@ -1238,7 +1506,6 @@ async function loadUserData(){
       userRecord.subscription=sub;
       renderHero(); renderSubscriptionTab();
     });
-    // Ensure basic keys exist
     await ensureUserKeys();
   }catch(e){userRecord={};}
   await getWorldTime();
@@ -1249,7 +1516,6 @@ async function ensureUserKeys(){
   if(!currentUser) return;
   const p=userRecord?.personal||{};
   const updates={};
-  // Generate referral code if missing
   if(!userRecord?.referral?.code){
     const code="SPARK-"+currentUser.uid.substring(0,6).toUpperCase();
     updates["referral/code"]=code;
@@ -1260,8 +1526,7 @@ async function ensureUserKeys(){
   }
   if(!p.joined_date) updates["personal/joined_date"]=new Date().toISOString();
   if(!p.account_id) updates["personal/account_id"]="SPK-"+currentUser.uid.substring(0,8).toUpperCase();
-  if(!p.last_login) updates["personal/last_login"]=new Date().toISOString();
-  else updates["personal/last_login"]=new Date().toISOString();
+  updates["personal/last_login"]=new Date().toISOString();
   if(!userRecord?.wallet?.currency) updates["wallet/currency"]="NGN";
   if(!userRecord?.wallet?.symbol) updates["wallet/symbol"]="₦";
   if(Object.keys(updates).length){
@@ -1285,35 +1550,14 @@ async function fetchExchangeRates(){
     const d=await r.json();
     exchangeRates=d.rates||{};
     liveRateLoaded=true;
-    document.getElementById("live-rate-badge").className="rate-badge";
-    document.getElementById("live-rate-badge").innerHTML='<i class="fa fa-circle" style="font-size:7px;color:var(--green);"></i> Live';
+    const lb=document.getElementById("live-rate-badge");
+    if(lb){lb.className="rate-badge";lb.innerHTML='<i class="fa fa-circle" style="font-size:7px;color:var(--green);"></i> Live';}
     updateWalletDisplay();
     renderPlanList();
   }catch(e){
-    document.getElementById("live-rate-badge").className="rate-badge loading";
-    document.getElementById("live-rate-badge").innerHTML='<i class="fa fa-triangle-exclamation"></i> Offline';
+    const lb=document.getElementById("live-rate-badge");
+    if(lb){lb.className="rate-badge loading";lb.innerHTML='<i class="fa fa-triangle-exclamation"></i> Offline';}
   }
-}
-
-function getPlanPrice(plan,info){
-  if(plan.id==="1hr") return info.hourly;
-  const limitedBase=info.zone==="NGN"?3000:info.zone==="USD"?3:3;
-  const fullBase=info.zone==="NGN"?5000:info.zone==="USD"?5:5;
-  const base=plan.limited?limitedBase:fullBase;
-  const discounts={1:1,3:0.9,6:0.85,12:0.8};
-  const disc=discounts[plan.multiplier]||1;
-  if(liveRateLoaded&&exchangeRates&&info.currency!=="USD"&&info.currency!=="NGN"){
-    const usdRate=exchangeRates[info.currency];
-    if(usdRate){
-      const usdBase=info.zone==="NGN"?base/1600:base;
-      return Math.round(usdBase*plan.multiplier*disc*usdRate);
-    }
-  }
-  return Math.round(base*plan.multiplier*disc);
-}
-
-function getCountryInfo(name){
-  return COUNTRIES.find(c=>c.name===name)||COUNTRIES[COUNTRIES.length-1];
 }
 
 /* ═══════════════════════════════════════
@@ -1333,7 +1577,9 @@ function showProfileContent(){
   setTodayDates();
   renderReferralTab();
   initColorPicker();
-  // Show nav balance
+  renderDevices();
+  renderStreamingStats();
+  renderSupportAccountInfo();
   document.getElementById("nav-bal-pill").style.display="flex";
 }
 
@@ -1353,7 +1599,6 @@ function renderHero(){
   const init=displayName.charAt(0).toUpperCase();
   const isActive=sub.sub_status==="true"||sub.sub_status===true;
   const country=p.country||"";
-  const countryInfo=country?getCountryInfo(country):null;
 
   document.getElementById("hero-name").textContent=displayName;
   document.getElementById("hero-username").textContent=username;
@@ -1369,10 +1614,10 @@ function renderHero(){
   let badges=`<div class="hbadge ${isActive?"active":"inactive"}">${isActive?'<i class="fa fa-check-circle"></i> Active':'<i class="fa fa-times-circle"></i> Inactive'}</div>`;
   if(sub.plan_tier) badges+=`<div class="hbadge plan"><i class="fa fa-star"></i> ${xe(sub.plan_tier)}</div>`;
   if(p.is_verified) badges+=`<div class="hbadge verified"><i class="fa fa-badge-check"></i> Verified</div>`;
-  if(country) badges+=`<div class="hbadge country">${countryInfo?countryInfo.code:""} ${xe(country)}</div>`;
+  if(userWallet.currency) badges+=`<div class="hbadge currency"><i class="fa fa-coins"></i> ${xe(userWallet.currency)}</div>`;
+  if(country) badges+=`<div class="hbadge country"><i class="fa fa-globe"></i> ${xe(country)}</div>`;
   document.getElementById("hero-badges").innerHTML=badges;
 
-  // Stats
   if(isActive&&sub.expiry_date){
     const exp=typeof sub.expiry_date==="number"?sub.expiry_date:new Date(sub.expiry_date).getTime();
     const daysLeft=Math.max(0,Math.ceil((exp-(currentWorldTime||Date.now()))/86400000));
@@ -1385,7 +1630,6 @@ function renderHero(){
   document.getElementById("hs-refs").textContent=userRecord?.referral?.total_referrals||0;
   document.getElementById("nav-bal-text").textContent=userWallet.symbol+Number(userWallet.balance||0).toLocaleString();
 
-  // Profile completion
   calcProfileCompletion(p);
 }
 
@@ -1400,12 +1644,22 @@ function calcProfileCompletion(p){
 }
 
 /* ═══════════════════════════════════════
+   STREAMING STATS
+═══════════════════════════════════════ */
+function renderStreamingStats(){
+  const txSubs=allTransactions.filter(t=>t.plan_tier&&t.status==="success"&&t.type==="debit").length;
+  const totalHours=Math.round(txSubs*30*1.5); // estimate
+  document.getElementById("stat-hours").textContent=totalHours+"h";
+  document.getElementById("stat-sessions").textContent=Math.max(txSubs*12,0);
+  document.getElementById("stat-subs").textContent=txSubs;
+}
+
+/* ═══════════════════════════════════════
    PERSONAL INFO
 ═══════════════════════════════════════ */
 function renderPersonalInfo(){
   const p=userRecord?.personal||{};
 
-  // Personal info rows
   const personalRows=[
     ["fa-user","First Name",p.first_name||"—"],
     ["fa-user","Last Name",p.last_name||"—"],
@@ -1422,7 +1676,6 @@ function renderPersonalInfo(){
   ];
   document.getElementById("personal-info-rows").innerHTML=personalRows.map(([ico,key,val])=>infoRow(ico,key,val)).join("");
 
-  // Contact rows
   const contactRows=[
     ["fa-envelope","Email",currentUser.email||"—",true],
     ["fa-phone","Phone",p.phone||"—",true],
@@ -1436,7 +1689,6 @@ function renderPersonalInfo(){
   ];
   document.getElementById("contact-info-rows").innerHTML=contactRows.map(([ico,key,val,copy])=>infoRow(ico,key,val,copy)).join("");
 
-  // Account identity rows
   const uid=currentUser.uid;
   const acctId=p.account_id||"—";
   const refCode=userRecord?.referral?.code||"—";
@@ -1450,6 +1702,10 @@ function renderPersonalInfo(){
       <div class="uid-display"><span>${xe(acctId)}</span><button onclick="copyText('${acctId}','Account ID')">Copy</button></div>
     </div>
     <div style="margin-bottom:12px;">
+      <div style="font-size:10px;color:var(--mt);font-weight:800;text-transform:uppercase;margin-bottom:6px;">Wallet Currency</div>
+      <div class="uid-display"><span>${xe(userWallet.currency)} (${xe(userWallet.symbol)})</span><button onclick="copyText('${userWallet.currency}','Currency')">Copy</button></div>
+    </div>
+    <div style="margin-bottom:12px;">
       <div style="font-size:10px;color:var(--mt);font-weight:800;text-transform:uppercase;margin-bottom:6px;">Referral Code</div>
       <div class="uid-display"><span>${xe(refCode)}</span><button onclick="copyText('${refCode}','Referral Code')">Copy</button></div>
     </div>
@@ -1457,26 +1713,25 @@ function renderPersonalInfo(){
     ${infoRow("fa-clock","Last Login",p.last_login?new Date(p.last_login).toLocaleString():"—")}
   `;
 
-  // Security rows
   document.getElementById("security-rows").innerHTML=`
     ${infoRow("fa-envelope","Email",currentUser.email||"—")}
     ${infoRow("fa-shield-halved","Account Type",currentUser.isAnonymous?"Guest":"Registered")}
     ${infoRow("fa-check-circle","Email Verified",currentUser.emailVerified?"Yes":"Not verified","",currentUser.emailVerified?"ok":"warn")}
     ${infoRow("fa-clock","Last Login",p.last_login?new Date(p.last_login).toLocaleString():"—")}
     ${infoRow("fa-lock","2FA Status",prefs.tfa?"Enabled":"Disabled","",prefs.tfa?"ok":"muted")}
-    ${infoRow("fa-device-mobile","Login Method",currentUser.providerData[0]?.providerId||"password","")}
+    ${infoRow("fa-mobile","Login Method",currentUser.providerData[0]?.providerId||"password","")}
   `;
 
-  // Activity log
   renderActivityLog();
 }
 
 function infoRow(ico,key,val,copyable=false,valCls=""){
-  const copyBtn=copyable&&val&&val!=="—"?`<div class="info-copy" onclick="copyText('${val.replace(/'/g,"\\'")}','${key}')"><i class="fa fa-copy"></i></div>`:"";
+  const safeVal=String(val||"—");
+  const copyBtn=copyable&&safeVal&&safeVal!=="—"?`<div class="info-copy" onclick="copyText(${JSON.stringify(safeVal)},${JSON.stringify(key)})"><i class="fa fa-copy"></i></div>`:"";
   return `<div class="info-row">
     <div class="info-icon"><i class="fa ${ico}"></i></div>
     <span class="info-key">${key}</span>
-    <span class="info-val${valCls?" "+valCls:""}">${xe(val)}</span>
+    <span class="info-val${valCls?" "+valCls:""}">${xe(safeVal)}</span>
     ${copyBtn}
   </div>`;
 }
@@ -1488,10 +1743,65 @@ function renderActivityLog(){
   if(userRecord?.personal?.last_login) items.push({dot:"green",text:"Profile accessed",time:new Date(userRecord.personal.last_login).toLocaleString()});
   if(userRecord?.personal?.joined_date) items.push({dot:"accent",text:"Account created",time:new Date(userRecord.personal.joined_date).toLocaleDateString()});
   if(allTransactions.length) items.push({dot:"gold",text:`${allTransactions.length} total transaction${allTransactions.length!==1?"s":""}`,time:""});
+  if(userRecord?.referral?.total_referrals>0) items.push({dot:"spark",text:`${userRecord.referral.total_referrals} successful referral${userRecord.referral.total_referrals!==1?"s":""}`,time:""});
   const html=items.length?items.map(i=>`<div class="activity-item"><div class="activity-dot ${i.dot}"></div><div class="activity-text">${xe(i.text)}</div>${i.time?`<div class="activity-time">${xe(i.time)}</div>`:""}</div>`).join("")
     :'<div class="empty-state" style="padding:20px 0;"><i class="fa fa-chart-line"></i><p>No activity yet</p></div>';
   document.getElementById("activity-log").innerHTML=html;
 }
+
+/* ═══════════════════════════════════════
+   DEVICES
+═══════════════════════════════════════ */
+function renderDevices(){
+  const devices=userRecord?.devices||{};
+  const devList=Object.entries(devices);
+  const wrap=document.getElementById("device-list");
+  if(!devList.length){
+    wrap.innerHTML='<div style="font-size:12px;color:var(--mt);padding:8px 0;">No devices registered. Tap "Add Device" to register this device.</div>';
+    return;
+  }
+  const deviceIcons={mobile:"fa-mobile-screen",tablet:"fa-tablet-screen-button",laptop:"fa-laptop",tv:"fa-tv",default:"fa-display"};
+  wrap.innerHTML=devList.map(([key,d])=>{
+    const ico=deviceIcons[d.type]||deviceIcons.default;
+    const isCurrent=d.uid===currentUser.uid+"_"+navigator.userAgent.substring(0,20).replace(/\s/g,'');
+    return `<div class="device-item">
+      <div class="device-icon"><i class="fa ${ico}"></i></div>
+      <div class="device-info">
+        <div class="device-name">${xe(d.name||"Unknown Device")}</div>
+        <div class="device-meta">${xe(d.browser||"Browser")} · Last seen ${d.last_seen?new Date(d.last_seen).toLocaleDateString():"Unknown"}</div>
+      </div>
+      ${isCurrent?'<span class="device-active">Current</span>':''}
+      <div style="cursor:pointer;color:var(--red);font-size:12px;margin-left:8px;" onclick="removeDevice('${key}')"><i class="fa fa-trash"></i></div>
+    </div>`;
+  }).join("");
+}
+
+window.registerCurrentDevice=async function(){
+  if(!currentUser) return;
+  const ua=navigator.userAgent;
+  const isMobile=/Mobi|Android/i.test(ua);
+  const isTablet=/Tablet|iPad/i.test(ua);
+  const type=isTablet?"tablet":isMobile?"mobile":"laptop";
+  const browser=ua.includes("Chrome")?"Chrome":ua.includes("Firefox")?"Firefox":ua.includes("Safari")?"Safari":"Browser";
+  const name=`${type.charAt(0).toUpperCase()+type.slice(1)} · ${browser}`;
+  const deviceKey=currentUser.uid.substring(0,8)+"_"+Date.now();
+  await _db.ref(`users/${currentUser.uid}/devices/${deviceKey}`).set({
+    name,type,browser,last_seen:Date.now(),added:Date.now()
+  });
+  if(!userRecord.devices) userRecord.devices={};
+  userRecord.devices[deviceKey]={name,type,browser,last_seen:Date.now()};
+  renderDevices();
+  showToast("✓ Device registered!","ok");
+};
+
+window.removeDevice=async function(key){
+  showConfirm("🗑️","Remove Device?","Remove this device from your account?","btn-red","Remove",async()=>{
+    await _db.ref(`users/${currentUser.uid}/devices/${key}`).remove();
+    if(userRecord.devices) delete userRecord.devices[key];
+    renderDevices();
+    showToast("✓ Device removed","ok");
+  });
+};
 
 function buildCountrySelects(){
   ["ep-country","settings-country"].forEach(id=>{
@@ -1509,8 +1819,7 @@ function buildCountrySelects(){
 
 function prefillEditForm(){
   const p=userRecord?.personal||{};
-  const ep=id=>document.getElementById(id);
-  const set=(id,val)=>{const el=ep(id);if(el) el.value=val||"";};
+  const set=(id,val)=>{const el=document.getElementById(id);if(el) el.value=val||"";};
   set("ep-firstname",p.first_name||"");
   set("ep-lastname",p.last_name||"");
   set("ep-username",p.username||"");
@@ -1530,11 +1839,12 @@ function prefillEditForm(){
   set("ep-address",p.address||"");
   set("ep-genre",p.favourite_genre||"");
   set("ep-device",p.device_type||"");
-  if(ep("ep-country")&&p.country) ep("ep-country").value=p.country;
+  const epCountry=document.getElementById("ep-country");
+  if(epCountry&&p.country) epCountry.value=p.country;
 }
 
 /* ═══════════════════════════════════════
-   SAVE PERSONAL INFO
+   SAVE PERSONAL INFO — NO CURRENCY CHANGE
 ═══════════════════════════════════════ */
 async function savePersonalInfo(){
   const btn=document.getElementById("ep-save-btn");
@@ -1562,20 +1872,17 @@ async function savePersonalInfo(){
       favourite_genre:g("ep-genre"),
       device_type:g("ep-device"),
     };
+    // ⚠️ NO CURRENCY CHANGE when country changes — wallet currency stays the same
     await _db.ref(`users/${currentUser.uid}/personal`).update(updates);
     const fullName=[updates.first_name,updates.last_name].filter(Boolean).join(" ")||updates.display_name;
     if(fullName) await currentUser.updateProfile({displayName:fullName}).catch(()=>{});
-    if(updates.country&&updates.country!==userRecord?.personal?.country){
-      const info=getCountryInfo(updates.country);
-      await _db.ref(`users/${currentUser.uid}/wallet`).update({currency:info.currency,symbol:info.symbol});
-    }
     if(!userRecord.personal) userRecord.personal={};
     Object.assign(userRecord.personal,updates);
     renderHero(); renderPersonalInfo();
     closeDialog("dlg-edit-personal");
     showToast("✓ Profile saved!","ok");
     pushNotification("✏️","Profile Updated","Your personal information has been updated.");
-    sendTG(`✏️ *Profile Updated*\n👤 ${fullName||currentUser.email}\n🌍 ${updates.country}\n🆔 ${currentUser.uid}`);
+    sendTG(`✏️ *Profile Updated*\n👤 ${fullName||currentUser.email}\n🌍 ${updates.country}\n💱 Wallet currency unchanged: ${userWallet.currency}\n🆔 ${currentUser.uid}`);
   }catch(e){showToast("Unable to save profile. Please try again.","err");}
   btn.innerHTML="<i class='fa fa-check'></i> Save Changes"; btn.disabled=false;
 }
@@ -1643,9 +1950,9 @@ document.getElementById("cp-new").addEventListener("input",function(){
   const v=this.value;const el=document.getElementById("cp-strength");
   if(!v){el.style.display="none";return;}
   el.style.display="block";
-  if(v.length<6) el.textContent="Weak password";
-  else if(v.length<8||!/[A-Z]/.test(v)||!/[0-9]/.test(v)) el.textContent="Moderate password";
-  else el.textContent="Strong password ✓";
+  if(v.length<6){el.textContent="Weak password";}
+  else if(v.length<8||!/[A-Z]/.test(v)||!/[0-9]/.test(v)){el.textContent="Moderate password";}
+  else{el.textContent="Strong password ✓";}
   el.style.color=v.length<6?"var(--red)":v.length<8?"var(--gold)":"var(--green)";
 });
 async function changePassword(){
@@ -1703,7 +2010,7 @@ async function changeEmail(){
 }
 
 /* ═══════════════════════════════════════
-   SUBSCRIPTION
+   SUBSCRIPTION — Uses country pricing directly
 ═══════════════════════════════════════ */
 function renderSubscriptionTab(){
   const sub=userRecord?.subscription||{};
@@ -1732,7 +2039,7 @@ function renderSubscriptionTab(){
       ${infoRow("fa-clock","Remaining",daysLeft===0?"< 1 day":daysLeft+" day"+(daysLeft!==1?"s":"")+" left","",daysLeft<=1?"err":daysLeft<=3?"warn":"ok")}
       ${infoRow("fa-video","Video Quality",sub.video_quality||"SD")}
       ${infoRow("fa-display","Max Screens",String(sub.max_screens||1))}
-      ${infoRow("fa-dollar-sign","Last Payment",sub.currency+" "+(sub.last_payment_amount||"—"))}
+      ${infoRow("fa-dollar-sign","Last Payment",`${sub.currency||""} ${sub.last_payment_amount||"—"}`)}
       ${infoRow("fa-credit-card","Payment Method",sub.payment_method||"—")}
       ${infoRow("fa-ad","Ads",sub.ads_enabled===false?"Disabled":"Enabled")}
       <div style="margin-top:14px;">
@@ -1747,15 +2054,17 @@ function renderSubscriptionTab(){
 }
 
 function renderPlanList(){
+  // Use wallet currency to find pricing, fallback to country
+  const walletCurrency=userWallet.currency||"NGN";
   const country=userRecord?.personal?.country||"Nigeria";
-  const info=getCountryInfo(country);
-  const plans=PLANS_CONFIG[info.zone]||PLANS_CONFIG["USD"];
+  // Find country info by wallet currency first, then by country name
+  let info=COUNTRIES.find(c=>c.currency===walletCurrency)||getCountryInfo(country);
   const sub=userRecord?.subscription||{};
   const isActive=sub.sub_status==="true"||sub.sub_status===true;
   const activePlanId=sub.plan_id||"";
   const bal=Number(userWallet.balance||0);
   let html="";
-  plans.forEach(p=>{
+  PLAN_DEFS.forEach(p=>{
     const price=getPlanPrice(p,info);
     const canAfford=bal>=price;
     const isCurrent=p.id===activePlanId&&isActive;
@@ -1767,7 +2076,7 @@ function renderPlanList(){
       ${badge}
       <div class="plan-header"><span class="plan-name">${xe(p.name)}</span><span class="plan-price">${info.symbol}${price.toLocaleString()}</span></div>
       <div class="plan-desc">${xe(p.desc)}</div>
-      ${canAfford?`<div class="plan-can-afford"><i class="fa fa-wallet" style="font-size:9px;"></i> Can pay from wallet</div>`:`<div class="plan-cant-afford">Pay via bank transfer</div>`}
+      ${canAfford?`<div class="plan-can-afford"><i class="fa fa-wallet" style="font-size:9px;"></i> Can pay from wallet (${info.symbol}${bal.toLocaleString()} available)</div>`:`<div class="plan-cant-afford">Wallet: ${info.symbol}${bal.toLocaleString()} · Pay via bank transfer</div>`}
     </div>`;
   });
   document.getElementById("plan-list").innerHTML=html;
@@ -1778,10 +2087,10 @@ window.selectPlan=function(id){
   document.querySelectorAll(".plan-card").forEach(el=>{
     el.classList.toggle("selected",el.id==="plancard-"+id);
   });
+  const walletCurrency=userWallet.currency||"NGN";
   const country=userRecord?.personal?.country||"Nigeria";
-  const info=getCountryInfo(country);
-  const plans=PLANS_CONFIG[info.zone]||PLANS_CONFIG["USD"];
-  const plan=plans.find(p=>p.id===id);
+  let info=COUNTRIES.find(c=>c.currency===walletCurrency)||getCountryInfo(country);
+  const plan=PLAN_DEFS.find(p=>p.id===id);
   if(!plan) return;
   const price=getPlanPrice(plan,info);
   const bal=Number(userWallet.balance||0);
@@ -1798,23 +2107,23 @@ window.selectPlan=function(id){
 
 async function activateSelectedPlan(){
   if(!selectedPlanId){showToast("Select a plan first","err");return;}
+  const walletCurrency=userWallet.currency||"NGN";
   const country=userRecord?.personal?.country||"Nigeria";
-  const info=getCountryInfo(country);
-  const plans=PLANS_CONFIG[info.zone]||PLANS_CONFIG["USD"];
-  const plan=plans.find(p=>p.id===selectedPlanId);
+  let info=COUNTRIES.find(c=>c.currency===walletCurrency)||getCountryInfo(country);
+  const plan=PLAN_DEFS.find(p=>p.id===selectedPlanId);
   if(!plan) return;
   const price=getPlanPrice(plan,info);
-  const bal=Number(userWallet.balance||0);
   const isActive=userRecord?.subscription?.sub_status==="true"||userRecord?.subscription?.sub_status===true;
   if(isActive){
-    showConfirm("⚠️","Replace Active Plan?",`You have an active plan. Activating "${plan.name}" will replace it. Continue?`,"btn-primary","Yes, Replace",async()=>{await _doActivatePlan(plan,price,info,bal);});
+    showConfirm("⚠️","Replace Active Plan?",`You have an active plan. Activating "${plan.name}" will replace it. Continue?`,"btn-primary","Yes, Replace",async()=>{await _doActivatePlan(plan,price,info);});
     return;
   }
-  await _doActivatePlan(plan,price,info,bal);
+  await _doActivatePlan(plan,price,info);
 }
 
-async function _doActivatePlan(plan,price,info,bal){
+async function _doActivatePlan(plan,price,info){
   const btn=document.getElementById("plan-activate-btn");
+  const bal=Number(userWallet.balance||0);
   if(bal>=price){
     btn.innerHTML='<span class="spin"></span> Activating…'; btn.disabled=true;
     try{
@@ -1825,9 +2134,9 @@ async function _doActivatePlan(plan,price,info,bal){
       await _db.ref(`users/${currentUser.uid}/subscription`).update({
         sub_status:"true",expiry_date:exp,plan_tier:plan.name,plan_id:plan.id,
         billing_cycle:plan.cycle,watch_access:true,
-        video_quality:plan.limited?"SD":"HD",max_screens:plan.limited?1:2,
-        ads_enabled:plan.limited,currency:info.currency,last_payment:now,
-        last_payment_amount:price,payment_method:"Wallet Balance"
+        video_quality:plan.type==="basic"?"SD":"HD",max_screens:plan.type==="basic"?1:2,
+        ads_enabled:plan.type==="basic",currency:info.currency,last_payment:now,
+        last_payment_amount:price,payment_method:"Wallet Balance",plan_type:plan.type
       });
       await _db.ref(`users/${currentUser.uid}/wallet`).update({balance:newBal,last_updated:firebase.database.ServerValue.TIMESTAMP});
       const txKey=_db.ref(`transactions/${currentUser.uid}`).push().key;
@@ -1842,29 +2151,31 @@ async function _doActivatePlan(plan,price,info,bal){
       userWallet.balance=newBal;
       renderHero(); renderSubscriptionTab(); updateWalletDisplay(); loadTransactions();
       document.getElementById("plan-success-title").textContent=`${plan.name} Activated! 🎉`;
-      document.getElementById("plan-success-msg").textContent=`Enjoy streaming! ${info.symbol}${price.toLocaleString()} deducted. Expires ${new Date(exp).toLocaleString()}.`;
+      document.getElementById("plan-success-msg").textContent=`Enjoy streaming! ${info.symbol}${price.toLocaleString()} deducted from wallet. Expires ${new Date(exp).toLocaleString()}.`;
       openDialog("dlg-plan-success");
       pushNotification("✅",`${plan.name} Activated`,`${info.symbol}${price.toLocaleString()} deducted. Expires: ${new Date(exp).toLocaleString()}.`);
-      sendTG(`⚡ *Plan Activated*\n👤 ${userRecord?.personal?.username||currentUser.email}\n📦 ${plan.name}\n💰 ${info.symbol}${price}\n🆔 ${currentUser.uid}`);
+      sendTG(`⚡ *Plan Activated*\n👤 ${userRecord?.personal?.username||currentUser.email}\n📦 ${plan.name}\n💰 ${info.symbol}${price}\n💱 ${info.currency}\n🆔 ${currentUser.uid}`);
     }catch(e){showToast("Activation failed. Please try again.","err");}
     btn.innerHTML=`<i class="fa fa-play"></i> Activate Selected Plan`; btn.disabled=false;
   } else {
+    // Not enough balance — open email
     const uid=currentUser.uid;
     const name=userRecord?.personal?.display_name||currentUser.email||"User";
-    window.open(`mailto:ng.spark.tv@gmail.com?subject=Spark TV - ${encodeURIComponent(plan.name)} Subscription&body=Hello,%0A%0AI want to subscribe to Spark TV.%0A%0AName: ${encodeURIComponent(name)}%0AUser ID: ${uid}%0APlan: ${encodeURIComponent(plan.name)}%0AAmount: ${info.symbol}${price}%0ACurrency: ${info.currency}%0A%0APlease activate my account after payment.%0AThank you!`,"_blank");
+    const emailAddr=EMAILS.primary;
+    window.open(`mailto:${emailAddr}?subject=Spark TV - ${encodeURIComponent(plan.name)} Subscription&body=Hello,%0A%0AI want to subscribe to Spark TV.%0A%0AName: ${encodeURIComponent(name)}%0AUser ID: ${uid}%0APlan: ${encodeURIComponent(plan.name)}%0AAmount: ${info.symbol}${price}%0ACurrency: ${info.currency}%0A%0APlease activate my account after payment.%0AThank you!`,"_blank");
     const txKey=_db.ref(`transactions/${currentUser.uid}`).push().key;
     _db.ref(`transactions/${currentUser.uid}/${txKey}`).set({
       title:plan.name+" Subscription",type:"debit",status:"pending",amount:price,
       currency:info.currency,symbol:info.symbol,payment_method:"Manual Transfer",
       plan_tier:plan.name,timestamp:firebase.database.ServerValue.TIMESTAMP
     }).catch(()=>{});
-    showToast("📧 Payment email opened. We'll activate after confirmation!","info");
+    showToast(`📧 Email opened to ${emailAddr}. We activate after payment!`,"info");
     loadTransactions();
   }
 }
 
 /* ═══════════════════════════════════════
-   CUSTOM DATE PLAN
+   CUSTOM DATE PLAN — uses wallet currency pricing
 ═══════════════════════════════════════ */
 function setTodayDates(){
   const today=new Date().toISOString().split("T")[0];
@@ -1885,19 +2196,19 @@ window.calcCustomPlan=function(){
   const endMs=new Date(end).getTime()+86399000;
   if(endMs<=startMs){result.style.display="block";result.innerHTML="⚠️ End date must be after start date.";activateBtn.style.display="none";return;}
   const days=Math.ceil((endMs-startMs)/86400000);
-  const country=userRecord?.personal?.country||"Nigeria";
-  const info=getCountryInfo(country);
-  const dailyRate=type==="full"?(info.zone==="NGN"?200:info.zone==="USD"?.2:.2):(info.zone==="NGN"?100:info.zone==="USD"?.1:.1);
-  let price=Math.round(dailyRate*days);
-  if(liveRateLoaded&&exchangeRates&&info.currency!=="USD"&&info.currency!=="NGN"){
-    const usdRate=exchangeRates[info.currency];
-    if(usdRate) price=Math.round((type==="full"?.2:.1)*days*usdRate);
-  }
+  // Use wallet currency for pricing
+  const walletCurrency=userWallet.currency||"NGN";
+  let info=COUNTRIES.find(c=>c.currency===walletCurrency)||getCountryInfo(userRecord?.personal?.country||"Nigeria");
+  // Daily rate = monthly price / 30
+  const monthlyPrice=type==="full"?info.monthly_full:info.monthly_basic;
+  const dailyRate=monthlyPrice/30;
+  const price=Math.round(dailyRate*days);
   result.style.display="block";
   result.innerHTML=`<strong>${days} day${days!==1?"s":""}</strong> — ${new Date(startMs).toLocaleDateString()} → ${new Date(endMs).toLocaleDateString()}<br/>
     Type: <strong>${type==="full"?"Full HD (All Channels)":"Basic SD (Limited)"}</strong><br/>
-    Price: <strong style="color:var(--accent);">${info.symbol}${price.toLocaleString()}</strong>
-    ${Number(userWallet.balance)>=price?'<span style="color:var(--green);font-size:11px;margin-left:8px;">✓ Wallet balance sufficient</span>':'<span style="color:var(--mt);font-size:11px;margin-left:8px;">Pay via transfer</span>'}`;
+    Daily Rate: <strong>${info.symbol}${dailyRate.toLocaleString(undefined,{maximumFractionDigits:2})}</strong><br/>
+    Total Price: <strong style="color:var(--accent);font-size:15px;">${info.symbol}${price.toLocaleString()}</strong>
+    ${Number(userWallet.balance)>=price?'<span style="color:var(--green);font-size:11px;margin-left:8px;">✓ Wallet balance sufficient</span>':'<span style="color:var(--mt);font-size:11px;margin-left:8px;">Insufficient wallet balance — pay via transfer</span>'}`;
   activateBtn.style.display="block";
   activateBtn.dataset.days=days;
   activateBtn.dataset.price=price;
@@ -1913,10 +2224,10 @@ async function activateCustomPlan(){
   const type=btn.dataset.type;
   const startMs=Number(btn.dataset.startMs);
   const endMs=Number(btn.dataset.endMs);
-  const country=userRecord?.personal?.country||"Nigeria";
-  const info=getCountryInfo(country);
+  const walletCurrency=userWallet.currency||"NGN";
+  let info=COUNTRIES.find(c=>c.currency===walletCurrency)||getCountryInfo(userRecord?.personal?.country||"Nigeria");
   const bal=Number(userWallet.balance||0);
-  const planName=`Custom ${days}d ${type==="full"?"Full":"Basic"}`;
+  const planName=`Custom ${days}d ${type==="full"?"Full HD":"Basic SD"}`;
   if(bal>=price){
     btn.innerHTML='<span class="spin"></span> Activating…'; btn.disabled=true;
     try{
@@ -1943,36 +2254,42 @@ async function activateCustomPlan(){
       Object.assign(userRecord.subscription,{sub_status:"true",expiry_date:endMs,plan_tier:planName,plan_id:"custom"});
       renderHero(); renderSubscriptionTab(); updateWalletDisplay(); loadTransactions();
       document.getElementById("plan-success-title").textContent="Custom Plan Activated! 🎉";
-      document.getElementById("plan-success-msg").textContent=`${days} days of streaming! Expires ${new Date(endMs).toLocaleDateString()}.`;
+      document.getElementById("plan-success-msg").textContent=`${days} days of streaming! ${info.symbol}${price.toLocaleString()} deducted. Expires ${new Date(endMs).toLocaleDateString()}.`;
       openDialog("dlg-plan-success");
       pushNotification("📅","Custom Plan Activated",`${days} days. ${info.symbol}${price.toLocaleString()} deducted.`);
       sendTG(`📅 *Custom Plan*\n👤 ${currentUser.email}\n📦 ${planName}\n💰 ${info.symbol}${price}\n🆔 ${currentUser.uid}`);
     }catch(e){showToast("Activation failed. Please try again.","err");}
     btn.innerHTML="<i class='fa fa-calendar-check'></i> Activate Custom Plan"; btn.disabled=false;
   } else {
-    window.open(`mailto:ng.spark.tv@gmail.com?subject=Spark TV Custom Plan&body=Hello,%0A%0AUser ID: ${currentUser.uid}%0APlan: ${planName}%0AAmount: ${info.symbol}${price}%0ADays: ${days}%0AType: ${type}%0AStart: ${new Date(startMs).toLocaleDateString()}%0AEnd: ${new Date(endMs).toLocaleDateString()}%0A%0APlease activate.%0AThank you!`,"_blank");
+    const emailAddr=EMAILS.primary;
+    window.open(`mailto:${emailAddr}?subject=Spark TV Custom Plan&body=Hello,%0A%0AUser ID: ${currentUser.uid}%0APlan: ${planName}%0AAmount: ${info.symbol}${price}%0ADays: ${days}%0AType: ${type}%0AStart: ${new Date(startMs).toLocaleDateString()}%0AEnd: ${new Date(endMs).toLocaleDateString()}%0A%0APlease activate.%0AThank you!`,"_blank");
     showToast("📧 Email opened!","info");
   }
 }
 
 /* ═══════════════════════════════════════
-   WALLET
+   WALLET — Shows wallet currency pricing
 ═══════════════════════════════════════ */
 function renderWalletTab(){
   updateWalletDisplay();
   buildFundGrid();
   document.getElementById("custom-fund-prefix").textContent=userWallet.symbol;
   document.getElementById("transfer-prefix").textContent=userWallet.symbol;
+  document.getElementById("transfer-currency-note").textContent=userWallet.currency;
+  document.getElementById("fund-currency-label").textContent=userWallet.currency;
 }
 
 function updateWalletDisplay(){
   const bal=Number(userWallet.balance||0);
   document.getElementById("wallet-amount-display").textContent=`${userWallet.symbol}${bal.toLocaleString()}`;
   document.getElementById("nav-bal-text").textContent=`${userWallet.symbol}${bal.toLocaleString()}`;
-  const country=userRecord?.personal?.country||"Nigeria";
-  const info=getCountryInfo(country);
-  document.getElementById("wallet-currency-lbl").textContent=`${info.currency} • ${info.name}`;
+  const walletCurrency=userWallet.currency||"NGN";
+  let info=COUNTRIES.find(c=>c.currency===walletCurrency)||{name:walletCurrency,currency:walletCurrency,symbol:userWallet.symbol};
+  document.getElementById("wallet-currency-lbl").textContent=`${info.currency} — ${info.name||""}`;
+  document.getElementById("wallet-currency-code").textContent=info.currency;
   updateRateInfo(info,bal);
+  const hsBal=document.getElementById("hs-bal");
+  if(hsBal) hsBal.textContent=userWallet.symbol+bal.toLocaleString();
 }
 
 function updateRateInfo(info,bal){
@@ -1982,49 +2299,45 @@ function updateRateInfo(info,bal){
   if(liveRateLoaded&&exchangeRates){
     if(info.currency==="USD"){
       if(usdEl) usdEl.textContent=`$${bal.toFixed(2)}`;
-      rateEl.innerHTML=`1 Hour of streaming = <span class="rate-live">${info.symbol}${info.hourly.toLocaleString()}</span>`;
+      rateEl.innerHTML=`1 Month Full HD = <span class="rate-live">${info.symbol}${info.monthly_full||5}</span>`;
     } else if(info.currency==="NGN"){
       const usdBal=(bal/1600).toFixed(2);
       if(usdEl) usdEl.textContent=`$${usdBal}`;
-      rateEl.innerHTML=`≈ <span class="rate-live">$${usdBal} USD</span> &nbsp;·&nbsp; 1 Hour = ${info.symbol}${info.hourly.toLocaleString()}`;
+      rateEl.innerHTML=`1 Month Full HD = <span class="rate-live">₦${(info.monthly_full||5000).toLocaleString()}</span> &nbsp;·&nbsp; ≈ $${usdBal} USD`;
     } else {
       const rate=exchangeRates[info.currency];
       if(rate){
         const usdBal=(bal/rate).toFixed(2);
         if(usdEl) usdEl.textContent=`$${usdBal}`;
-        rateEl.innerHTML=`≈ <span class="rate-live">$${usdBal} USD</span> &nbsp;·&nbsp; 1 USD = ${info.symbol}${rate.toLocaleString()}`;
+        rateEl.innerHTML=`1 Month Full HD = <span class="rate-live">${info.symbol}${(info.monthly_full||5).toLocaleString()}</span> &nbsp;·&nbsp; 1 USD = ${info.symbol}${rate.toLocaleString()}`;
       }
     }
   } else {
-    rateEl.innerHTML=`1 Hour = <span class="rate-live">${info.symbol}${info.hourly.toLocaleString()}</span>`;
+    rateEl.innerHTML=`1 Month Full HD = <span class="rate-live">${info.symbol}${(info.monthly_full||5000).toLocaleString()}</span>`;
     if(usdEl) usdEl.textContent="—";
   }
-  // Also update hero stat
-  const hsBal=document.getElementById("hs-bal");
-  if(hsBal) hsBal.textContent=userWallet.symbol+Number(userWallet.balance||0).toLocaleString();
 }
 
 function buildFundGrid(){
-  const country=userRecord?.personal?.country||"Nigeria";
-  const info=getCountryInfo(country);
+  const walletCurrency=userWallet.currency||"NGN";
+  let info=COUNTRIES.find(c=>c.currency===walletCurrency)||getCountryInfo(userRecord?.personal?.country||"Nigeria");
   const tiers=[
-    {label:"1 Hour",amount:info.hourly,sublabel:"Basic"},
-    {label:"5 Hours",amount:info.hourly*5,sublabel:"Popular"},
-    {label:"10 Hours",amount:info.hourly*10,sublabel:"Value"},
-    {label:"1 Month",amount:info.hourly*30,sublabel:"Monthly"},
-    {label:"3 Months",amount:info.hourly*90,sublabel:"Save"},
-    {label:"Custom",amount:0,sublabel:"Enter below"},
+    {label:"1 Hour",amount:Math.round(info.hourly),sublabel:"Quick Access"},
+    {label:"1 Month Basic",amount:info.monthly_basic,sublabel:"SD Quality"},
+    {label:"1 Month Full",amount:info.monthly_full,sublabel:"HD All Channels"},
+    {label:"3 Months",amount:Math.round(info.monthly_full*3*0.9),sublabel:"Save 10%"},
+    {label:"6 Months",amount:Math.round(info.monthly_full*6*0.85),sublabel:"Save 15%"},
+    {label:"1 Year",amount:Math.round(info.monthly_full*12*0.8),sublabel:"Save 20%"},
   ];
   document.getElementById("fund-grid").innerHTML=tiers.map((t,i)=>`
-    <div class="fund-amt${i===1?" sel":""}" onclick="selectFundAmt(this,${t.amount},'${info.symbol}',${t.amount===0})" ${t.amount===0?"data-custom='true'":""}>
-      <span class="fa-value">${t.amount===0?"✏️":`${info.symbol}${t.amount.toLocaleString()}`}</span>
+    <div class="fund-amt${i===2?" sel":""}" onclick="selectFundAmt(this,${t.amount},'${info.symbol}')">
+      <span class="fa-value">${info.symbol}${t.amount.toLocaleString()}</span>
       <span class="fa-label">${t.label}${t.sublabel?" · "+t.sublabel:""}</span>
     </div>`).join("");
-  selectedFundAmount=tiers[1].amount;
+  selectedFundAmount=tiers[2].amount;
 }
 
-window.selectFundAmt=function(el,amount,symbol,isCustom){
-  if(isCustom){document.getElementById("custom-fund-amount").focus();return;}
+window.selectFundAmt=function(el,amount,symbol){
   selectedFundAmount=amount;
   document.querySelectorAll(".fund-amt").forEach(f=>f.classList.remove("sel"));
   el.classList.add("sel");
@@ -2035,40 +2348,134 @@ window.onCustomFundInput=function(val){
   document.querySelectorAll(".fund-amt").forEach(f=>f.classList.remove("sel"));
 };
 
+/* ═══════════════════════════════════════
+   EMAIL SELECTION
+═══════════════════════════════════════ */
+window.selectFundEmail=function(type){
+  selectedFundEmail=type;
+  const pOpt=document.getElementById("fund-email-opt-primary");
+  const sOpt=document.getElementById("fund-email-opt-secondary");
+  const pCheck=document.getElementById("fund-check-primary");
+  const sCheck=document.getElementById("fund-check-secondary");
+  if(type==="primary"){
+    pOpt.classList.add("selected"); sOpt.classList.remove("selected");
+    pCheck.className="fa fa-check-circle"; pCheck.style.color="var(--spark)";
+    sCheck.className="fa fa-circle"; sCheck.style.color="var(--mt)";
+  } else {
+    sOpt.classList.add("selected"); pOpt.classList.remove("selected");
+    sCheck.className="fa fa-check-circle"; sCheck.style.color="var(--spark)";
+    pCheck.className="fa fa-circle"; pCheck.style.color="var(--mt)";
+  }
+};
+
+window.selectTicketEmail=function(type){
+  selectedTicketEmail=type;
+  const pOpt=document.getElementById("ticket-email-opt-primary");
+  const sOpt=document.getElementById("ticket-email-opt-secondary");
+  const pCheck=document.getElementById("ticket-check-primary");
+  const sCheck=document.getElementById("ticket-check-secondary");
+  if(type==="primary"){
+    pOpt.classList.add("selected"); sOpt.classList.remove("selected");
+    pCheck.className="fa fa-check-circle"; pCheck.style.color="var(--spark)";
+    sCheck.className="fa fa-circle"; sCheck.style.color="var(--mt)";
+  } else {
+    sOpt.classList.add("selected"); pOpt.classList.remove("selected");
+    sCheck.className="fa fa-check-circle"; sCheck.style.color="var(--spark)";
+    pCheck.className="fa fa-circle"; pCheck.style.color="var(--mt)";
+  }
+};
+
 function openFundWallet(){
   if(!selectedFundAmount||selectedFundAmount<=0){showToast("Enter an amount first","err");return;}
-  const country=userRecord?.personal?.country||"Nigeria";
-  const info=getCountryInfo(country);
+  const walletCurrency=userWallet.currency||"NGN";
+  let info=COUNTRIES.find(c=>c.currency===walletCurrency)||getCountryInfo(userRecord?.personal?.country||"Nigeria");
   document.getElementById("fund-confirm-amount").textContent=`${info.symbol}${selectedFundAmount.toLocaleString()}`;
   document.getElementById("fund-confirm-amount2").textContent=`${info.symbol}${selectedFundAmount.toLocaleString()}`;
+  selectedFundEmail="primary"; // Reset to primary
+  selectFundEmail("primary");
   openDialog("dlg-fund");
 }
+
 window.payViaEmail=function(){
-  const country=userRecord?.personal?.country||"Nigeria";
-  const info=getCountryInfo(country);
+  const walletCurrency=userWallet.currency||"NGN";
+  let info=COUNTRIES.find(c=>c.currency===walletCurrency)||getCountryInfo(userRecord?.personal?.country||"Nigeria");
   const uid=currentUser.uid;
   const name=userRecord?.personal?.display_name||currentUser.email||"User";
-  window.open(`mailto:ng.spark.tv@gmail.com?subject=Spark TV Wallet Fund Request&body=Hello,%0A%0AName: ${encodeURIComponent(name)}%0AUser ID: ${uid}%0AAmount: ${info.symbol}${selectedFundAmount}%0ACurrency: ${info.currency}%0A%0APlease credit my wallet after payment.%0AThank you!`,"_blank");
+  const emailAddr=EMAILS[selectedFundEmail]||EMAILS.primary;
+  window.open(`mailto:${emailAddr}?subject=Spark TV Wallet Fund Request&body=Hello,%0A%0AName: ${encodeURIComponent(name)}%0AUser ID: ${uid}%0AAmount: ${info.symbol}${selectedFundAmount}%0ACurrency: ${info.currency}%0A%0APlease credit my wallet after payment.%0AThank you!`,"_blank");
   const txKey=_db.ref(`transactions/${uid}`).push().key;
   _db.ref(`transactions/${uid}/${txKey}`).set({
     title:"Wallet Top-Up",type:"credit",status:"pending",amount:selectedFundAmount,
     currency:info.currency,symbol:info.symbol,payment_method:"Manual Transfer",
     timestamp:firebase.database.ServerValue.TIMESTAMP
   }).catch(()=>{});
-  sendTG(`💳 *Fund Request*\n👤 ${name}\n💰 ${info.symbol}${selectedFundAmount}\n💱 ${info.currency}\n🆔 ${uid}`);
+  sendTG(`💳 *Fund Request*\n👤 ${name}\n💰 ${info.symbol}${selectedFundAmount}\n💱 ${info.currency}\n📧 Sent to: ${emailAddr}\n🆔 ${uid}`);
   closeDialog("dlg-fund");
-  showToast("📧 Email opened! We'll credit your wallet after confirmation.","info");
+  showToast(`📧 Email opened to ${emailAddr}! We'll credit your wallet after confirmation.`,"info");
   loadTransactions();
 };
+
 window.copyPaymentDetails=function(){
-  const country=userRecord?.personal?.country||"Nigeria";
-  const info=getCountryInfo(country);
-  const txt=`Spark TV Wallet Fund\nUser ID: ${currentUser.uid}\nAmount: ${info.symbol}${selectedFundAmount}\nEmail: ng.spark.tv@gmail.com`;
+  const walletCurrency=userWallet.currency||"NGN";
+  let info=COUNTRIES.find(c=>c.currency===walletCurrency)||getCountryInfo(userRecord?.personal?.country||"Nigeria");
+  const emailAddr=EMAILS[selectedFundEmail]||EMAILS.primary;
+  const txt=`Spark TV Wallet Fund\nUser ID: ${currentUser.uid}\nAmount: ${info.symbol}${selectedFundAmount}\nCurrency: ${info.currency}\nEmail: ${emailAddr}`;
   navigator.clipboard.writeText(txt).then(()=>showToast("✓ Details copied!","ok")).catch(()=>showToast("Copy failed","err"));
 };
 
 /* ═══════════════════════════════════════
-   TRANSFER — IMPROVED SEARCH
+   SUPPORT
+═══════════════════════════════════════ */
+window.openEmailSupport=function(emailType,category){
+  const emailAddr=EMAILS[emailType]||EMAILS.primary;
+  const uid=currentUser.uid;
+  const name=userRecord?.personal?.display_name||currentUser.email||"User";
+  const subjects={general:"General Support",payment:"Payment / Wallet Issue",technical:"Technical Issue",subscription:"Subscription Inquiry"};
+  const subj=subjects[category]||"Support Request";
+  window.open(`mailto:${emailAddr}?subject=Spark TV - ${encodeURIComponent(subj)}&body=Hello Spark TV Support,%0A%0AName: ${encodeURIComponent(name)}%0AUser ID: ${uid}%0AIssue: [Describe your issue here]%0A%0AThank you!`,"_blank");
+  showToast(`📧 Email opened to ${emailAddr}`,"info");
+};
+
+window.submitSupportTicket=function(){
+  const category=document.getElementById("support-category").value;
+  const message=document.getElementById("support-message").value.trim();
+  const emailAddr=EMAILS[selectedTicketEmail]||EMAILS.primary;
+  if(!message){showToast("Please describe your issue","err");return;}
+  const uid=currentUser.uid;
+  const name=userRecord?.personal?.display_name||currentUser.email||"User";
+  const catMap={subscription:"Subscription / Activation",payment:"Payment / Wallet",technical:"Technical Issue",transfer:"Transfer Issue",referral:"Referral Problem",account:"Account Access",other:"Other"};
+  window.open(`mailto:${emailAddr}?subject=Spark TV Support - ${encodeURIComponent(catMap[category]||category)}&body=Hello Spark TV Support,%0A%0AName: ${encodeURIComponent(name)}%0AUser ID: ${uid}%0ACategory: ${catMap[category]||category}%0A%0AIssue:%0A${encodeURIComponent(message)}%0A%0AThank you!`,"_blank");
+  sendTG(`🎫 *Support Ticket*\n👤 ${name}\n📋 ${catMap[category]}\n💬 ${message.substring(0,200)}\n📧 ${emailAddr}\n🆔 ${uid}`);
+  closeDialog("dlg-contact-support");
+  showToast(`✓ Ticket email opened to ${emailAddr}!`,"ok");
+  document.getElementById("support-message").value="";
+};
+
+function renderSupportAccountInfo(){
+  const p=userRecord?.personal||{};
+  const el=document.getElementById("support-account-info");
+  if(!el) return;
+  const uid=currentUser.uid;
+  const acctId=p.account_id||"—";
+  const name=p.display_name||currentUser.displayName||currentUser.email||"—";
+  el.innerHTML=`
+    ${infoRow("fa-user","Name",name)}
+    ${infoRow("fa-fingerprint","User ID",uid.substring(0,16)+"…")}
+    ${infoRow("fa-id-card","Account ID",acctId)}
+    ${infoRow("fa-coins","Currency",userWallet.currency)}
+    ${infoRow("fa-globe","Country",p.country||"—")}
+  `;
+}
+
+window.copyAccountInfoForSupport=function(){
+  const p=userRecord?.personal||{};
+  const name=p.display_name||currentUser.displayName||currentUser.email||"—";
+  const txt=`Name: ${name}\nUser ID: ${currentUser.uid}\nAccount ID: ${p.account_id||"—"}\nEmail: ${currentUser.email||"—"}\nCurrency: ${userWallet.currency}\nCountry: ${p.country||"—"}`;
+  navigator.clipboard.writeText(txt).then(()=>showToast("✓ Account info copied!","ok")).catch(()=>showToast("Copy failed","err"));
+};
+
+/* ═══════════════════════════════════════
+   TRANSFER — Same currency only
 ═══════════════════════════════════════ */
 window.searchTransferUser=async function(){
   const query=(document.getElementById("transfer-search-input").value||"").trim();
@@ -2078,6 +2485,7 @@ window.searchTransferUser=async function(){
   amountWrap.style.display="none";
   if(!query){showToast("Enter an email, username or User ID","err");return;}
   resultEl.innerHTML='<div style="font-size:12px;color:var(--t2);padding:8px 0;"><span class="spin spin-dark"></span> Searching users…</div>';
+  const myCurrency=userWallet.currency||"NGN";
   try{
     let results=[];
     const q=query.toLowerCase();
@@ -2085,9 +2493,7 @@ window.searchTransferUser=async function(){
     // 1. Try exact UID
     try{
       const directSnap=await _db.ref(`users/${query}`).once("value");
-      if(directSnap.exists()&&query!==currentUser.uid){
-        results.push({uid:query,...directSnap.val()});
-      }
+      if(directSnap.exists()&&query!==currentUser.uid) results.push({uid:query,...directSnap.val()});
     }catch(e){}
 
     // 2. Search by email
@@ -2096,7 +2502,7 @@ window.searchTransferUser=async function(){
       emailSnap.forEach(c=>{if(c.key!==currentUser.uid) results.push({uid:c.key,...c.val()});});
     }
 
-    // 3. Search by username (case insensitive scan)
+    // 3. Search by username
     if(!results.length){
       const usernameSnap=await _db.ref("users").orderByChild("personal/username").once("value");
       usernameSnap.forEach(c=>{
@@ -2123,12 +2529,30 @@ window.searchTransferUser=async function(){
       return;
     }
 
-    // Show results
-    resultEl.innerHTML=`<div class="search-results-wrap">${results.slice(0,5).map(r=>{
+    // Filter for same currency only
+    const sameCurrency=results.filter(r=>(r.wallet?.currency||"NGN")===myCurrency);
+    const otherCurrency=results.filter(r=>(r.wallet?.currency||"NGN")!==myCurrency);
+
+    if(!sameCurrency.length&&otherCurrency.length){
+      resultEl.innerHTML=`<div style="font-size:12px;color:var(--red);padding:10px;background:rgba(255,61,61,.06);border:1px solid rgba(255,61,61,.2);border-radius:10px;">
+        <i class="fa fa-triangle-exclamation" style="margin-right:6px;"></i>
+        Found ${otherCurrency.length} user${otherCurrency.length>1?"s":""} but they use a different currency (${otherCurrency[0]?.wallet?.currency||"?"}).
+        You can only transfer to users with the same currency as you (<strong>${myCurrency}</strong>).
+      </div>`;
+      return;
+    }
+
+    const toShow=sameCurrency.slice(0,5);
+    let html=`<div class="search-results-wrap">`;
+    if(otherCurrency.length){
+      html+=`<div style="font-size:11px;color:var(--mt);margin-bottom:8px;"><i class="fa fa-circle-info"></i> Showing ${toShow.length} of ${results.length} results — ${otherCurrency.length} user(s) excluded due to currency mismatch</div>`;
+    }
+    html+=toShow.map(r=>{
       const p=r.personal||{};
       const name=p.display_name||p.username||((p.first_name||"")+" "+(p.last_name||"")).trim()||p.email||"Unknown";
       const photo=p.profile_url||"";
       const init=name.charAt(0).toUpperCase();
+      const rCurrency=r.wallet?.currency||"NGN";
       return `<div class="search-result-item" onclick="selectTransferUser('${xe(r.uid)}','${xe(name)}','${xe(p.email||"")}','${xe(photo)}')">
         <div class="ur-av">${photo?`<img src="${xe(photo)}" alt="" onerror="this.outerHTML='<span>${init}</span>'"/>`:init}</div>
         <div class="sri-info">
@@ -2136,9 +2560,11 @@ window.searchTransferUser=async function(){
           <div class="ur-email">${xe(p.email||"")}</div>
           <div class="sri-uid">ID: ${r.uid.substring(0,12)}…</div>
         </div>
-        <i class="fa fa-chevron-right" style="color:var(--mt);font-size:12px;"></i>
+        <span class="currency-match-badge"><i class="fa fa-check"></i> ${rCurrency}</span>
       </div>`;
-    }).join("")}</div>`;
+    }).join("");
+    html+=`</div>`;
+    resultEl.innerHTML=html;
   }catch(e){resultEl.innerHTML='<div style="font-size:12px;color:var(--red);padding:8px 0;">Search failed. Please check your connection and try again.</div>';}
 };
 
@@ -2152,7 +2578,7 @@ window.selectTransferUser=function(uid,name,email,photo){
         <div class="ur-name">${xe(name)}</div>
         <div class="ur-email">${xe(email||uid.substring(0,12)+"…")}</div>
       </div>
-      <i class="fa fa-check-circle" style="color:var(--green);margin-left:auto;font-size:18px;"></i>
+      <span class="currency-match-badge" style="margin-left:auto;"><i class="fa fa-check-circle"></i> Same Currency</span>
     </div>`;
   document.getElementById("transfer-amount-wrap").style.display="block";
   document.getElementById("transfer-amount").focus();
@@ -2165,10 +2591,9 @@ window.initiateTransfer=function(){
   const bal=Number(userWallet.balance||0);
   if(amount<=0){showToast("Enter a valid amount","err");return;}
   if(amount>bal){showToast("Insufficient wallet balance","err");return;}
-  const country=userRecord?.personal?.country||"Nigeria";
-  const info=getCountryInfo(country);
+  if(amount<1){showToast("Minimum transfer is 1 unit","err");return;}
   document.getElementById("transfer-confirm-body").innerHTML=`
-    You are about to send <strong style="color:var(--accent);font-size:16px;">${info.symbol}${amount.toLocaleString()}</strong> to:<br/><br/>
+    You are about to send <strong style="color:var(--accent);font-size:16px;">${userWallet.symbol}${amount.toLocaleString()}</strong> to:<br/><br/>
     <div style="background:var(--card2);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;margin-bottom:12px;">
       <div class="ur-av" style="width:40px;height:40px;flex-shrink:0;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,var(--spark),var(--accent));display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;">
         ${selectedTransferUser.photo?`<img src="${xe(selectedTransferUser.photo)}" style="width:100%;height:100%;object-fit:cover;" alt=""/>`:selectedTransferUser.name.charAt(0)}
@@ -2176,7 +2601,7 @@ window.initiateTransfer=function(){
       <div><div style="font-weight:800;">${xe(selectedTransferUser.name)}</div><div style="font-size:11px;color:var(--mt);">${xe(selectedTransferUser.email||selectedTransferUser.uid)}</div></div>
     </div>
     ${note?`<div style="font-size:12px;color:var(--t2);">Note: <em>"${xe(note)}"</em></div><br/>`:""}
-    Your new balance will be: <strong>${info.symbol}${(bal-amount).toLocaleString()}</strong><br/>
+    Your new balance: <strong>${userWallet.symbol}${(bal-amount).toLocaleString()}</strong><br/>
     <span style="color:var(--red);font-size:11px;font-weight:700;"><i class="fa fa-triangle-exclamation"></i> Transfers cannot be undone.</span>`;
   openDialog("dlg-transfer-confirm");
 };
@@ -2185,15 +2610,13 @@ window.confirmTransfer=async function(){
   const btn=document.getElementById("transfer-confirm-btn");
   const amount=Number(document.getElementById("transfer-amount").value||0);
   const note=document.getElementById("transfer-note").value.trim();
-  const country=userRecord?.personal?.country||"Nigeria";
-  const info=getCountryInfo(country);
   btn.innerHTML='<span class="spin"></span> Sending…'; btn.disabled=true;
   try{
     const myBal=Number(userWallet.balance||0);
     if(amount>myBal) throw new Error("Insufficient balance");
     await _db.ref(`users/${currentUser.uid}/wallet`).update({balance:myBal-amount,last_updated:firebase.database.ServerValue.TIMESTAMP});
     const receiverSnap=await _db.ref(`users/${selectedTransferUser.uid}/wallet`).once("value");
-    const receiverWallet=receiverSnap.val()||{balance:0,currency:info.currency,symbol:info.symbol};
+    const receiverWallet=receiverSnap.val()||{balance:0,currency:userWallet.currency,symbol:userWallet.symbol};
     await _db.ref(`users/${selectedTransferUser.uid}/wallet`).update({
       balance:Number(receiverWallet.balance||0)+amount,
       last_updated:firebase.database.ServerValue.TIMESTAMP
@@ -2202,29 +2625,29 @@ window.confirmTransfer=async function(){
     const txKey1=_db.ref(`transactions/${currentUser.uid}`).push().key;
     await _db.ref(`transactions/${currentUser.uid}/${txKey1}`).set({
       title:`Transfer to ${selectedTransferUser.name}`,type:"debit",status:"success",
-      amount,currency:info.currency,symbol:info.symbol,note,
+      amount,currency:userWallet.currency,symbol:userWallet.symbol,note,
       to_uid:selectedTransferUser.uid,payment_method:"Wallet Transfer",
       timestamp:firebase.database.ServerValue.TIMESTAMP
     });
     const txKey2=_db.ref(`transactions/${selectedTransferUser.uid}`).push().key;
     await _db.ref(`transactions/${selectedTransferUser.uid}/${txKey2}`).set({
       title:`Received from ${senderName}`,type:"credit",status:"success",
-      amount,currency:info.currency,symbol:info.symbol,note,
+      amount,currency:userWallet.currency,symbol:userWallet.symbol,note,
       from_uid:currentUser.uid,payment_method:"Wallet Transfer",
       timestamp:firebase.database.ServerValue.TIMESTAMP
     });
     const nk=_db.ref(`notifications/${selectedTransferUser.uid}`).push().key;
     await _db.ref(`notifications/${selectedTransferUser.uid}/${nk}`).set({
       type:"transfer",emoji:"💸",title:"Money Received!",
-      body:`You received ${info.symbol}${amount.toLocaleString()} from ${senderName}.${note?" Note: "+note:""}`,
+      body:`You received ${userWallet.symbol}${amount.toLocaleString()} from ${senderName}.${note?" Note: "+note:""}`,
       timestamp:firebase.database.ServerValue.TIMESTAMP,read:false
     });
     userWallet.balance=myBal-amount;
     updateWalletDisplay(); closeDialog("dlg-transfer-confirm"); loadTransactions();
-    document.getElementById("transfer-success-msg").textContent=`${info.symbol}${amount.toLocaleString()} sent to ${selectedTransferUser.name} successfully!`;
+    document.getElementById("transfer-success-msg").textContent=`${userWallet.symbol}${amount.toLocaleString()} sent to ${selectedTransferUser.name} successfully!`;
     openDialog("dlg-transfer-success");
-    pushNotification("💸","Transfer Sent",`${info.symbol}${amount.toLocaleString()} sent to ${selectedTransferUser.name}.`);
-    sendTG(`💸 *Transfer*\nFrom: ${senderName}\nTo: ${selectedTransferUser.name}\n💰 ${info.symbol}${amount}\n🆔 ${currentUser.uid} → ${selectedTransferUser.uid}`);
+    pushNotification("💸","Transfer Sent",`${userWallet.symbol}${amount.toLocaleString()} sent to ${selectedTransferUser.name}.`);
+    sendTG(`💸 *Transfer*\nFrom: ${senderName}\nTo: ${selectedTransferUser.name}\n💰 ${userWallet.symbol}${amount}\n💱 ${userWallet.currency}\n🆔 ${currentUser.uid} → ${selectedTransferUser.uid}`);
     document.getElementById("transfer-amount").value="";
     document.getElementById("transfer-note").value="";
     document.getElementById("transfer-search-input").value="";
@@ -2321,6 +2744,7 @@ async function loadTransactions(){
     renderTransactions("all");
     renderTxSummary();
     renderActivityLog();
+    renderStreamingStats();
   }catch(e){}
 }
 
@@ -2355,11 +2779,9 @@ function renderTransactions(filter){
     wrap.innerHTML='<div class="empty-state"><i class="fa fa-receipt"></i><h3>No transactions</h3><p>No transactions matching this filter.</p></div>';
     return;
   }
-  const country=userRecord?.personal?.country||"Nigeria";
-  const info=getCountryInfo(country);
   wrap.innerHTML=filtered.map(t=>{
     const isCredit=t.type==="credit";
-    const sym=t.symbol||info.symbol;
+    const sym=t.symbol||userWallet.symbol;
     const ico=t.status==="pending"?"fa-clock":isCredit?"fa-arrow-down":"fa-arrow-up";
     const iconCls=t.status==="pending"?"pending":isCredit?"credit":"debit";
     const amtCls=t.status==="pending"?"":""+iconCls;
@@ -2380,7 +2802,7 @@ function renderTransactions(filter){
 window.filterTransactions=function(filter){renderTransactions(filter);};
 
 /* ═══════════════════════════════════════
-   SETTINGS
+   SETTINGS — Country save does NOT change currency
 ═══════════════════════════════════════ */
 function applySettings(){
   setToggle("ads-toggle",prefs.ads);
@@ -2436,23 +2858,23 @@ window.onSettingsCountryChange=function(val){
   settingsPendingCountry=val;
   if(!val){document.getElementById("currency-preview").style.display="none";return;}
   const info=getCountryInfo(val);
-  document.getElementById("currency-preview-text").textContent=`${info.currency} (${info.symbol}) — 1 Hr = ${info.symbol}${info.hourly.toLocaleString()}`;
+  // Show country info but make clear currency won't change
+  document.getElementById("currency-preview-text").textContent=`Pricing for ${val}: 1 Month Full HD = ${info.symbol}${info.monthly_full.toLocaleString()} ${info.currency}`;
   document.getElementById("currency-preview").style.display="block";
 };
 
+// Save ONLY country — currency does NOT change
 window.saveCountrySettings=async function(){
   if(!settingsPendingCountry){showToast("No country selected","err");return;}
   try{
-    const info=getCountryInfo(settingsPendingCountry);
+    // Only update country, NOT wallet currency
     await _db.ref(`users/${currentUser.uid}/personal/country`).set(settingsPendingCountry);
-    await _db.ref(`users/${currentUser.uid}/wallet`).update({currency:info.currency,symbol:info.symbol});
     if(!userRecord.personal) userRecord.personal={};
     userRecord.personal.country=settingsPendingCountry;
-    userWallet.currency=info.currency; userWallet.symbol=info.symbol;
-    updateWalletDisplay(); buildFundGrid(); renderPlanList(); renderHero();
-    showToast("✓ Region updated!","ok");
-    pushNotification("🌍","Region Updated",`Country set to ${settingsPendingCountry}. Currency: ${info.currency}.`);
-  }catch(e){showToast("Could not save region settings","err");}
+    renderHero(); renderPersonalInfo();
+    showToast("✓ Country updated! Wallet currency unchanged.","ok");
+    pushNotification("🌍","Country Updated",`Country set to ${settingsPendingCountry}. Your wallet currency (${userWallet.currency}) was not changed.`);
+  }catch(e){showToast("Could not save country setting","err");}
 };
 
 function initColorPicker(){
@@ -2467,17 +2889,36 @@ function initColorPicker(){
 }
 
 /* ═══════════════════════════════════════
-   REFERRAL
+   REFERRAL — Fully working
 ═══════════════════════════════════════ */
 function renderReferralTab(){
   const ref=userRecord?.referral||{};
+  // Generate code if missing
   const code=ref.code||("SPARK-"+currentUser.uid.substring(0,6).toUpperCase());
-  const country=userRecord?.personal?.country||"Nigeria";
-  const info=getCountryInfo(country);
+  // Referral reward based on wallet currency
+  const walletCurrency=userWallet.currency||"NGN";
+  let info=COUNTRIES.find(c=>c.currency===walletCurrency)||getCountryInfo(userRecord?.personal?.country||"Nigeria");
+  // Reward = 10% of 1 month full price
+  const reward=Math.round(info.monthly_full*0.1);
+
   document.getElementById("referral-code").textContent=code;
   document.getElementById("ref-total").textContent=ref.total_referrals||0;
   document.getElementById("ref-active").textContent=ref.active_referrals||0;
   document.getElementById("ref-earned").textContent=`${info.symbol}${Number(ref.total_earned||0).toLocaleString()}`;
+  document.getElementById("ref-reward-text").textContent=`Earn ${info.symbol}${reward.toLocaleString()} for every friend who subscribes`;
+  document.getElementById("ref-how-reward").textContent=`${info.symbol}${reward.toLocaleString()}`;
+
+  // Show/hide apply form
+  const alreadyApplied=ref.referred_by&&ref.referred_by!=="";
+  const alreadyEl=document.getElementById("ref-already-applied");
+  const formEl=document.getElementById("ref-apply-form");
+  if(alreadyApplied){
+    alreadyEl.style.display="block";
+    formEl.style.display="none";
+  } else {
+    alreadyEl.style.display="none";
+    formEl.style.display="block";
+  }
 }
 
 window.copyReferralCode=function(){
@@ -2487,44 +2928,77 @@ window.copyReferralCode=function(){
 window.shareReferral=function(){
   const code=document.getElementById("referral-code").textContent;
   const url=`https://spark-tv-4ce3f.firebaseapp.com?ref=${code}`;
-  const text=`Join Spark TV and get amazing streaming! Use my code ${code} to sign up: ${url}`;
+  const walletCurrency=userWallet.currency||"NGN";
+  let info=COUNTRIES.find(c=>c.currency===walletCurrency)||getCountryInfo(userRecord?.personal?.country||"Nigeria");
+  const reward=Math.round(info.monthly_full*0.1);
+  const text=`🎬 Join Spark TV and stream unlimited content! Use my code ${code} and I'll earn ${info.symbol}${reward}. Sign up: ${url}`;
   if(navigator.share){navigator.share({title:"Join Spark TV",text,url}).catch(()=>{});}
-  else{navigator.clipboard.writeText(text).then(()=>showToast("✓ Link copied!","ok"));}
+  else{navigator.clipboard.writeText(text).then(()=>showToast("✓ Share link copied!","ok"));}
 };
 
 window.applyReferralCode=async function(){
   const code=document.getElementById("enter-ref-code").value.trim().toUpperCase();
-  if(!code||!code.startsWith("SPARK-")){showToast("Enter a valid referral code","err");return;}
-  if(userRecord?.referral?.referred_by){showToast("You already applied a referral code","err");return;}
+  if(!code||!code.startsWith("SPARK-")||code.length<10){showToast("Enter a valid referral code (e.g. SPARK-XXXXXX)","err");return;}
+  if(userRecord?.referral?.referred_by&&userRecord.referral.referred_by!==""){showToast("You've already applied a referral code","err");return;}
+  // Check if trying to use own code
+  const myCode=userRecord?.referral?.code||("SPARK-"+currentUser.uid.substring(0,6).toUpperCase());
+  if(code===myCode){showToast("You cannot use your own referral code","err");return;}
   showToast("Checking code…","info");
   try{
+    // Search all users for matching referral code
     const snap=await _db.ref("users").orderByChild("referral/code").equalTo(code).once("value");
     let refUid="",refData=null;
-    snap.forEach(c=>{if(c.key!==currentUser.uid){refUid=c.key;refData=c.val();}});
-    if(!refUid){showToast("Referral code not found","err");return;}
-    const country=userRecord?.personal?.country||"Nigeria";
-    const info=getCountryInfo(country);
-    const reward=info.zone==="NGN"?500:info.zone==="USD"?0.5:0.5;
+    snap.forEach(c=>{
+      if(c.key!==currentUser.uid){refUid=c.key;refData=c.val();}
+    });
+    if(!refUid){showToast("Referral code not found. Check and try again.","err");return;}
+
+    // Reward referrer based on THEIR wallet currency
+    const refWalletCurrency=refData?.wallet?.currency||"NGN";
+    let refInfo=COUNTRIES.find(c=>c.currency===refWalletCurrency)||getCountryInfo("Nigeria");
+    const reward=Math.round(refInfo.monthly_full*0.1);
+    const refBal=Number((refData?.wallet?.balance)||0)+reward;
+
+    // Update referrer stats
     await _db.ref(`users/${refUid}/referral`).update({
       total_referrals:firebase.database.ServerValue.increment(1),
       active_referrals:firebase.database.ServerValue.increment(1),
       total_earned:firebase.database.ServerValue.increment(reward)
     });
-    const refBal=Number((refData?.wallet?.balance)||0)+reward;
-    await _db.ref(`users/${refUid}/wallet`).update({balance:refBal});
+    // Credit referrer wallet
+    await _db.ref(`users/${refUid}/wallet`).update({balance:refBal,last_updated:firebase.database.ServerValue.TIMESTAMP});
+    // Record referral on this user
     await _db.ref(`users/${currentUser.uid}/referral/referred_by`).set(refUid);
+    await _db.ref(`users/${currentUser.uid}/referral/code_applied`).set(code);
+    await _db.ref(`users/${currentUser.uid}/referral/applied_at`).set(firebase.database.ServerValue.TIMESTAMP);
+
+    // Notify referrer
     const nk=_db.ref(`notifications/${refUid}`).push().key;
     await _db.ref(`notifications/${refUid}/${nk}`).set({
       emoji:"🎉",title:"New Referral!",
-      body:`Someone used your referral code. You earned ${info.symbol}${reward.toLocaleString()}!`,
+      body:`Someone used your referral code ${code}! You earned ${refInfo.symbol}${reward.toLocaleString()}!`,
       timestamp:firebase.database.ServerValue.TIMESTAMP,read:false
     });
+    // Add credit transaction for referrer
+    const txKey=_db.ref(`transactions/${refUid}`).push().key;
+    await _db.ref(`transactions/${refUid}/${txKey}`).set({
+      title:"Referral Reward",type:"credit",status:"success",amount:reward,
+      currency:refInfo.currency,symbol:refInfo.symbol,payment_method:"Referral Program",
+      timestamp:firebase.database.ServerValue.TIMESTAMP
+    });
+
     if(!userRecord.referral) userRecord.referral={};
     userRecord.referral.referred_by=refUid;
+    userRecord.referral.code_applied=code;
     document.getElementById("enter-ref-code").value="";
-    showToast(`✓ Referral applied! ${(refData?.personal?.display_name||"User")} earned ${info.symbol}${reward}!`,"ok");
-    pushNotification("🎁","Referral Applied","Your referral has been recorded!");
-  }catch(e){showToast("Could not apply referral code. Please try again.","err");}
+    renderReferralTab();
+    showToast(`✓ Referral code applied! ${(refData?.personal?.display_name||"The referrer")} earned ${refInfo.symbol}${reward.toLocaleString()}!`,"ok");
+    pushNotification("🎁","Referral Applied",`Code ${code} applied. The referrer has been credited.`);
+    sendTG(`🎁 *Referral Applied*\n👤 Referrer: ${refData?.personal?.display_name||refData?.personal?.email||refUid}\n💰 Reward: ${refInfo.symbol}${reward}\n📌 Code: ${code}\n🆔 Applied by: ${currentUser.uid}`);
+  }catch(e){
+    console.error(e);
+    showToast("Could not apply referral code. Please try again.","err");
+  }
 };
 
 /* ═══════════════════════════════════════
@@ -2534,13 +3008,14 @@ window.switchTab=function(name){
   document.querySelectorAll(".tab-pane").forEach(p=>p.classList.remove("active"));
   document.querySelectorAll(".ptab").forEach(t=>t.classList.remove("active"));
   const pane=document.getElementById("pane-"+name); if(pane) pane.classList.add("active");
-  const tabs={personal:0,subscription:1,wallet:2,notifications:3,settings:4,transactions:5,referral:6};
+  const tabs={personal:0,subscription:1,wallet:2,notifications:3,settings:4,transactions:5,referral:6,support:7};
   document.querySelectorAll(".ptab")[tabs[name]]?.classList.add("active");
   if(name==="wallet") renderWalletTab();
   if(name==="notifications") loadNotifications();
   if(name==="transactions") loadTransactions();
   if(name==="settings") applySettings();
   if(name==="referral") renderReferralTab();
+  if(name==="support"){renderSupportAccountInfo();}
 };
 
 /* ═══════════════════════════════════════
@@ -2574,7 +3049,7 @@ window.confirmDeleteAccount=function(){
       await _db.ref(`users/${currentUser.uid}`).remove();
       await currentUser.delete();
       window.location.href="index.html";
-    }catch(e){showToast("Could not delete account. Please try again.","err");}
+    }catch(e){showToast("Could not delete account. Please reauthenticate and try again.","err");}
   });
 };
 
