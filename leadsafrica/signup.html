@@ -1,0 +1,282 @@
+	<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <base href="">
+ 
+    <meta charset="utf-8">
+    <meta name="theme-color" content="#00d1f7">
+      
+    <title>Create Account - LeadsAfrica </title>
+     
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     
+    <link rel="icon" type="image/png" href="web/assets/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="web/assets/favicon.png">
+     
+     
+    <!-- end::GXON Google Fonts -->
+
+    <!-- begin::GXON Required Stylesheet -->
+    <link rel="stylesheet" href="https://leadsafrica.com/web/assets/flaticon/css/all/all.css">
+    <link rel="stylesheet" href="https://leadsafrica.com/web/assets/lucide/lucide.css">
+    <link rel="stylesheet" href="https://leadsafrica.com/web/assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="https://leadsafrica.com/web/assets/simplebar/simplebar.css">
+    <link rel="stylesheet" href="https://leadsafrica.com/web/assets/node-waves/waves.css">
+    <link rel="stylesheet" href="https://leadsafrica.com/web/assets/bootstrap-select/css/bootstrap-select.min.css">
+    
+    <link rel="stylesheet" href="web/assets/css/styles.css%3Fsf.css"> 
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap" rel="stylesheet">
+    
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="web/assets/toastr.min.css" rel="stylesheet">
+    <style>
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Onest', sans-serif !important;
+        }
+        .img-bg,
+        .bg-primary,
+        .btn-primary, button {
+            backgdround: url("web/assets/bg.jpg") !important;
+            backgdround-size: cover !important;
+            backgdround-position: center !important;
+            background: #00d1f7 !important;
+            border-color: #00d1f7 !important;
+        }
+        .card{
+            background: #ffffff80 !important;
+            backdrop-filter: blur(50px) !important;
+        }
+        .form-control{
+            font-size: 16px !important; 
+            background: #ffffff96;
+            border: 1px solid #efecec;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-layout">
+
+        <div class="auth-wrapper min-vh-100 px-2" style="background-image: url(web/assets/banner.jpg); background-size: cover; background-position: center; background-repeat: no-repeat;">
+            <div class="row g-0 min-vh-100">
+                <div class="col-xl-5 col-lg-6 ms-auto px-sm-4 align-self-center py-4">
+                    <div class="card card-body p-4 p-sm-5 maxw-450px m-auto rounded-4">
+                        <div class="mb-4 text-center">
+                            <a href="index.html" aria-label="LeadsAfrica logo">
+                                <img class="visible-light" src="web/assets/logo.png" width="150" alt="LeadsAfrica logo">
+                                <img class="visible-dark" src="web/assets/logo.png" width="150" alt="LeadsAfrica logo">
+                            </a>
+                        </div>
+<div class="text-center mb-4">
+    <h5 class="mb-1">Let Get <span class="text-highlight">Started!</span></h5>
+</div>
+ <form id="contact-form" class="row g-1 mt-2" novalidate="">
+    <div class="col-6 mb-2">
+        <label class="form-label">Fullname</label>
+        <input type="text" name="fullname" class="border-1 form-control fullname" placeholder="fullname">
+    </div>
+    <div class="col-6 mb-2">
+        <label class="form-label">Username</label>
+        <input type="text" name="username" class="border-1 form-control username" placeholder="username">
+    </div>
+    <div class="mb-2">
+        <label class="form-label">Email address</label>
+        <input type="email" name="email" class="border-1 form-control email" placeholder="Enter your email address">
+    </div>
+    <div class="mb-2">
+        <label class="form-label">Country</label>
+        <select type="text" name="country" class="border-1 form-control country">
+            <option selected disabled>Select your country</option>
+        </select>
+    </div>
+    <div class="mb-2">
+        <label class="form-label">Phone number</label>
+        <input type="tel" name="mobile" class="border-1 form-control phone" placeholder="Enter your phone number">
+    </div>
+    <div class="mb-2">
+        <label class="form-label">Referral (optional)</label>
+        <input type="text" name="refUsername" value=""  class="border-1 form-control refUsername" placeholder="Enter your referral">
+    </div>
+    <div class="mb-2">
+        <label class="form-label">Password</label>
+        <div class="input-group border-1">
+            <input type="password" name="password" class="border-1 form-control password" placeholder="Enter your password">
+            <span class="input-group-text border-1 toggle-password">
+                <i class="ph ph-eye"></i>
+            </span>
+        </div>
+    </div>
+    <div class="d-flex mt-1 justify-content-between align-items-center">
+        <div class="form-check">
+            <input class="form-check-input input-primary checkBox" value="1" type="checkbox" id="customCheckc1">
+            <label class="form-check-label text-dark" for="customCheckc1">I agree to LeadAfrica's <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a></label>
+        </div>
+    </div>
+    <div class="d-grid mt-4">
+        <button type="button" class="btn btn-primary proceed">Create Account</button>
+    </div>
+    <div class="d-flex justify-content-between align-items-end mt-4">
+        <h6 class="f-w-500 mb-0">Already have an Account?</h6>
+        <a href="login.html" class="link-primary">Login</a>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: '/actions/country.php',
+            type: 'POST',
+            data: {
+                getCountries: "getCountries"
+            },
+            success: function(data) {
+                const $countrySelect = $('select[name="country"]');
+                $countrySelect.html(data);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching countries:', error);
+            }
+        })
+
+        //$('select[name="country"]').change(function () {
+        //    const selectedCountry = $(this).find('option:selected');
+        //    const phoneCode = selectedCountry.data('phone');
+
+        //if (phoneCode) {
+        //    $('input[name="mobile"]').val('+' + phoneCode + ' ').focus();
+        //    $(".phoneCode").text("+" + phoneCode);
+        //}
+        // });
+    });
+
+
+    $("form").on("submit", function() {
+        return false;
+    })
+    $(".proceed").on("click", function() {
+        let fullname = $(".fullname").val();
+        let username = $(".username").val();
+        let checkBox = $(".checkBox").val();
+        let email = $(".email").val();
+        let phone = $(".phone").val();
+        let country = $(".country").val();
+        let refUsername = $(".refUsername").val();
+        let password = $(".password").val();
+        let $this = $(this);
+        let title, message, status;
+        if (username == "" || username == null) {
+            status = "error";
+            message = "Please enter your username";
+            popup(status, message);
+        } else if (fullname == "" || email == "" || phone == "" || password == "") {
+            status = "error";
+            message = "Please fill in all required fields";
+            popup(status, message);
+        } else if (password.length < 8) {
+            title = "ERROR";
+            status = "error";
+            message = "Password must be at least 8 characters long";
+            popup(status, message);
+        } else {
+            $.ajax({
+                url: "actions/formprocess.php",
+                type: "POST",
+                data: {
+                    register: "register",
+                    username: username,
+                    fullname: fullname,
+                    email: email,
+                    country: country,
+                    phone: phone,
+                    refUsername: refUsername,
+                    password: password
+                },
+                beforeSend: function() {
+                    $($this).text("Loading...");
+                    $($this).attr("disabled", true);
+                },
+                success: function(res) {
+                    //console.log("Server Response:", res);
+                    let response = JSON.parse(res);
+
+                    $($this).text("SIGNUP");
+                    $($this).attr("disabled", false);
+
+                    let icon = response.status;
+                    let message = response.message;
+                    let title = response.status;
+
+                    popup(icon, message);
+                    if (icon === "success") {
+                        $($this).text("Redirecting...");
+                        $($this).attr("disabled", true);
+
+                        setTimeout(() => {
+                            location.href = '/web/'
+                        }, 2000);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    $(".response").html("An error occurred. Please try again.");
+                },
+            })
+        }
+
+    })
+</script>
+
+
+</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <script>
+    document.querySelector('.toggle-password').addEventListener('click', function () {
+        const passwordField = document.querySelector('.password');
+        const icon = this.querySelector('i');
+
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text'; 
+            icon.classList.remove('ph-eye');
+            icon.classList.add('ph-eye-slash');  
+        } else {
+            passwordField.type = 'password';  
+            icon.classList.remove('ph-eye-slash');
+            icon.classList.add('ph-eye');  
+        }
+    });
+    
+    function popupp(title, message) {
+        toastr[title](message, title);
+    }
+    function popup(title, message) {
+    if (["success", "info", "warning", "error"].includes(title)) {
+        toastr[title](message, title);
+    } else {
+        console.error("Invalid toastr type:", title);
+    }
+}
+
+</script>
+ 
+    <script src="web/assets/js/global.min.js"></script>
+    <script src="web/assets/js/appSettings.js"></script>
+    <script src="web/assets/js/main.js"></script> 
+</body>
+
+</html>
