@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Taskify — Create Admin</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..600,0..1,-50..200&display=block" />
+
+<style>
+:root{
+  --blue:#2D5BFF; --red:#FF3B5C; --ink:#0B1220; --ink-soft:#5B6478;
+  --paper:#FFFFFF; --mist:#F4F6FB; --mist-2:#ECEFF8; --line:#E6E9F2;
+  --radius-lg:20px; --radius-md:14px; --radius-sm:10px; --radius-pill:999px;
+  --shadow-soft:0 14px 34px -14px rgba(11,18,32,0.14);
+  --brand-grad:linear-gradient(135deg,#2D5BFF 0%,#7A4DFF 45%,#FF3B5C 100%);
+  --green:#1FA968; --amber:#D97706;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:'Inter',sans-serif;background:var(--mist);color:var(--ink);}
+h1,h2,h3{font-family:'Manrope',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+.material-symbols-outlined{line-height:1;}
+.hidden{display:none !important;}
+.logo{font-family:'Manrope',sans-serif;font-weight:800;background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+#gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+.card{width:100%;max-width:400px;background:var(--paper);border-radius:var(--radius-lg);padding:32px 26px;box-shadow:var(--shadow-soft);border:1px solid var(--line);text-align:center;}
+.card .logo{font-size:23px;}
+.card p{color:var(--ink-soft);font-size:13px;margin:6px 0 22px;line-height:1.6;}
+.field{margin-bottom:14px;text-align:left;}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--ink-soft);margin-bottom:6px;}
+.field input{width:100%;padding:12px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--line);background:var(--mist);color:var(--ink);font-size:14px;outline:none;}
+.field input:focus{border-color:var(--blue);background:var(--paper);}
+.btn{width:100%;padding:13px 0;border:none;border-radius:var(--radius-pill);font-weight:700;font-size:14.5px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--brand-grad);color:#fff;}
+.btn-ghost{background:var(--mist-2);color:var(--ink);border:1px solid var(--line);}
+.btn[disabled]{opacity:.5;pointer-events:none;}
+.error-msg{background:rgba(255,59,92,.1);color:var(--red);border:1px solid rgba(255,59,92,.25);border-radius:var(--radius-sm);padding:10px 12px;font-size:12.5px;margin-bottom:14px;display:none;text-align:left;}
+.error-msg.show{display:block;}
+.success-msg{background:rgba(31,169,104,.1);color:var(--green);border:1px solid rgba(31,169,104,.25);border-radius:var(--radius-sm);padding:12px 14px;font-size:12.5px;margin-bottom:14px;display:none;text-align:left;line-height:1.6;}
+.success-msg.show{display:block;}
+.warn-msg{background:rgba(217,119,6,.1);color:var(--amber);border:1px solid rgba(217,119,6,.25);border-radius:var(--radius-sm);padding:10px 12px;font-size:11.5px;margin-bottom:16px;text-align:left;line-height:1.6;}
+.spinner{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+#denied .material-symbols-outlined{font-size:36px;color:var(--red);}
+
+#tool{display:none;min-height:100vh;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;background:var(--paper);border-bottom:1px solid var(--line);}
+.topbar-right{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-soft);}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--mist);display:flex;align-items:center;justify-content:center;color:var(--ink);cursor:pointer;}
+.icon-btn .material-symbols-outlined{font-size:19px;}
+.center-wrap{max-width:440px;margin:50px auto;padding:0 20px;}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-lg);padding:26px;}
+.panel h2{font-size:18px;margin:0 0 6px;}
+.panel p.sub{color:var(--ink-soft);font-size:13px;margin:0 0 22px;line-height:1.6;}
+.note{display:flex;gap:8px;background:var(--mist-2);border:1px dashed var(--line);border-radius:var(--radius-md);padding:11px 13px;font-size:11.5px;color:var(--ink-soft);line-height:1.6;margin-top:18px;}
+.note .material-symbols-outlined{font-size:16px;flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<!-- ============================= GATE / BOOTSTRAP ============================= -->
+<div id="gate">
+
+  <div class="card" id="checking">
+    <div class="spinner" style="border-top-color:var(--blue);border-color:rgba(45,91,255,0.25);margin:0 auto;"></div>
+    <p style="margin-top:14px;">Checking setup status…</p>
+  </div>
+
+  <!-- shown only while ZERO admins exist anywhere in the database -->
+  <div class="card hidden" id="bootstrap-card">
+    <div class="logo">Create First Admin</div>
+    <p>No admin account exists yet. This one-time form creates the very first one — directly, no Firebase console needed.</p>
+    <div class="warn-msg">
+      <strong>Heads up:</strong> whoever submits this form first becomes the permanent first admin. Do this now, privately, before sharing this page's link with anyone.
+    </div>
+    <div class="error-msg" id="bootstrap-error"></div>
+    <form id="bootstrap-form">
+      <div class="field"><label>Full name</label><input type="text" id="bs-name" required /></div>
+      <div class="field"><label>Email</label><input type="email" id="bs-email" required /></div>
+      <div class="field"><label>Password</label><input type="password" id="bs-pw" minlength="6" placeholder="Minimum 6 characters" required /></div>
+      <button type="submit" class="btn btn-primary" id="bootstrap-btn">
+        <span class="material-symbols-outlined" style="font-size:18px;">shield_person</span>
+        <span>Create First Admin</span>
+      </button>
+    </form>
+  </div>
+
+  <!-- shown once at least one admin exists -->
+  <div class="card hidden" id="login-card">
+    <div class="logo">Create Admin</div>
+    <p>An admin already exists. Sign in with an existing admin account to create more.</p>
+    <div class="error-msg" id="login-error"></div>
+    <form id="login-form">
+      <div class="field"><label>Email</label><input type="email" id="op-email" required /></div>
+      <div class="field"><label>Password</label><input type="password" id="op-pw" required /></div>
+      <button type="submit" class="btn btn-primary" id="login-btn">
+        <span>Sign In</span><span class="material-symbols-outlined" style="font-size:18px;">login</span>
+      </button>
+    </form>
+  </div>
+
+  <div class="card hidden" id="denied">
+    <span class="material-symbols-outlined">block</span>
+    <h3 style="margin:6px 0 0;font-size:17px;">Not authorized</h3>
+    <p style="margin:6px 0 18px;">This account exists but isn't an admin. Ask an existing admin to create one for you.</p>
+    <button class="btn btn-ghost" onclick="signOutOp()">Sign out</button>
+  </div>
+
+</div>
+
+<!-- ============================= CREATE-ANOTHER-ADMIN TOOL ============================= -->
+<div id="tool">
+  <div class="topbar">
+    <div class="logo" style="font-size:17px;">Create Admin</div>
+    <div class="topbar-right">
+      <span id="op-email-label">—</span>
+      <div class="icon-btn" onclick="signOutOp()"><span class="material-symbols-outlined">logout</span></div>
+    </div>
+  </div>
+
+  <div class="center-wrap">
+    <div class="panel">
+      <h2>New admin account</h2>
+      <p class="sub">Creates a brand-new login with immediate admin access.</p>
+
+      <div class="success-msg" id="success-msg"></div>
+      <div class="error-msg" id="create-error"></div>
+
+      <form id="create-form">
+        <div class="field"><label>Full name</label><input type="text" id="new-name" required /></div>
+        <div class="field"><label>Email</label><input type="email" id="new-email" required /></div>
+        <div class="field"><label>Password</label><input type="password" id="new-pw" minlength="6" placeholder="Minimum 6 characters" required /></div>
+        <button type="submit" class="btn btn-primary" id="create-btn">
+          <span class="material-symbols-outlined" style="font-size:18px;">person_add</span>
+          <span>Create Admin Account</span>
+        </button>
+      </form>
+
+      <div class="note">
+        <span class="material-symbols-outlined">info</span>
+        <span>Share the email/password with the new admin directly — there's no invite email sent.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase compat SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+
+<script>
+/* ============================================================
+   BOOTSTRAP MODEL
+   - If /setup/adminExists is not yet true, this page lets anyone
+     who opens it create the FIRST admin directly — no console
+     editing needed for that step. Whoever submits that form
+     first becomes the permanent first admin.
+   - The instant that succeeds, /setup/adminExists flips to true
+     and this open path closes for good (enforced by the
+     Realtime Database rules, not just this page). Every admin
+     after the first requires being signed in as an existing one.
+   - This still requires the Realtime Database RULES themselves
+     to be pasted into the Firebase console once — that one step
+     can't be done from a webpage, only the account creation can.
+   ============================================================ */
+const firebaseConfig = {
+  apiKey: "AIzaSyCu6UWiP5AqtDGmlICceakVLxhcniAfB8E",
+  authDomain: "taskify-13f54.firebaseapp.com",
+  databaseURL: "https://taskify-13f54-default-rtdb.firebaseio.com",
+  projectId: "taskify-13f54",
+  storageBucket: "taskify-13f54.firebasestorage.app",
+  messagingSenderId: "749889681946",
+  appId: "1:749889681946:web:4bf3cc7ac848ef90a72fa3",
+  measurementId: "G-DVBG0WBVP3"
+};
+
+const primaryApp = firebase.initializeApp(firebaseConfig);
+const auth = primaryApp.auth();
+const db = primaryApp.database();
+
+/* secondary app instance so creating admin #2+ doesn't sign the
+   operating admin out of their own session */
+const secondaryApp = firebase.initializeApp(firebaseConfig, "Secondary");
+const secondaryAuth = secondaryApp.auth();
+
+let currentAdminUid = null;
+
+function showCard(id){
+  document.querySelectorAll("#gate .card").forEach(c=>c.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+  document.getElementById("gate").style.display = "flex";
+  document.getElementById("tool").style.display = "none";
+}
+function showTool(){
+  document.getElementById("gate").style.display = "none";
+  document.getElementById("tool").style.display = "block";
+}
+
+/* ============================================================
+   ENTRY POINT — figure out bootstrap vs normal mode first
+   ============================================================ */
+async function init(){
+  let adminExists = false;
+  try{
+    const flag = await db.ref("setup/adminExists").once("value");
+    adminExists = flag.exists() && flag.val() === true;
+  }catch(err){
+    console.error("Couldn't check setup status:", err);
+  }
+
+  if(!adminExists){
+    showCard("bootstrap-card");
+  } else {
+    // normal mode: wait for auth state to resolve sign-in/admin check
+    auth.onAuthStateChanged(async (user)=>{
+      if(!user){ showCard("login-card"); return; }
+      showCard("checking");
+      try{
+        const snap = await db.ref(`admins/${user.uid}`).once("value");
+        if(snap.exists() && snap.val() === true){
+          currentAdminUid = user.uid;
+          document.getElementById("op-email-label").textContent = user.email;
+          showTool();
+        } else {
+          showCard("denied");
+        }
+      }catch(err){
+        console.error(err);
+        showCard("denied");
+      }
+    });
+  }
+}
+init();
+
+/* ============================================================
+   BOOTSTRAP: create the very first admin
+   ============================================================ */
+document.getElementById("bootstrap-form").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const errEl = document.getElementById("bootstrap-error");
+  errEl.classList.remove("show"); errEl.textContent = "";
+  const btn = document.getElementById("bootstrap-btn");
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner" style="border-top-color:#fff;"></span><span>Creating…</span>`;
+
+  const name = document.getElementById("bs-name").value.trim();
+  const email = document.getElementById("bs-email").value.trim();
+  const pw = document.getElementById("bs-pw").value;
+
+  try{
+    const cred = await auth.createUserWithEmailAndPassword(email, pw);
+    const uid = cred.user.uid;
+    // Rejected server-side by the rules if /setup/adminExists is already true —
+    // this isn't enforced by this page, it's enforced by the database itself.
+    await db.ref(`admins/${uid}`).set(true);
+    await db.ref(`adminProfiles/${uid}`).set({ fullName:name, email, createdAt: Date.now(), createdBy: "bootstrap" });
+    await db.ref("setup/adminExists").set(true);
+
+    alert(`First admin created for ${email}. You're signed in as them now — you can go straight to admin.html.`);
+    window.location.href = "admin.html";
+  }catch(err){
+    console.error(err);
+    let msg = "Couldn't create the admin account.";
+    if(err.code === "auth/email-already-in-use") msg = "That email is already registered.";
+    if(err.code === "auth/weak-password") msg = "Password should be at least 6 characters.";
+    if(err.code === "PERMISSION_DENIED") msg = "Permission denied — make sure the Realtime Database rules have been pasted in, including the /setup and /admins sections.";
+    errEl.textContent = msg;
+    errEl.classList.add("show");
+    btn.disabled = false;
+    btn.innerHTML = `<span class="material-symbols-outlined" style="font-size:18px;">shield_person</span><span>Create First Admin</span>`;
+  }
+});
+
+/* ============================================================
+   NORMAL MODE: login + create admin #2, #3, ...
+   ============================================================ */
+document.getElementById("login-form").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const errEl = document.getElementById("login-error");
+  errEl.classList.remove("show"); errEl.textContent = "";
+  const btn = document.getElementById("login-btn");
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner"></span><span>Signing in…</span>`;
+  try{
+    await auth.signInWithEmailAndPassword(
+      document.getElementById("op-email").value.trim(),
+      document.getElementById("op-pw").value
+    );
+  }catch(err){
+    errEl.textContent = "Couldn't sign in — check the email and password.";
+    errEl.classList.add("show");
+    btn.disabled = false;
+    btn.innerHTML = `<span>Sign In</span><span class="material-symbols-outlined" style="font-size:18px;">login</span>`;
+  }
+});
+
+function signOutOp(){ auth.signOut(); }
+
+document.getElementById("create-form").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const errEl = document.getElementById("create-error");
+  const okEl = document.getElementById("success-msg");
+  errEl.classList.remove("show"); errEl.textContent = "";
+  okEl.classList.remove("show"); okEl.textContent = "";
+
+  const btn = document.getElementById("create-btn");
+  const name = document.getElementById("new-name").value.trim();
+  const email = document.getElementById("new-email").value.trim();
+  const pw = document.getElementById("new-pw").value;
+
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner" style="border-top-color:#fff;"></span><span>Creating…</span>`;
+
+  try{
+    const cred = await secondaryAuth.createUserWithEmailAndPassword(email, pw);
+    const newUid = cred.user.uid;
+
+    // Written using the PRIMARY (already-authenticated admin) session.
+    // Rejected server-side unless currentAdminUid is already an admin.
+    await db.ref(`admins/${newUid}`).set(true);
+    await db.ref(`adminProfiles/${newUid}`).set({
+      fullName: name, email, createdAt: Date.now(), createdBy: currentAdminUid
+    });
+
+    await secondaryAuth.signOut();
+
+    okEl.textContent = `Admin account created for ${email}. They can sign into admin.html with the password you set.`;
+    okEl.classList.add("show");
+    document.getElementById("create-form").reset();
+  }catch(err){
+    console.error(err);
+    let msg = "Couldn't create that account.";
+    if(err.code === "auth/email-already-in-use") msg = "That email is already registered.";
+    if(err.code === "auth/weak-password") msg = "Password should be at least 6 characters.";
+    if(err.code === "PERMISSION_DENIED") msg = "Permission denied — check your Firebase rules are applied.";
+    errEl.textContent = msg;
+    errEl.classList.add("show");
+  }finally{
+    btn.disabled = false;
+    btn.innerHTML = `<span class="material-symbols-outlined" style="font-size:18px;">person_add</span><span>Create Admin Account</span>`;
+  }
+});
+</script>
+</body>
+</html>

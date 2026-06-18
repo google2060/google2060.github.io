@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Taskify Admin</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..600,0..1,-50..200&display=block" />
+
+<style>
+:root{
+  --blue:#2D5BFF; --red:#FF3B5C; --ink:#0B1220; --ink-soft:#5B6478;
+  --paper:#FFFFFF; --mist:#F4F6FB; --mist-2:#ECEFF8; --line:#E6E9F2;
+  --radius-lg:20px; --radius-md:14px; --radius-sm:10px; --radius-pill:999px;
+  --shadow-soft:0 14px 34px -14px rgba(11,18,32,0.14);
+  --brand-grad:linear-gradient(135deg,#2D5BFF 0%,#7A4DFF 45%,#FF3B5C 100%);
+  --ease:cubic-bezier(0.32,0.72,0,1);
+  --green:#1FA968; --amber:#D97706;
+}
+[data-theme="dark"]{
+  --ink:#EAF0FF; --ink-soft:#9AA6C2; --paper:#0A0F1C; --mist:#121A2C; --mist-2:#15203A; --line:#202C48;
+  --shadow-soft:0 14px 34px -14px rgba(0,0,0,0.6);
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:'Inter',sans-serif;background:var(--mist);color:var(--ink);transition:.3s ease;}
+h1,h2,h3,.display{font-family:'Manrope',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+button{font-family:inherit;cursor:pointer;}
+.material-symbols-outlined{line-height:1;user-select:none;}
+.hidden{display:none !important;}
+
+.logo{font-family:'Manrope',sans-serif;font-weight:800;background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-flex;align-items:center;gap:6px;}
+
+/* ---------- gate screens ---------- */
+#gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+.gate-card{width:100%;max-width:380px;background:var(--paper);border-radius:var(--radius-lg);padding:32px 26px;box-shadow:var(--shadow-soft);border:1px solid var(--line);text-align:center;}
+.gate-card .logo{font-size:26px;margin-bottom:6px;}
+.gate-card p{color:var(--ink-soft);font-size:13px;margin:4px 0 22px;}
+.field{margin-bottom:14px;text-align:left;}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--ink-soft);margin-bottom:6px;}
+.field input{width:100%;padding:12px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--line);background:var(--mist);color:var(--ink);font-size:14px;outline:none;}
+.field input:focus{border-color:var(--blue);background:var(--paper);}
+.btn{width:100%;padding:13px 0;border:none;border-radius:var(--radius-pill);font-weight:700;font-size:14.5px;display:flex;align-items:center;justify-content:center;gap:8px;transition:.15s var(--ease);}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--brand-grad);color:#fff;}
+.btn-ghost{background:var(--mist-2);color:var(--ink);border:1px solid var(--line);}
+.btn[disabled]{opacity:.5;pointer-events:none;}
+.error-msg{background:rgba(255,59,92,.1);color:var(--red);border:1px solid rgba(255,59,92,.25);border-radius:var(--radius-sm);padding:10px 12px;font-size:12.5px;margin-bottom:14px;display:none;text-align:left;}
+.error-msg.show{display:block;}
+.spinner{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+#denied{display:flex;flex-direction:column;align-items:center;gap:6px;}
+#denied .material-symbols-outlined{font-size:38px;color:var(--red);}
+
+/* ---------- dashboard ---------- */
+#dash{display:none;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;}
+.topbar .logo{font-size:19px;}
+.topbar-right{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--ink-soft);}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--mist);display:flex;align-items:center;justify-content:center;color:var(--ink);}
+.icon-btn .material-symbols-outlined{font-size:19px;}
+
+.wrap{max-width:1180px;margin:0 auto;padding:24px;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:26px;}
+.stat-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-md);padding:18px;}
+.stat-card .label{font-size:11.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;}
+.stat-card .val{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:700;margin-top:6px;}
+.stat-card .val.accent{background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-lg);margin-bottom:24px;overflow:hidden;}
+.panel-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap;gap:10px;}
+.panel-head h3{margin:0;font-size:15.5px;}
+.search-box{display:flex;align-items:center;gap:8px;background:var(--mist);border:1px solid var(--line);border-radius:var(--radius-pill);padding:8px 14px;min-width:220px;}
+.search-box input{border:none;background:none;outline:none;font-size:13px;color:var(--ink);width:100%;}
+.search-box .material-symbols-outlined{font-size:18px;color:var(--ink-soft);}
+
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead th{text-align:left;padding:12px 16px;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft);background:var(--mist);border-bottom:1px solid var(--line);white-space:nowrap;}
+tbody td{padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:middle;white-space:nowrap;}
+tbody tr:hover{background:var(--mist);}
+.cell-user{display:flex;align-items:center;gap:10px;}
+.cell-avatar{width:32px;height:32px;border-radius:50%;background:var(--brand-grad);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:12px;background-size:cover;background-position:center;flex-shrink:0;}
+.cell-user .nm{font-weight:700;font-size:13px;}
+.cell-user .em{font-size:11.5px;color:var(--ink-soft);}
+.tier-pill{font-size:11px;font-weight:700;padding:4px 10px;border-radius:var(--radius-pill);background:rgba(45,91,255,0.1);color:var(--blue);}
+.tier-pill.none{background:var(--mist-2);color:var(--ink-soft);}
+.bal-mono{font-family:'JetBrains Mono',monospace;font-weight:600;}
+.row-edit-btn{border:1px solid var(--line);background:var(--mist);border-radius:var(--radius-pill);padding:6px 14px;font-size:12px;font-weight:700;color:var(--ink);}
+.empty-row{text-align:center;padding:40px 20px;color:var(--ink-soft);font-size:13px;}
+
+/* ---------- edit drawer ---------- */
+.overlay{position:fixed;inset:0;background:rgba(8,12,24,.45);z-index:90;opacity:0;pointer-events:none;transition:.25s ease;}
+.overlay.show{opacity:1;pointer-events:auto;}
+.edit-drawer{position:fixed;top:0;right:0;height:100%;width:100%;max-width:420px;background:var(--paper);z-index:95;transform:translateX(104%);transition:transform .4s var(--ease);box-shadow:-24px 0 60px -20px rgba(0,0,0,.3);display:flex;flex-direction:column;}
+.edit-drawer.open{transform:translateX(0);}
+.ed-head{padding:20px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+.ed-head h3{margin:0;font-size:16px;}
+.ed-body{flex:1;overflow-y:auto;padding:20px 22px;}
+.ed-foot{padding:16px 22px;border-top:1px solid var(--line);}
+.ed-section{margin-bottom:22px;}
+.ed-section .sec-label{font-size:11.5px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;}
+.ed-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+select{width:100%;padding:12px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--line);background:var(--mist);color:var(--ink);font-size:13.5px;outline:none;}
+.bal-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);}
+.bal-row:last-child{border-bottom:none;}
+.bal-row .bl{font-size:13px;font-weight:600;}
+.bal-row .bs{font-size:11px;color:var(--ink-soft);}
+.bal-row input{width:120px;text-align:right;padding:9px 10px;border-radius:var(--radius-sm);border:1.5px solid var(--line);background:var(--mist);font-family:'JetBrains Mono',monospace;font-weight:600;font-size:13px;}
+.quick-credit{display:flex;gap:8px;margin-top:12px;}
+.quick-credit input{flex:1;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--line);background:var(--mist);font-family:'JetBrains Mono',monospace;font-size:13px;}
+.quick-credit button{padding:0 14px;border-radius:var(--radius-sm);border:none;background:var(--green);color:#fff;font-weight:700;font-size:12px;}
+
+/* ---------- admins panel ---------- */
+.admin-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line);font-size:13px;}
+.admin-row:last-child{border-bottom:none;}
+.admin-row .uid{font-family:'JetBrains Mono',monospace;font-size:12px;}
+.revoke-btn{border:none;background:rgba(255,59,92,.1);color:var(--red);font-size:11.5px;font-weight:700;padding:5px 11px;border-radius:var(--radius-pill);}
+.add-admin-row{display:flex;gap:10px;padding:16px 20px;}
+.add-admin-row input{flex:1;padding:11px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--line);background:var(--mist);font-size:13px;font-family:'JetBrains Mono',monospace;}
+.add-admin-row button{padding:0 18px;border-radius:var(--radius-sm);border:none;background:var(--brand-grad);color:#fff;font-weight:700;font-size:12.5px;}
+
+#toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:12px 18px;border-radius:var(--radius-pill);font-size:13px;font-weight:600;z-index:200;opacity:0;pointer-events:none;transition:.3s var(--ease);box-shadow:var(--shadow-soft);display:flex;align-items:center;gap:8px;}
+[data-theme="dark"] #toast{background:#fff;color:#0B1220;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- ============================= LOGIN GATE ============================= -->
+<div id="gate">
+  <div class="gate-card" id="login-card">
+    <div class="logo">Taskify Admin</div>
+    <p>Sign in with an authorized admin account.</p>
+    <div class="error-msg" id="login-error"></div>
+    <form id="login-form">
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="admin-email" required />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="admin-pw" required />
+      </div>
+      <button type="submit" class="btn btn-primary" id="login-btn">
+        <span>Sign In</span><span class="material-symbols-outlined" style="font-size:18px;">login</span>
+      </button>
+    </form>
+  </div>
+
+  <div class="gate-card hidden" id="denied">
+    <span class="material-symbols-outlined">block</span>
+    <h3 style="margin:6px 0 0;font-size:17px;">Not authorized</h3>
+    <p style="margin:6px 0 18px;">This account exists but isn't an admin. If you believe this is a mistake, ask an existing admin to add your UID, or set it directly in the Firebase console under <span class="mono">/admins</span>.</p>
+    <button class="btn btn-ghost" onclick="adminSignOut()">Sign out</button>
+  </div>
+
+  <div class="gate-card hidden" id="checking">
+    <div class="spinner" style="border-top-color:var(--blue);border-color:rgba(45,91,255,0.25);margin:0 auto;"></div>
+    <p style="margin-top:14px;">Checking access…</p>
+  </div>
+</div>
+
+<!-- ============================= DASHBOARD ============================= -->
+<div id="dash">
+  <div class="topbar">
+    <div class="logo">Taskify Admin</div>
+    <div class="topbar-right">
+      <span id="admin-email-label">—</span>
+      <div class="icon-btn" onclick="toggleAdminTheme()"><span class="material-symbols-outlined">dark_mode</span></div>
+      <div class="icon-btn" onclick="adminSignOut()"><span class="material-symbols-outlined">logout</span></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="stat-grid" id="stat-grid"></div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h3>All users</h3>
+        <div class="search-box">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" id="user-search" placeholder="Search name, email, or username" oninput="renderUserTable()" />
+        </div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>User</th><th>Phone</th><th>Plan</th><th>Task ₦</th><th>Referral ₦</th><th>Deposit ₦</th><th>Joined</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="user-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><h3>Admins</h3></div>
+      <div class="add-admin-row">
+        <input type="text" id="new-admin-uid" placeholder="Paste a Firebase Auth UID to grant admin access" />
+        <button onclick="grantAdmin()">Grant Admin</button>
+      </div>
+      <div style="padding:0 20px 18px;" id="admins-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= EDIT DRAWER ============================= -->
+<div class="overlay" id="overlay" onclick="closeEditDrawer()"></div>
+<div class="edit-drawer" id="edit-drawer">
+  <div class="ed-head">
+    <h3>Edit user</h3>
+    <div class="icon-btn" onclick="closeEditDrawer()"><span class="material-symbols-outlined">close</span></div>
+  </div>
+  <div class="ed-body">
+    <div class="ed-section">
+      <div class="sec-label">Profile</div>
+      <div class="field"><label>Full name</label><input type="text" id="ed-fullname" /></div>
+      <div class="ed-grid">
+        <div class="field"><label>Email (read-only)</label><input type="text" id="ed-email" disabled /></div>
+        <div class="field"><label>Phone</label><input type="text" id="ed-phone" /></div>
+      </div>
+      <div class="field">
+        <label>Earning tier</label>
+        <select id="ed-plan">
+          <option value="">No plan</option>
+          <option value="starter">Starter</option>
+          <option value="basic">Basic</option>
+          <option value="standard">Standard</option>
+          <option value="pro">Pro</option>
+          <option value="vip">VIP</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="ed-section">
+      <div class="sec-label">Balances</div>
+      <div class="bal-row">
+        <div><div class="bl">Task balance</div><div class="bs">Earned from completed tasks</div></div>
+        <input type="number" id="ed-bal-task" />
+      </div>
+      <div class="bal-row">
+        <div><div class="bl">Referral balance</div><div class="bs">Signup bonuses, company-funded</div></div>
+        <input type="number" id="ed-bal-referral" />
+      </div>
+      <div class="bal-row">
+        <div><div class="bl">Deposit balance</div><div class="bs">Confirmed bank transfers</div></div>
+        <input type="number" id="ed-bal-deposit" />
+      </div>
+      <div class="quick-credit">
+        <input type="number" id="quick-credit-amt" placeholder="Quick-credit deposit, e.g. 5000" />
+        <button onclick="quickCreditDeposit()">+ Add</button>
+      </div>
+    </div>
+  </div>
+  <div class="ed-foot">
+    <button class="btn btn-primary" id="save-user-btn" onclick="saveUserEdits()">
+      <span class="material-symbols-outlined" style="font-size:18px;">save</span> Save changes
+    </button>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<!-- Firebase compat SDK — classic scripts, works whether this file is
+     opened directly or hosted, unlike ES module imports over file://. -->
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+
+<script>
+/* ============================================================
+   ⚠️ REAL ACCESS CONTROL HAPPENS IN FIREBASE SECURITY RULES,
+   NOT IN THIS FILE. Anyone can view this page's source no matter
+   where it's hosted or how deep the folder path is. The checks
+   below only control what the UI *shows* — without the matching
+   Realtime Database rules (provided separately), a user could
+   still call the Firebase SDK directly from the browser console
+   and write to other users' data. Apply those rules first.
+   ============================================================ */
+const firebaseConfig = {
+  apiKey: "AIzaSyCu6UWiP5AqtDGmlICceakVLxhcniAfB8E",
+  authDomain: "taskify-13f54.firebaseapp.com",
+  databaseURL: "https://taskify-13f54-default-rtdb.firebaseio.com",
+  projectId: "taskify-13f54",
+  storageBucket: "taskify-13f54.firebasestorage.app",
+  messagingSenderId: "749889681946",
+  appId: "1:749889681946:web:4bf3cc7ac848ef90a72fa3",
+  measurementId: "G-DVBG0WBVP3"
+};
+
+let auth, db;
+try{
+  firebase.initializeApp(firebaseConfig);
+  auth = firebase.auth();
+  db = firebase.database();
+}catch(err){
+  console.error("Firebase init failed:", err);
+}
+
+let allUsers = {};       // uid -> profile
+let allBalances = {};    // uid -> {task,referral,deposit}
+let allAdmins = {};      // uid -> true
+let editingUid = null;
+let isCurrentlyAdmin = false;
+
+const PLAN_LABELS = { starter:"Starter", basic:"Basic", standard:"Standard", pro:"Pro", vip:"VIP" };
+
+function show(id){ document.querySelectorAll("#gate .gate-card").forEach(c=>c.classList.add("hidden")); document.getElementById(id).classList.remove("hidden"); document.getElementById("gate").classList.remove("hidden"); document.getElementById("dash").style.display="none"; }
+function showDash(){ document.getElementById("gate").classList.add("hidden"); document.getElementById("dash").style.display="block"; }
+
+let toastTimer;
+function showToast(msg, icon){
+  const t = document.getElementById("toast");
+  t.innerHTML = (icon?`<span class="material-symbols-outlined" style="font-size:17px;">${icon}</span>`:"") + `<span>${msg}</span>`;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove("show"), 2600);
+}
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
+document.getElementById("login-form").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const errEl = document.getElementById("login-error");
+  errEl.classList.remove("show"); errEl.textContent="";
+  const btn = document.getElementById("login-btn");
+  const email = document.getElementById("admin-email").value.trim();
+  const pw = document.getElementById("admin-pw").value;
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner"></span><span>Signing in…</span>`;
+  try{
+    await auth.signInWithEmailAndPassword(email, pw);
+    // onAuthStateChanged below takes it from here
+  }catch(err){
+    errEl.textContent = "Couldn't sign in — check the email and password.";
+    errEl.classList.add("show");
+    btn.disabled = false;
+    btn.innerHTML = `<span>Sign In</span><span class="material-symbols-outlined" style="font-size:18px;">login</span>`;
+  }
+});
+
+function adminSignOut(){ auth.signOut(); }
+
+auth.onAuthStateChanged(async (user)=>{
+  if(!user){ show("login-card"); return; }
+  show("checking");
+  try{
+    const snap = await db.ref(`admins/${user.uid}`).once("value");
+    if(snap.exists() && snap.val() === true){
+      isCurrentlyAdmin = true;
+      document.getElementById("admin-email-label").textContent = user.email;
+      await loadEverything();
+      showDash();
+    } else {
+      isCurrentlyAdmin = false;
+      show("denied");
+    }
+  }catch(err){
+    console.error(err);
+    isCurrentlyAdmin = false;
+    show("denied");
+  }
+});
+
+/* ============================================================
+   LOAD DATA
+   ============================================================ */
+async function loadEverything(){
+  const [usersSnap, balSnap, adminsSnap] = await Promise.all([
+    db.ref("users").once("value"),
+    db.ref("userBalances").once("value"),
+    db.ref("admins").once("value")
+  ]);
+  allUsers = usersSnap.val() || {};
+  allBalances = balSnap.val() || {};
+  allAdmins = adminsSnap.val() || {};
+  renderStats();
+  renderUserTable();
+  renderAdminsList();
+}
+
+function renderStats(){
+  const uids = Object.keys(allUsers);
+  const totalUsers = uids.length;
+  const activePlans = uids.filter(u=>allUsers[u].plan).length;
+  let totalDeposit=0, totalPayable=0;
+  uids.forEach(u=>{
+    const b = allBalances[u] || {task:0,referral:0,deposit:0};
+    totalDeposit += Number(b.deposit||0);
+    totalPayable += Number(b.task||0) + Number(b.referral||0);
+  });
+  const grid = document.getElementById("stat-grid");
+  grid.innerHTML = `
+    <div class="stat-card"><div class="label">Total users</div><div class="val">${totalUsers}</div></div>
+    <div class="stat-card"><div class="label">Active plans</div><div class="val accent">${activePlans}</div></div>
+    <div class="stat-card"><div class="label">Total deposits held</div><div class="val">₦${totalDeposit.toLocaleString("en-NG")}</div></div>
+    <div class="stat-card"><div class="label">Payable (task+referral)</div><div class="val accent">₦${totalPayable.toLocaleString("en-NG")}</div></div>`;
+}
+
+function initials(name){
+  if(!name) return "U";
+  return name.trim().split(/\s+/).slice(0,2).map(w=>w[0].toUpperCase()).join("");
+}
+
+function renderUserTable(){
+  const q = document.getElementById("user-search").value.trim().toLowerCase();
+  const body = document.getElementById("user-table-body");
+  body.innerHTML = "";
+  const uids = Object.keys(allUsers).filter(uid=>{
+    if(!q) return true;
+    const u = allUsers[uid];
+    return (u.fullName||"").toLowerCase().includes(q) || (u.email||"").toLowerCase().includes(q) || (u.username||"").toLowerCase().includes(q);
+  });
+
+  if(uids.length === 0){
+    body.innerHTML = `<tr><td colspan="8" class="empty-row">No users match.</td></tr>`;
+    return;
+  }
+
+  uids.sort((a,b)=> (allUsers[b].createdAt||0) - (allUsers[a].createdAt||0));
+
+  uids.forEach(uid=>{
+    const u = allUsers[uid];
+    const b = allBalances[uid] || {task:0,referral:0,deposit:0};
+    const tier = u.plan ? `<span class="tier-pill">${PLAN_LABELS[u.plan.tier]||u.plan.tier}</span>` : `<span class="tier-pill none">None</span>`;
+    const joined = u.createdAt ? new Date(u.createdAt).toLocaleDateString("en-NG",{day:"2-digit",month:"short",year:"numeric"}) : "—";
+    const avatarStyle = u.photoURL ? `style="background-image:url(${u.photoURL});"` : "";
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><div class="cell-user">
+            <div class="cell-avatar" ${avatarStyle}>${u.photoURL?"":initials(u.fullName)}</div>
+            <div><div class="nm">${u.fullName||"—"}</div><div class="em">${u.email||"—"}</div></div>
+          </div></td>
+      <td>${u.phone||"—"}</td>
+      <td>${tier}</td>
+      <td class="bal-mono">₦${Number(b.task||0).toLocaleString("en-NG")}</td>
+      <td class="bal-mono">₦${Number(b.referral||0).toLocaleString("en-NG")}</td>
+      <td class="bal-mono">₦${Number(b.deposit||0).toLocaleString("en-NG")}</td>
+      <td>${joined}</td>
+      <td><button class="row-edit-btn" onclick="openEditDrawer('${uid}')">Edit</button></td>`;
+    body.appendChild(tr);
+  });
+}
+
+/* ============================================================
+   EDIT DRAWER
+   ============================================================ */
+function openEditDrawer(uid){
+  editingUid = uid;
+  const u = allUsers[uid];
+  const b = allBalances[uid] || {task:0,referral:0,deposit:0};
+  document.getElementById("ed-fullname").value = u.fullName || "";
+  document.getElementById("ed-email").value = u.email || "";
+  document.getElementById("ed-phone").value = u.phone || "";
+  document.getElementById("ed-plan").value = u.plan ? u.plan.tier : "";
+  document.getElementById("ed-bal-task").value = b.task || 0;
+  document.getElementById("ed-bal-referral").value = b.referral || 0;
+  document.getElementById("ed-bal-deposit").value = b.deposit || 0;
+  document.getElementById("quick-credit-amt").value = "";
+  document.getElementById("edit-drawer").classList.add("open");
+  document.getElementById("overlay").classList.add("show");
+}
+function closeEditDrawer(){
+  document.getElementById("edit-drawer").classList.remove("open");
+  document.getElementById("overlay").classList.remove("show");
+  editingUid = null;
+}
+
+const PLAN_META = {
+  starter:{label:"Starter",dailyLimit:8,refBonus:1000},
+  basic:{label:"Basic",dailyLimit:12,refBonus:1250},
+  standard:{label:"Standard",dailyLimit:15,refBonus:1500},
+  pro:{label:"Pro",dailyLimit:20,refBonus:1750},
+  vip:{label:"VIP",dailyLimit:25,refBonus:2000},
+};
+
+async function saveUserEdits(){
+  if(!editingUid) return;
+  const uid = editingUid;
+  const btn = document.getElementById("save-user-btn");
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner" style="border-top-color:#fff;"></span><span>Saving…</span>`;
+
+  const tierVal = document.getElementById("ed-plan").value;
+  const planPayload = tierVal ? { tier: tierVal, ...PLAN_META[tierVal], activatedAt: Date.now() } : null;
+
+  try{
+    await db.ref(`users/${uid}`).update({
+      fullName: document.getElementById("ed-fullname").value.trim(),
+      phone: document.getElementById("ed-phone").value.trim(),
+      plan: planPayload
+    });
+    await db.ref(`userBalances/${uid}`).set({
+      task: Number(document.getElementById("ed-bal-task").value) || 0,
+      referral: Number(document.getElementById("ed-bal-referral").value) || 0,
+      deposit: Number(document.getElementById("ed-bal-deposit").value) || 0
+    });
+    allUsers[uid].fullName = document.getElementById("ed-fullname").value.trim();
+    allUsers[uid].phone = document.getElementById("ed-phone").value.trim();
+    allUsers[uid].plan = planPayload;
+    allBalances[uid] = {
+      task: Number(document.getElementById("ed-bal-task").value) || 0,
+      referral: Number(document.getElementById("ed-bal-referral").value) || 0,
+      deposit: Number(document.getElementById("ed-bal-deposit").value) || 0
+    };
+    renderStats(); renderUserTable();
+    showToast("User updated","check_circle");
+    closeEditDrawer();
+  }catch(err){
+    console.error(err);
+    showToast("Couldn't save — check Firebase rules are applied","error");
+  }finally{
+    btn.disabled = false;
+    btn.innerHTML = `<span class="material-symbols-outlined" style="font-size:18px;">save</span> Save changes`;
+  }
+}
+
+async function quickCreditDeposit(){
+  if(!editingUid) return;
+  const amt = Number(document.getElementById("quick-credit-amt").value);
+  if(!amt){ showToast("Enter an amount first","info"); return; }
+  const field = document.getElementById("ed-bal-deposit");
+  field.value = (Number(field.value)||0) + amt;
+  document.getElementById("quick-credit-amt").value = "";
+  showToast(`Added ₦${amt.toLocaleString("en-NG")} to deposit — remember to Save`,"add_circle");
+}
+
+/* ============================================================
+   ADMINS PANEL
+   ============================================================ */
+function renderAdminsList(){
+  const wrap = document.getElementById("admins-list");
+  const uids = Object.keys(allAdmins).filter(uid=>allAdmins[uid]===true);
+  if(uids.length===0){ wrap.innerHTML = `<div class="empty-row">No admins listed yet.</div>`; return; }
+  wrap.innerHTML = uids.map(uid=>{
+    const name = allUsers[uid] ? allUsers[uid].fullName : "(no matching user profile)";
+    return `<div class="admin-row">
+      <div><div style="font-weight:600;">${name}</div><div class="uid">${uid}</div></div>
+      <button class="revoke-btn" onclick="revokeAdmin('${uid}')">Revoke</button>
+    </div>`;
+  }).join("");
+}
+
+async function grantAdmin(){
+  const uid = document.getElementById("new-admin-uid").value.trim();
+  if(!uid){ showToast("Paste a UID first","info"); return; }
+  try{
+    await db.ref(`admins/${uid}`).set(true);
+    allAdmins[uid] = true;
+    document.getElementById("new-admin-uid").value = "";
+    renderAdminsList();
+    showToast("Admin granted","verified_user");
+  }catch(err){
+    console.error(err);
+    showToast("Couldn't grant — check Firebase rules are applied","error");
+  }
+}
+async function revokeAdmin(uid){
+  try{
+    await db.ref(`admins/${uid}`).remove();
+    delete allAdmins[uid];
+    renderAdminsList();
+    showToast("Admin access revoked","block");
+  }catch(err){
+    console.error(err);
+    showToast("Couldn't revoke","error");
+  }
+}
+
+/* ---------- theme (cosmetic only, not persisted) ---------- */
+function toggleAdminTheme(){
+  const html = document.documentElement;
+  html.setAttribute("data-theme", html.getAttribute("data-theme")==="dark" ? "light" : "dark");
+}
+</script>
+</body>
+</html>

@@ -1,1 +1,1730 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Taskify — Get Paid To Do Tasks</title>
+<meta name="description" content="Taskify — complete simple tasks, get paid in naira. Funded by real advertisers, not by other users." />
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..600,0..1,-50..200&display=block" />
+
+<style>
+/* ============================= TOKENS ============================= */
+:root{
+  --blue:#2D5BFF;
+  --blue-2:#5B7CFA;
+  --red:#FF3B5C;
+  --red-2:#FF6B6B;
+  --gold:#FFB020;
+
+  --ink:#0B1220;
+  --ink-soft:#5B6478;
+  --paper:#FFFFFF;
+  --mist:#F4F6FB;
+  --mist-2:#ECEFF8;
+  --line:#E6E9F2;
+
+  --radius-lg:26px;
+  --radius-md:18px;
+  --radius-sm:12px;
+  --radius-pill:999px;
+
+  --shadow-soft: 0 14px 34px -14px rgba(11,18,32,0.18);
+  --shadow-pop: 0 22px 50px -18px rgba(45,91,255,0.35);
+
+  --brand-grad: linear-gradient(135deg, var(--blue) 0%, #7A4DFF 45%, var(--red) 100%);
+  --brand-grad-soft: linear-gradient(135deg, rgba(45,91,255,0.12), rgba(255,59,92,0.12));
+
+  --ease-spring: cubic-bezier(0.32,0.72,0,1);
+}
+
+[data-theme="dark"]{
+  --ink:#EAF0FF;
+  --ink-soft:#9AA6C2;
+  --paper:#0A0F1C;
+  --mist:#121A2C;
+  --mist-2:#15203A;
+  --line:#202C48;
+  --shadow-soft: 0 14px 34px -14px rgba(0,0,0,0.65);
+  --shadow-pop: 0 22px 50px -18px rgba(45,91,255,0.45);
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--mist);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  overscroll-behavior:none;
+  transition:background .35s ease, color .35s ease;
+}
+h1,h2,h3,.display{font-family:'Manrope',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+button{font-family:inherit;}
+input{font-family:inherit;}
+a{color:inherit;text-decoration:none;}
+
+.material-symbols-outlined{
+  font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
+  line-height:1;
+  user-select:none;
+}
+
+/* ============================= APP FRAME ============================= */
+#app-frame{
+  max-width:480px;
+  min-height:100vh;
+  margin:0 auto;
+  position:relative;
+  background:var(--paper);
+  overflow-x:hidden;
+}
+@media(min-width:481px){
+  body{background:linear-gradient(180deg,#EEF1FA,#E3E8F7);}
+  #app-frame{
+    margin-top:18px;margin-bottom:18px;
+    border-radius:34px;
+    box-shadow:0 40px 80px -30px rgba(20,30,60,0.35);
+    border:1px solid var(--line);
+    min-height:calc(100vh - 36px);
+  }
+}
+
+.screen{display:none;}
+.screen--active{display:block;animation:fadeUp .38s var(--ease-spring);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* ============================= RADIANT LOGO ============================= */
+.logo{
+  font-family:'Manrope',sans-serif;
+  font-weight:800;
+  letter-spacing:-0.02em;
+  background:var(--brand-grad);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+.logo .dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--brand-grad);
+  margin-left:1px;
+}
+
+/* ============================= SPLASH ============================= */
+#screen-splash.screen--active{
+  height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+  background:var(--brand-grad);
+}
+#screen-splash .logo{font-size:38px;background:#fff;-webkit-background-clip:text;background-clip:text;}
+#screen-splash .logo .dot{background:#fff;}
+.splash-ring{
+  width:46px;height:46px;border-radius:50%;
+  border:3px solid rgba(255,255,255,0.35);
+  border-top-color:#fff;
+  animation:spin 0.9s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.splash-tag{color:rgba(255,255,255,0.85);font-size:13px;letter-spacing:.04em;}
+
+/* ============================= AUTH ============================= */
+.auth-wrap{padding:36px 22px 28px;}
+.auth-hero{text-align:center;margin-bottom:26px;}
+.auth-hero .logo{font-size:30px;}
+.auth-hero p{color:var(--ink-soft);font-size:14px;margin-top:8px;}
+
+.seg{
+  display:flex;background:var(--mist-2);border-radius:var(--radius-pill);
+  padding:4px;margin-bottom:24px;border:1px solid var(--line);
+}
+.seg button{
+  flex:1;border:none;background:transparent;padding:10px 0;border-radius:var(--radius-pill);
+  font-weight:700;font-size:14px;color:var(--ink-soft);cursor:pointer;transition:.25s var(--ease-spring);
+}
+.seg button.active{background:var(--paper);color:var(--ink);box-shadow:var(--shadow-soft);}
+
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-bottom:7px;padding-left:4px;}
+.field-input-wrap{position:relative;display:flex;align-items:center;}
+.field-input-wrap .material-symbols-outlined.lead{
+  position:absolute;left:16px;font-size:20px;color:var(--ink-soft);
+}
+.field input{
+  width:100%;padding:14px 16px 14px 46px;
+  border-radius:var(--radius-pill);
+  border:1.5px solid var(--line);
+  background:var(--mist);
+  color:var(--ink);
+  font-size:15px;font-weight:500;
+  outline:none;
+  transition:.2s ease;
+}
+.field input:focus{border-color:var(--blue);background:var(--paper);box-shadow:0 0 0 4px rgba(45,91,255,0.12);}
+.field.pw input{padding-right:46px;}
+.pw-toggle{
+  position:absolute;right:14px;background:none;border:none;cursor:pointer;
+  color:var(--ink-soft);display:flex;align-items:center;
+}
+.pw-toggle .material-symbols-outlined{font-size:20px;}
+
+.photo-pick{display:flex;flex-direction:column;align-items:center;margin-bottom:20px;}
+.photo-circle{
+  width:84px;height:84px;border-radius:50%;
+  background:var(--mist-2);
+  border:2px dashed var(--line);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;cursor:pointer;overflow:hidden;
+  background-size:cover;background-position:center;
+}
+.photo-circle .material-symbols-outlined{font-size:30px;color:var(--ink-soft);}
+.photo-circle .cam-badge{
+  position:absolute;bottom:0;right:0;width:26px;height:26px;border-radius:50%;
+  background:var(--brand-grad);display:flex;align-items:center;justify-content:center;
+  border:3px solid var(--paper);
+}
+.photo-circle .cam-badge .material-symbols-outlined{font-size:14px;color:#fff;}
+.photo-pick span{font-size:12px;color:var(--ink-soft);margin-top:8px;}
+
+.btn{
+  width:100%;padding:15px 0;border:none;border-radius:var(--radius-pill);
+  font-weight:700;font-size:15.5px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:transform .15s var(--ease-spring), box-shadow .2s ease;
+}
+.btn:active{transform:scale(0.97);}
+.btn-primary{background:var(--brand-grad);color:#fff;box-shadow:var(--shadow-pop);}
+.btn-ghost{background:var(--mist-2);color:var(--ink);border:1px solid var(--line);}
+.btn-outline{background:transparent;color:var(--blue);border:1.5px solid var(--blue);}
+.btn-sm{padding:10px 16px;font-size:13.5px;width:auto;}
+.btn[disabled]{opacity:.55;pointer-events:none;}
+
+.auth-foot{text-align:center;margin-top:18px;font-size:13.5px;color:var(--ink-soft);}
+.auth-foot a{color:var(--blue);font-weight:700;}
+.error-msg{
+  background:rgba(255,59,92,0.1);color:var(--red);border:1px solid rgba(255,59,92,0.25);
+  border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;margin-bottom:16px;display:none;
+}
+.error-msg.show{display:block;}
+
+/* ============================= PLAN SCREEN ============================= */
+.plan-wrap{padding:30px 20px 100px;}
+.plan-head{margin-bottom:6px;}
+.plan-head h2{font-size:21px;margin:0 0 6px;}
+.plan-head p{color:var(--ink-soft);font-size:13.5px;margin:0;line-height:1.5;}
+.plan-banner{
+  margin:16px 0 22px;padding:12px 14px;border-radius:var(--radius-md);
+  background:rgba(45,91,255,0.08);border:1px solid rgba(45,91,255,0.18);
+  display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:var(--ink-soft);line-height:1.5;
+}
+.plan-banner .material-symbols-outlined{color:var(--blue);font-size:20px;flex-shrink:0;}
+
+.plan-card{
+  border:1.5px solid var(--line);border-radius:var(--radius-lg);
+  padding:18px;margin-bottom:14px;background:var(--paper);
+  position:relative;transition:.2s ease;
+}
+.plan-card.selected{border-color:var(--blue);box-shadow:0 0 0 4px rgba(45,91,255,0.12);}
+.plan-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;}
+.plan-name{font-weight:800;font-size:17px;font-family:'Manrope',sans-serif;}
+.plan-badge-wrap{text-align:right;}
+.plan-badge{
+  font-family:'JetBrains Mono',monospace;
+  font-size:26px;font-weight:700;letter-spacing:-0.01em;
+  background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  display:block;line-height:1.1;
+}
+.plan-badge-free{
+  font-size:10.5px;font-weight:700;color:#1FA968;background:rgba(31,169,104,0.1);
+  border:1px solid rgba(31,169,104,0.25);padding:3px 9px;border-radius:var(--radius-pill);
+  display:inline-block;margin-top:4px;
+}
+.plan-badge-cost{
+  font-size:10.5px;font-weight:700;color:var(--blue);background:rgba(45,91,255,0.10);
+  border:1px solid rgba(45,91,255,0.22);padding:3px 9px;border-radius:var(--radius-pill);
+  display:inline-block;margin-top:4px;
+}
+.plan-locked{opacity:.72;border-color:var(--line) !important;}
+.plan-locked .plan-badge{color:var(--ink-soft) !important;background:none !important;-webkit-background-clip:unset !important;background-clip:unset !important;}
+.stat-red{color:var(--red) !important;}
+.plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;margin-top:14px;}
+.plan-stat{background:var(--mist);border-radius:var(--radius-sm);padding:9px 11px;}
+.plan-stat .label{font-size:10.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;}
+.plan-stat .val{font-size:14.5px;font-weight:700;margin-top:2px;}
+.plan-tasks{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.task-chip{
+  font-size:11px;font-weight:600;padding:6px 10px;border-radius:var(--radius-pill);
+  background:rgba(122,77,255,0.08);color:#7A4DFF;border:1px solid rgba(122,77,255,0.18);
+  display:flex;align-items:center;gap:4px;
+}
+.task-chip .material-symbols-outlined{font-size:13px;}
+
+/* ============================= APP SHELL ============================= */
+#screen-app{padding-bottom:92px;}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 18px 12px;position:sticky;top:0;z-index:30;
+  background:var(--paper);
+}
+.icon-btn{
+  width:40px;height:40px;border-radius:50%;border:1px solid var(--line);
+  background:var(--mist);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--ink);position:relative;
+}
+.icon-btn .material-symbols-outlined{font-size:22px;}
+.topbar-right{display:flex;align-items:center;gap:10px;}
+.notif-dot{
+  position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;
+  background:var(--red);border:1.5px solid var(--paper);
+}
+.avatar{
+  width:40px;height:40px;border-radius:50%;background:var(--brand-grad);
+  display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;
+  cursor:pointer;background-size:cover;background-position:center;border:none;
+}
+
+.profile-menu{
+  position:absolute;top:60px;right:14px;background:var(--paper);border:1px solid var(--line);
+  border-radius:var(--radius-md);box-shadow:var(--shadow-soft);width:200px;z-index:40;
+  overflow:hidden;opacity:0;transform:translateY(-8px) scale(.97);pointer-events:none;
+  transition:.2s var(--ease-spring);
+}
+.profile-menu.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+.profile-menu .pm-head{padding:14px 16px;border-bottom:1px solid var(--line);}
+.profile-menu .pm-head .name{font-weight:700;font-size:14px;}
+.profile-menu .pm-head .sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
+.profile-menu button{
+  width:100%;text-align:left;padding:12px 16px;background:none;border:none;
+  display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:600;color:var(--ink);cursor:pointer;
+}
+.profile-menu button:hover{background:var(--mist);}
+.profile-menu button .material-symbols-outlined{font-size:18px;color:var(--ink-soft);}
+.profile-menu button.danger{color:var(--red);}
+.profile-menu button.danger .material-symbols-outlined{color:var(--red);}
+
+.greeting{padding:4px 20px 16px;}
+.greeting .hi{font-size:13px;color:var(--ink-soft);}
+.greeting .name{font-size:19px;font-weight:800;font-family:'Manrope',sans-serif;}
+
+/* balance card */
+.balance-card{
+  margin:0 18px 18px;border-radius:var(--radius-lg);
+  background:var(--brand-grad);padding:20px;color:#fff;position:relative;overflow:hidden;
+  box-shadow:var(--shadow-pop);
+}
+.balance-card::after{
+  content:'';position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;
+  background:rgba(255,255,255,0.08);
+}
+.pill-tabs{
+  display:flex;background:rgba(255,255,255,0.16);border-radius:var(--radius-pill);
+  padding:4px;position:relative;z-index:2;margin-bottom:18px;
+}
+.pill-tabs button{
+  flex:1;border:none;background:transparent;color:rgba(255,255,255,0.75);
+  font-size:12.5px;font-weight:700;padding:9px 0;border-radius:var(--radius-pill);cursor:pointer;
+  transition:.25s var(--ease-spring);
+}
+.pill-tabs button.active{background:rgba(255,255,255,0.97);color:var(--blue);}
+.balance-figure{position:relative;z-index:2;min-height:46px;}
+.balance-figure .amt{
+  font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;letter-spacing:-0.01em;
+  display:inline-block;
+}
+.balance-figure .amt.tick{animation:tickUp .42s var(--ease-spring);}
+@keyframes tickUp{
+  0%{opacity:0;transform:translateY(10px) scale(.96);}
+  100%{opacity:1;transform:translateY(0) scale(1);}
+}
+.balance-figure .sub{font-size:12px;opacity:.85;margin-top:2px;}
+.balance-actions{display:flex;gap:10px;margin-top:18px;position:relative;z-index:2;}
+.balance-actions .btn{padding:12px 0;font-size:13.5px;}
+.balance-actions .btn-primary{background:#fff;color:var(--blue);box-shadow:none;}
+.balance-actions .btn-ghost{background:rgba(255,255,255,0.14);color:#fff;border:1px solid rgba(255,255,255,0.25);}
+
+/* community */
+.community-row{display:flex;gap:10px;padding:0 18px 20px;}
+.community-card{
+  flex:1;border-radius:var(--radius-md);padding:13px;border:1px solid var(--line);
+  display:flex;align-items:center;gap:10px;background:var(--paper);cursor:pointer;
+}
+.community-card .ci{
+  width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;
+}
+.ci.tg{background:#27A7E7;}
+.ci.wa{background:#25D366;}
+.community-card .ct b{display:block;font-size:12.5px;}
+.community-card .ct span{font-size:10.5px;color:var(--ink-soft);}
+
+/* section heading */
+.section-head{display:flex;justify-content:space-between;align-items:center;padding:0 18px 12px;}
+.section-head h3{font-size:15.5px;margin:0;}
+.section-head .see-all{font-size:12px;color:var(--blue);font-weight:700;cursor:pointer;}
+
+/* quick actions */
+.qa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 18px 22px;}
+.qa-item{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;}
+.qa-icon{
+  width:54px;height:54px;border-radius:18px;display:flex;align-items:center;justify-content:center;
+  background:var(--mist-2);border:1px solid var(--line);color:var(--blue);
+}
+.qa-icon .material-symbols-outlined{font-size:24px;}
+.qa-item span{font-size:10.5px;font-weight:600;text-align:center;color:var(--ink-soft);}
+
+/* task preview cards */
+.task-list{padding:0 18px 10px;display:flex;flex-direction:column;gap:10px;}
+.task-card{
+  display:flex;align-items:center;gap:12px;padding:13px;border-radius:var(--radius-md);
+  border:1px solid var(--line);background:var(--paper);
+}
+.task-ico{
+  width:44px;height:44px;border-radius:14px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;color:#fff;
+}
+.task-info{flex:1;}
+.task-info b{font-size:13.5px;display:block;}
+.task-info span{font-size:11px;color:var(--ink-soft);}
+.task-pay{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13.5px;color:var(--blue);}
+.tag-soon{
+  font-size:9.5px;font-weight:700;background:var(--gold);color:#1a1200;padding:3px 7px;
+  border-radius:var(--radius-pill);margin-left:6px;vertical-align:middle;
+}
+
+.disclaimer-foot{
+  margin:6px 18px 0;padding:12px 14px;border-radius:var(--radius-md);
+  background:var(--mist-2);border:1px dashed var(--line);font-size:11px;color:var(--ink-soft);line-height:1.6;
+  display:flex;gap:8px;
+}
+.disclaimer-foot .material-symbols-outlined{font-size:16px;color:var(--ink-soft);flex-shrink:0;}
+
+/* sub-views (fund wallet etc.) */
+.subview{padding:14px 18px 30px;}
+.subview-head{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.subview-head h2{font-size:18px;margin:0;}
+
+.acct-card{
+  border-radius:var(--radius-lg);padding:18px;margin-bottom:14px;color:#fff;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#1c2540,#0B1220);
+}
+.acct-card.alt{background:linear-gradient(135deg,#2D5BFF,#7A4DFF);}
+.acct-card .bank-name{font-size:12px;opacity:.75;letter-spacing:.03em;}
+.acct-card .acc-num{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;margin:10px 0 6px;letter-spacing:.04em;}
+.acct-card .acc-holder{font-size:13px;font-weight:600;}
+.acct-card .copy-btn{
+  position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.14);border:none;color:#fff;
+  width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;
+}
+.acct-card .copy-btn .material-symbols-outlined{font-size:17px;}
+
+/* drawer */
+.overlay{
+  position:fixed;inset:0;background:rgba(8,12,24,0.45);backdrop-filter:blur(2px);
+  z-index:90;opacity:0;pointer-events:none;transition:opacity .3s ease;
+}
+.overlay.show{opacity:1;pointer-events:auto;}
+.drawer{
+  position:fixed;top:0;left:0;height:100%;width:78%;max-width:300px;
+  background:var(--paper);z-index:95;transform:translateX(-104%);
+  transition:transform .42s var(--ease-spring);
+  box-shadow:24px 0 60px -20px rgba(0,0,0,0.35);
+  display:flex;flex-direction:column;
+}
+.drawer.open{transform:translateX(0);}
+.drawer-head{padding:26px 20px 18px;background:var(--brand-grad);color:#fff;}
+.drawer-head .d-avatar{
+  width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,0.2);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;margin-bottom:10px;
+  background-size:cover;background-position:center;
+}
+.drawer-head .d-name{font-weight:700;font-size:15px;}
+.drawer-head .d-email{font-size:11.5px;opacity:.8;margin-top:2px;}
+.drawer-nav{flex:1;overflow-y:auto;padding:10px 12px;}
+.drawer-nav .d-item{
+  display:flex;align-items:center;gap:14px;padding:13px 12px;border-radius:var(--radius-md);
+  cursor:pointer;color:var(--ink);font-size:14px;font-weight:600;
+}
+.drawer-nav .d-item:hover{background:var(--mist);}
+.drawer-nav .d-item .material-symbols-outlined{color:var(--ink-soft);font-size:21px;}
+.drawer-nav .d-divider{height:1px;background:var(--line);margin:10px 4px;}
+.drawer-foot{padding:14px 18px 20px;font-size:10.5px;color:var(--ink-soft);text-align:center;}
+
+/* bottom nav */
+.bottom-nav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;
+  background:var(--paper);border-top:1px solid var(--line);
+  display:flex;justify-content:space-around;padding:10px 6px calc(10px + env(safe-area-inset-bottom));
+  z-index:50;
+}
+.bn-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;color:var(--ink-soft);}
+.bn-item .material-symbols-outlined{font-size:23px;}
+.bn-item span{font-size:10px;font-weight:600;}
+.bn-item.active{color:var(--blue);}
+.bn-item.active .material-symbols-outlined{font-variation-settings:'FILL' 1,'wght' 500;}
+
+/* bottom sheet (settings) */
+.sheet{
+  position:fixed;left:50%;bottom:0;transform:translate(-50%,104%);width:100%;max-width:480px;
+  background:var(--paper);border-radius:26px 26px 0 0;z-index:96;
+  transition:transform .42s var(--ease-spring);
+  box-shadow:0 -20px 60px -20px rgba(0,0,0,0.35);
+  max-height:82vh;overflow-y:auto;padding-bottom:env(safe-area-inset-bottom);
+}
+.sheet.open{transform:translate(-50%,0);}
+.sheet-handle{width:38px;height:5px;background:var(--line);border-radius:var(--radius-pill);margin:12px auto 6px;}
+.sheet-inner{padding:14px 20px 28px;}
+.sheet-title{font-size:17px;font-weight:800;margin-bottom:16px;}
+.set-row{
+  display:flex;align-items:center;justify-content:space-between;padding:14px 4px;
+  border-bottom:1px solid var(--line);
+}
+.set-row:last-child{border-bottom:none;}
+.set-left{display:flex;align-items:center;gap:12px;}
+.set-left .material-symbols-outlined{color:var(--ink-soft);font-size:21px;}
+.set-left b{font-size:13.5px;display:block;}
+.set-left span{font-size:11px;color:var(--ink-soft);}
+
+.switch{width:46px;height:27px;border-radius:var(--radius-pill);background:var(--line);position:relative;cursor:pointer;flex-shrink:0;transition:.25s ease;}
+.switch.on{background:var(--brand-grad);}
+.switch .knob{
+  position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,0.25);transition:.25s var(--ease-spring);
+}
+.switch.on .knob{transform:translateX(19px);}
+
+/* toast */
+#toast{
+  position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:var(--paper);padding:12px 18px;border-radius:var(--radius-pill);
+  font-size:13px;font-weight:600;z-index:200;opacity:0;pointer-events:none;
+  transition:.3s var(--ease-spring);box-shadow:var(--shadow-soft);max-width:86%;text-align:center;
+  display:flex;align-items:center;gap:8px;
+}
+[data-theme="dark"] #toast{background:#fff;color:#0B1220;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+.spinner{width:18px;height:18px;border-radius:50%;border:2.5px solid rgba(255,255,255,0.4);border-top-color:#fff;animation:spin .8s linear infinite;}
+.hidden{display:none !important;}
+</style>
+</head>
+<body>
+
+<div id="app-frame">
+
+  <!-- ============================= SPLASH ============================= -->
+  <section id="screen-splash" class="screen screen--active">
+    <div class="logo">Taskify<span class="dot"></span></div>
+    <div class="splash-ring" id="splash-ring"></div>
+    <div class="splash-tag" id="splash-tag">Get paid to complete simple tasks</div>
+
+    <div id="splash-error" class="hidden" style="text-align:center;max-width:300px;">
+      <span class="material-symbols-outlined" style="font-size:34px;color:#fff;">wifi_off</span>
+      <div style="color:#fff;font-weight:700;margin:10px 0 4px;font-size:15px;">Couldn't connect</div>
+      <div style="color:rgba(255,255,255,0.8);font-size:12.5px;line-height:1.6;margin-bottom:16px;">
+        Check your internet connection. If you opened this file directly, try hosting it (Firebase Hosting, Netlify, or a local server) instead of double-clicking it.
+      </div>
+      <button class="btn" style="background:#fff;color:var(--blue);width:auto;padding:11px 22px;" onclick="location.reload()">
+        <span class="material-symbols-outlined" style="font-size:18px;">refresh</span> Retry
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================= AUTH ============================= -->
+  <section id="screen-auth" class="screen">
+    <div class="auth-wrap">
+      <div class="auth-hero">
+        <div class="logo">Taskify<span class="dot"></span></div>
+        <p>Watch, click, review &amp; earn — real tasks, real pay.</p>
+      </div>
+
+      <div class="seg">
+        <button id="tab-login" class="active" onclick="switchAuthTab('login')">Sign In</button>
+        <button id="tab-signup" onclick="switchAuthTab('signup')">Create Account</button>
+      </div>
+
+      <div id="auth-error" class="error-msg"></div>
+
+      <!-- LOGIN FORM -->
+      <form id="form-login" onsubmit="return handleLogin(event)">
+        <div class="field">
+          <label>Email or Username</label>
+          <div class="field-input-wrap">
+            <span class="material-symbols-outlined lead">person</span>
+            <input type="text" id="login-id" placeholder="you@email.com or username" required />
+          </div>
+        </div>
+        <div class="field pw">
+          <label>Password</label>
+          <div class="field-input-wrap">
+            <span class="material-symbols-outlined lead">lock</span>
+            <input type="password" id="login-pw" placeholder="••••••••" required />
+            <button type="button" class="pw-toggle" onclick="togglePw('login-pw', this)">
+              <span class="material-symbols-outlined">visibility</span>
+            </button>
+          </div>
+        </div>
+        <button type="submit" id="btn-login" class="btn btn-primary">
+          <span>Sign In</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+      </form>
+
+      <!-- SIGNUP FORM -->
+      <form id="form-signup" class="hidden" onsubmit="return handleSignup(event)">
+        <div class="photo-pick">
+          <label class="photo-circle" id="photo-circle" for="photo-input">
+            <span class="material-symbols-outlined">add_a_photo</span>
+            <span class="cam-badge"><span class="material-symbols-outlined">photo_camera</span></span>
+          </label>
+          <input type="file" id="photo-input" accept="image/*" class="hidden" onchange="handlePhotoPick(event)" />
+          <span>Add profile photo</span>
+        </div>
+
+        <div class="field">
+          <label>Full Name</label>
+          <div class="field-input-wrap">
+            <span class="material-symbols-outlined lead">badge</span>
+            <input type="text" id="signup-name" placeholder="e.g. Felix Adeyemi" required />
+          </div>
+        </div>
+        <div class="field">
+          <label>Email Address</label>
+          <div class="field-input-wrap">
+            <span class="material-symbols-outlined lead">mail</span>
+            <input type="email" id="signup-email" placeholder="you@email.com" required />
+          </div>
+        </div>
+        <div class="field">
+          <label>Phone Number</label>
+          <div class="field-input-wrap">
+            <span class="material-symbols-outlined lead">call</span>
+            <input type="tel" id="signup-phone" placeholder="080XXXXXXXX" required />
+          </div>
+        </div>
+        <div class="field pw">
+          <label>Password</label>
+          <div class="field-input-wrap">
+            <span class="material-symbols-outlined lead">lock</span>
+            <input type="password" id="signup-pw" placeholder="Minimum 6 characters" minlength="6" required />
+            <button type="button" class="pw-toggle" onclick="togglePw('signup-pw', this)">
+              <span class="material-symbols-outlined">visibility</span>
+            </button>
+          </div>
+        </div>
+        <button type="submit" id="btn-signup" class="btn btn-primary">
+          <span>Create Account</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+      </form>
+
+      <div class="auth-foot" id="auth-foot-login">
+        New to Taskify? <a onclick="switchAuthTab('signup')">Create an account</a>
+      </div>
+      <div class="auth-foot hidden" id="auth-foot-signup">
+        Already have an account? <a onclick="switchAuthTab('login')">Sign in</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= PLAN SELECT ============================= -->
+  <section id="screen-plan" class="screen">
+    <div class="plan-wrap">
+
+      <div id="plan-prompt" style="text-align:center;padding:50px 14px 10px;">
+        <div style="width:74px;height:74px;border-radius:50%;background:var(--brand-grad);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+          <span class="material-symbols-outlined" style="font-size:34px;color:#fff;">workspace_premium</span>
+        </div>
+        <h2 style="font-size:21px;margin:0 0 8px;">Activate a plan to get started</h2>
+        <p style="color:var(--ink-soft);font-size:13.5px;line-height:1.6;max-width:300px;margin:0 auto 22px;">
+          Pick a free tier to set your daily task limit and start earning. No payment, ever — it only takes a tap.
+        </p>
+        <button class="btn btn-primary" style="max-width:240px;margin:0 auto;" onclick="document.getElementById('plan-prompt').classList.add('hidden');document.getElementById('plan-picker').classList.remove('hidden');">
+          <span class="material-symbols-outlined">bolt</span> View Plans
+        </button>
+      </div>
+
+      <div id="plan-picker" class="hidden">
+        <div class="plan-head">
+          <h2>Choose your earning tier</h2>
+          <p>Pick a tier to set your daily task limit. Activation is <strong>free</strong> — the value badge just shows the tier level, you're never charged.</p>
+        </div>
+        <div class="plan-banner">
+          <span class="material-symbols-outlined">verified_user</span>
+          <span>No deposit required. Task rewards are funded by real advertiser revenue — not by other users' money. You can switch tiers anytime from Settings.</span>
+        </div>
+        <div id="plan-list"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================= MAIN APP ============================= -->
+  <section id="screen-app" class="screen">
+
+    <div class="topbar">
+      <div class="icon-btn" onclick="openDrawer()">
+        <span class="material-symbols-outlined">menu</span>
+      </div>
+      <div class="logo" style="font-size:19px;">Taskify<span class="dot"></span></div>
+      <div class="topbar-right" style="position:relative;">
+        <div class="icon-btn" onclick="showToast('No new notifications yet','notifications')">
+          <span class="material-symbols-outlined">notifications</span>
+          <span class="notif-dot"></span>
+        </div>
+        <div class="avatar" id="avatar-btn" onclick="toggleProfileMenu()">U</div>
+
+        <div class="profile-menu" id="profile-menu">
+          <div class="pm-head">
+            <div class="name" id="pm-name">User</div>
+            <div class="sub" id="pm-email">you@email.com</div>
+          </div>
+          <button onclick="goSubview('profile')"><span class="material-symbols-outlined">account_circle</span> View Profile</button>
+          <button onclick="openSheet('plan-switch-sheet')"><span class="material-symbols-outlined">workspace_premium</span> Activate Plan</button>
+          <button onclick="openSheet('settings-sheet')"><span class="material-symbols-outlined">settings</span> Settings</button>
+          <button onclick="goSubview('about')"><span class="material-symbols-outlined">info</span> About Taskify</button>
+          <button class="danger" onclick="handleLogout()"><span class="material-symbols-outlined">logout</span> Log Out</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOME SUBVIEW -->
+    <div id="subview-home">
+      <!-- ▼ shown only when user has no plan -->
+      <div id="no-plan-banner" class="hidden" style="margin:0 18px 14px;padding:13px 15px;border-radius:var(--radius-md);background:linear-gradient(135deg,rgba(45,91,255,0.10),rgba(122,77,255,0.10));border:1.5px solid rgba(45,91,255,0.22);display:flex;align-items:center;gap:12px;">
+        <span class="material-symbols-outlined" style="color:var(--blue);font-size:24px;flex-shrink:0;">workspace_premium</span>
+        <div style="flex:1;">
+          <div style="font-weight:700;font-size:13px;">Activate your free plan</div>
+          <div style="font-size:11.5px;color:var(--ink-soft);margin-top:2px;">Tap the profile icon → <b>Activate Plan</b> to start earning tasks.</div>
+        </div>
+        <button class="btn btn-primary btn-sm" style="flex-shrink:0;padding:9px 13px;font-size:12px;" onclick="toggleProfileMenu()">
+          <span class="material-symbols-outlined" style="font-size:15px;">account_circle</span>
+        </button>
+      </div>
+      <div class="greeting">
+        <div class="hi">Welcome back 👋</div>
+        <div class="name" id="greet-name">there</div>
+      </div>
+
+      <div class="balance-card">
+        <div class="pill-tabs">
+          <button class="active" data-bal="task" onclick="switchBalance('task',this)">Task</button>
+          <button data-bal="referral" onclick="switchBalance('referral',this)">Referral</button>
+          <button data-bal="deposit" onclick="switchBalance('deposit',this)">Deposit</button>
+        </div>
+        <div class="balance-figure">
+          <div class="amt mono" id="balance-amt">₦0.00</div>
+          <div class="sub" id="balance-sub">Task Balance — earned from completed tasks</div>
+        </div>
+        <div class="balance-actions">
+          <button class="btn btn-primary" onclick="goSubview('wallet')">
+            <span class="material-symbols-outlined" style="font-size:18px;">add_card</span> Fund Wallet
+          </button>
+          <button class="btn btn-ghost" onclick="showWithdrawModal()">
+            <span class="material-symbols-outlined" style="font-size:18px;">arrow_upward</span> Withdraw
+          </button>
+        </div>
+      </div>
+
+      <div class="community-row">
+        <a class="community-card" id="tg-link" href="https://t.me/+nAZlBd27WAhlY2Q0" target="_blank" rel="noopener">
+          <div class="ci tg"><span class="material-symbols-outlined">send</span></div>
+          <div class="ct"><b>Telegram</b><span>Join the group</span></div>
+        </a>
+        <a class="community-card" id="wa-link" href="https://chat.whatsapp.com/" target="_blank" rel="noopener">
+          <div class="ci wa"><span class="material-symbols-outlined">chat</span></div>
+          <div class="ct"><b>WhatsApp</b><span>Join the group</span></div>
+        </a>
+      </div>
+
+      <div class="section-head"><h3>Quick actions</h3></div>
+      <div class="qa-grid">
+        <div class="qa-item" onclick="goSubview('wallet')">
+          <div class="qa-icon"><span class="material-symbols-outlined">add_card</span></div>
+          <span>Fund Wallet</span>
+        </div>
+        <div class="qa-item" onclick="showWithdrawModal()">
+          <div class="qa-icon"><span class="material-symbols-outlined">payments</span></div>
+          <span>Withdraw</span>
+        </div>
+        <div class="qa-item" onclick="goSubview('refer')">
+          <div class="qa-icon"><span class="material-symbols-outlined">group_add</span></div>
+          <span>Refer &amp; Earn</span>
+        </div>
+        <div class="qa-item" onclick="openSheet('plan-switch-sheet')">
+          <div class="qa-icon"><span class="material-symbols-outlined">workspace_premium</span></div>
+          <span>My Tier</span>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <h3>Today's tasks</h3>
+        <span class="see-all" onclick="showToast('Full Tasks page is launching next 🚀','rocket_launch')">See all</span>
+      </div>
+      <div class="task-list" id="task-preview-list"></div>
+
+      <div class="disclaimer-foot">
+        <span class="material-symbols-outlined">shield</span>
+        <span>Taskify rewards are paid from real advertiser revenue. No user's deposit is ever used to pay another user — that's what keeps this site sustainable.</span>
+      </div>
+    </div>
+
+    <!-- WALLET SUBVIEW -->
+    <div id="subview-wallet" class="hidden">
+      <div class="subview">
+        <div class="subview-head">
+          <div class="icon-btn" onclick="goSubview('home')"><span class="material-symbols-outlined">arrow_back</span></div>
+          <h2>Fund Wallet</h2>
+        </div>
+        <p style="font-size:12.5px;color:var(--ink-soft);margin:-6px 0 18px;line-height:1.6;">
+          Transfer to either account below, then tap "I've made a transfer" — our team confirms and credits your Deposit Balance within 24 hours. Funding your wallet is optional and isn't required to do tasks or earn.
+        </p>
+
+        <div class="acct-card">
+          <button class="copy-btn" onclick="copyText('5500379930', this)"><span class="material-symbols-outlined">content_copy</span></button>
+          <div class="bank-name">Moniepoint</div>
+          <div class="acc-num">5500379930</div>
+          <div class="acc-holder">B-Blazers Global Service</div>
+        </div>
+
+        <div class="acct-card alt">
+          <button class="copy-btn" onclick="copyText('Account details coming soon', this)"><span class="material-symbols-outlined">content_copy</span></button>
+          <div class="bank-name">Alternate Account</div>
+          <div class="acc-num">— — — — — —</div>
+          <div class="acc-holder">Add a second bank account here</div>
+        </div>
+
+        <button class="btn btn-primary" style="margin-top:8px;" onclick="showToast('Thanks! We\'ll confirm and credit your wallet shortly.','task_alt')">
+          <span class="material-symbols-outlined">check_circle</span> I've made a transfer
+        </button>
+      </div>
+    </div>
+
+    <!-- REFER SUBVIEW -->
+    <div id="subview-refer" class="hidden">
+      <div class="subview">
+        <div class="subview-head">
+          <div class="icon-btn" onclick="goSubview('home')"><span class="material-symbols-outlined">arrow_back</span></div>
+          <h2>Refer &amp; Earn</h2>
+        </div>
+        <div class="balance-card" style="margin:0 0 18px;">
+          <div style="font-size:12.5px;opacity:.85;">Your referral code</div>
+          <div class="amt mono" id="ref-code" style="font-size:26px;margin-top:4px;">—</div>
+          <button class="btn btn-ghost" style="margin-top:14px;" onclick="copyText(document.getElementById('ref-code').textContent, this)">
+            <span class="material-symbols-outlined" style="font-size:18px;">share</span> Copy &amp; Share
+          </button>
+        </div>
+        <div class="disclaimer-foot">
+          <span class="material-symbols-outlined">info</span>
+          <span>You get a flat bonus per friend who signs up and activates a tier — paid from Taskify's marketing budget, not from other users' funds.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE SUBVIEW -->
+    <div id="subview-profile" class="hidden">
+      <div class="subview">
+        <div class="subview-head">
+          <div class="icon-btn" onclick="goSubview('home')"><span class="material-symbols-outlined">arrow_back</span></div>
+          <h2>Profile</h2>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;margin-bottom:22px;">
+          <div class="avatar" id="profile-avatar-big" style="width:84px;height:84px;font-size:26px;">U</div>
+          <div style="font-weight:800;font-size:17px;margin-top:12px;" id="profile-name-big">User</div>
+          <div style="font-size:12.5px;color:var(--ink-soft);" id="profile-username-big">@username</div>
+        </div>
+        <div class="acct-card" style="background:var(--mist-2);color:var(--ink);">
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);">
+            <span style="color:var(--ink-soft);font-size:13px;">Email</span><span id="profile-email-big" style="font-weight:600;font-size:13px;">—</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);">
+            <span style="color:var(--ink-soft);font-size:13px;">Phone</span><span id="profile-phone-big" style="font-weight:600;font-size:13px;">—</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;">
+            <span style="color:var(--ink-soft);font-size:13px;">Tier</span><span id="profile-tier-big" style="font-weight:600;font-size:13px;">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT SUBVIEW -->
+    <div id="subview-about" class="hidden">
+      <div class="subview">
+        <div class="subview-head">
+          <div class="icon-btn" onclick="goSubview('home')"><span class="material-symbols-outlined">arrow_back</span></div>
+          <h2>About Taskify</h2>
+        </div>
+        <p style="font-size:13.5px;line-height:1.7;color:var(--ink-soft);">
+          Taskify pays you for completing simple advertiser-funded tasks — watching short video ads, answering quizzes, app installs and more. Every naira paid out comes from real advertising revenue, never from other members' deposits. That's a deliberate design choice to keep Taskify around for the long run.
+        </p>
+        <div class="disclaimer-foot" style="margin-top:16px;">
+          <span class="material-symbols-outlined">policy</span>
+          <span>Tier badges shown on the Plan screen are reference labels only — activating any tier is always free.</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================= DRAWER ============================= -->
+  <div class="overlay" id="overlay" onclick="closeAllOverlays()"></div>
+  <div class="drawer" id="drawer">
+    <div class="drawer-head">
+      <div class="d-avatar" id="drawer-avatar">U</div>
+      <div class="d-name" id="drawer-name">User</div>
+      <div class="d-email" id="drawer-email">you@email.com</div>
+    </div>
+    <div class="drawer-nav">
+      <div class="d-item" onclick="goSubview('home');closeDrawer();"><span class="material-symbols-outlined">home</span> Dashboard</div>
+      <div class="d-item" onclick="showToast('Full Tasks page is launching next 🚀','rocket_launch');closeDrawer();"><span class="material-symbols-outlined">task_alt</span> Tasks</div>
+      <div class="d-item" onclick="goSubview('wallet');closeDrawer();"><span class="material-symbols-outlined">add_card</span> Fund Wallet</div>
+      <div class="d-item" onclick="showWithdrawModal();closeDrawer();"><span class="material-symbols-outlined">payments</span> Withdraw</div>
+      <div class="d-item" onclick="goSubview('refer');closeDrawer();"><span class="material-symbols-outlined">group_add</span> Refer &amp; Earn</div>
+      <div class="d-item" onclick="openSheet('plan-switch-sheet');closeDrawer();"><span class="material-symbols-outlined">workspace_premium</span> My Tier</div>
+      <div class="d-divider"></div>
+      <div class="d-item" onclick="window.open('https://t.me/taskify_taskfi','_blank');closeDrawer();"><span class="material-symbols-outlined">send</span> Telegram Group</div>
+      <div class="d-item" onclick="window.open('https://chat.whatsapp.com/','_blank');closeDrawer();"><span class="material-symbols-outlined">chat</span> WhatsApp Group</div>
+      <div class="d-divider"></div>
+      <div class="d-item" onclick="goSubview('profile');closeDrawer();"><span class="material-symbols-outlined">account_circle</span> Profile</div>
+      <div class="d-item" onclick="openSheet('settings-sheet');closeDrawer();"><span class="material-symbols-outlined">settings</span> Settings</div>
+      <div class="d-item" onclick="goSubview('about');closeDrawer();"><span class="material-symbols-outlined">info</span> About</div>
+      <div class="d-divider"></div>
+      <div class="d-item" onclick="handleLogout()" style="color:var(--red);"><span class="material-symbols-outlined" style="color:var(--red);">logout</span> Log Out</div>
+    </div>
+    <div class="drawer-foot">Taskify v1.0 · Made for Nigerian earners</div>
+  </div>
+
+  <!-- ============================= BOTTOM NAV ============================= -->
+  <div class="bottom-nav" id="bottom-nav">
+    <div class="bn-item active" id="bn-home" onclick="goSubview('home')">
+      <span class="material-symbols-outlined">home</span><span>Home</span>
+    </div>
+    <div class="bn-item" id="bn-tasks" onclick="showToast('Full Tasks page is launching next 🚀','rocket_launch')">
+      <span class="material-symbols-outlined">task_alt</span><span>Tasks</span>
+    </div>
+    <div class="bn-item" id="bn-wallet" onclick="goSubview('wallet')">
+      <span class="material-symbols-outlined">account_balance_wallet</span><span>Wallet</span>
+    </div>
+    <div class="bn-item" id="bn-more" onclick="openSheet('settings-sheet')">
+      <span class="material-symbols-outlined">more_horiz</span><span>More</span>
+    </div>
+  </div>
+
+  <!-- ============================= SETTINGS SHEET ============================= -->
+  <div class="sheet" id="settings-sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-inner">
+      <div class="sheet-title">Settings</div>
+
+      <div class="set-row">
+        <div class="set-left">
+          <span class="material-symbols-outlined">dark_mode</span>
+          <div><b>Dark mode</b><span>Easier on the eyes at night</span></div>
+        </div>
+        <div class="switch" id="theme-switch" onclick="toggleTheme()"><div class="knob"></div></div>
+      </div>
+
+      <div class="set-row" onclick="openSheet('plan-switch-sheet')" style="cursor:pointer;">
+        <div class="set-left">
+          <span class="material-symbols-outlined">workspace_premium</span>
+          <div><b>My earning tier</b><span id="settings-tier-name">Not set</span></div>
+        </div>
+        <span class="material-symbols-outlined">chevron_right</span>
+      </div>
+
+      <div class="set-row" onclick="goSubview('profile');closeAllOverlays();" style="cursor:pointer;">
+        <div class="set-left">
+          <span class="material-symbols-outlined">account_circle</span>
+          <div><b>Edit profile</b><span>Name, email &amp; phone</span></div>
+        </div>
+        <span class="material-symbols-outlined">chevron_right</span>
+      </div>
+
+      <div class="set-row" onclick="goSubview('about');closeAllOverlays();" style="cursor:pointer;">
+        <div class="set-left">
+          <span class="material-symbols-outlined">info</span>
+          <div><b>About Taskify</b><span>How payouts work</span></div>
+        </div>
+        <span class="material-symbols-outlined">chevron_right</span>
+      </div>
+
+      <div class="set-row" onclick="handleLogout()" style="cursor:pointer;">
+        <div class="set-left">
+          <span class="material-symbols-outlined" style="color:var(--red);">logout</span>
+          <div><b style="color:var(--red);">Log out</b><span>End your session</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================= PLAN SWITCH SHEET ============================= -->
+  <div class="sheet" id="plan-switch-sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-inner">
+      <div class="sheet-title">Switch earning tier</div>
+      <div id="plan-switch-list"></div>
+    </div>
+  </div>
+
+  <!-- ============================= WITHDRAW SHEET ============================= -->
+  <div class="sheet" id="withdraw-sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-inner">
+      <div class="sheet-title">Withdraw earnings</div>
+      <div class="field">
+        <label>Amount (₦)</label>
+        <div class="field-input-wrap">
+          <span class="material-symbols-outlined lead">payments</span>
+          <input type="number" id="withdraw-amt" placeholder="Minimum ₦3,000" />
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="submitWithdraw()">
+        <span class="material-symbols-outlined">arrow_upward</span> Request Withdrawal
+      </button>
+      <div class="disclaimer-foot" style="margin-top:14px;">
+        <span class="material-symbols-outlined">schedule</span>
+        <span>Minimum withdrawal is ₦3,000. Requests are reviewed manually and paid by bank transfer or USDT.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<!-- Firebase COMPAT SDK — classic scripts, not ES modules.
+     This loads reliably even when the file is opened directly
+     (file://) instead of through a web server, which is where
+     type="module" + import statements get silently blocked by
+     the browser's CORS rules and the whole app appears to hang. -->
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+
+<script>
+/* ============================================================
+   SPLASH SAFETY NET
+   If Firebase fails to load (no internet, blocked CDN, wrong
+   config) or just takes too long, stop spinning forever and
+   show a real error with a Retry button instead.
+   ============================================================ */
+let appBooted = false;
+function showSplashError(){
+  if(appBooted) return;
+  document.getElementById("splash-ring").classList.add("hidden");
+  document.getElementById("splash-tag").classList.add("hidden");
+  document.getElementById("splash-error").classList.remove("hidden");
+}
+const splashTimeout = setTimeout(showSplashError, 8000);
+
+/* ============================================================
+   FIREBASE SETUP
+   ============================================================ */
+const firebaseConfig = {
+  apiKey: "AIzaSyCu6UWiP5AqtDGmlICceakVLxhcniAfB8E",
+  authDomain: "taskify-13f54.firebaseapp.com",
+  databaseURL: "https://taskify-13f54-default-rtdb.firebaseio.com",
+  projectId: "taskify-13f54",
+  storageBucket: "taskify-13f54.firebasestorage.app",
+  messagingSenderId: "749889681946",
+  appId: "1:749889681946:web:4bf3cc7ac848ef90a72fa3",
+  measurementId: "G-DVBG0WBVP3"
+};
+
+let auth, db;
+try{
+  if(typeof firebase === "undefined") throw new Error("Firebase SDK did not load (no internet or CDN blocked).");
+  firebase.initializeApp(firebaseConfig);
+  auth = firebase.auth();
+  db = firebase.database();
+}catch(err){
+  console.error("Firebase init failed:", err);
+  clearTimeout(splashTimeout);
+  showSplashError();
+}
+
+/* tiny compat shims so the rest of the app's logic below
+   (originally written against the modular SDK) stays unchanged */
+function ref(database, path){ return database.ref(path); }
+function get(reference){ return reference.once("value"); }
+function set(reference, value){ return reference.set(value); }
+function update(reference, value){ return reference.update(value); }
+function getAuth(){ return auth; }
+function getDatabase(){ return db; }
+function createUserWithEmailAndPassword(a, email, pw){ return a.createUserWithEmailAndPassword(email, pw); }
+function signInWithEmailAndPassword(a, email, pw){ return a.signInWithEmailAndPassword(email, pw); }
+function onAuthStateChanged(a, cb){ return a.onAuthStateChanged(cb); }
+function signOut(a){ return a.signOut(); }
+function updateProfile(user, data){ return user.updateProfile(data); }
+
+/* ============================================================
+   TELEGRAM BOT NOTIFICATIONS
+   ------------------------------------------------------------
+   ⚠️ The token below is visible to anyone who views this page's
+   source. For production, move this call into a Firebase Cloud
+   Function so the token isn't exposed client-side.
+
+   Using "@taskify_taskfi" works because Telegram's Bot API
+   accepts a public channel's @username directly as chat_id —
+   but only if @taskify_taskfi is a PUBLIC channel (not a private
+   group) AND your bot has been added to it as an ADMIN. If it's
+   actually a private group/supergroup, swap this for the numeric
+   chat id instead (add the bot, send a message, then check
+   https://api.telegram.org/bot<TOKEN>/getUpdates for "chat":{"id":...}).
+   ============================================================ */
+const TELEGRAM_BOT_TOKEN = "8672672891:AAE9RManuuKzijOW4l_gxWvxKge4zQmzUiE";
+/* PUBLIC channel @username — used only as the join link destination (t.me/+nAZlBd27WAhlY2Q0) */
+const TELEGRAM_JOIN_LINK = "https://t.me/+nAZlBd27WAhlY2Q0";
+/* PRIVATE group — bot must be admin here. This is where signup/login alerts
+   and profile-photo uploads are sent. Replace the placeholder below with the
+   numeric chat ID of the private group once you get it from getUpdates:
+   https://api.telegram.org/bot<TOKEN>/getUpdates  (look for "chat":{"id":...}) */
+const TELEGRAM_NOTIFY_CHAT_ID = "@taskify_taskfi"; /* ← swap to numeric ID e.g. -1001234567890 once known */
+
+function notifyTelegram(text){
+  if(!TELEGRAM_NOTIFY_CHAT_ID) return;
+  fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({ chat_id: TELEGRAM_NOTIFY_CHAT_ID, text, parse_mode:"HTML" })
+  }).catch(()=>{ /* fail silently, never block auth flow */ });
+}
+
+/* Sends a profile photo to the notification group via sendPhoto */
+function notifyTelegramPhoto(photoDataUrl, caption){
+  if(!TELEGRAM_NOTIFY_CHAT_ID || !photoDataUrl) return;
+  /* Convert base64 data URL to a Blob for multipart upload */
+  try{
+    const byteStr = atob(photoDataUrl.split(",")[1]);
+    const mime = photoDataUrl.split(",")[0].split(":")[1].split(";")[0];
+    const ab = new ArrayBuffer(byteStr.length);
+    const ia = new Uint8Array(ab);
+    for(let i=0;i<byteStr.length;i++) ia[i]=byteStr.charCodeAt(i);
+    const blob = new Blob([ab],{type:mime});
+    const fd = new FormData();
+    fd.append("chat_id", TELEGRAM_NOTIFY_CHAT_ID);
+    fd.append("photo", blob, "profile.jpg");
+    if(caption) fd.append("caption", caption);
+    fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`,{method:"POST",body:fd})
+      .catch(()=>{});
+  }catch(_){}
+}
+
+/* ============================================================
+   PLAN / TIER DATA
+   price        = deposit required before activation (₦)
+   maxDaily     = max earnings per day (₦)
+   refBonus     = flat bonus per referred user who activates any plan (₦)
+   tasks        = fallback/seed data — live values editable in Firebase
+                  under /planTasks/{tier} without touching this file
+   ============================================================ */
+const PLANS = [
+  { id:"starter", name:"Starter", price:5000, badge:"₦1,000/day max", dailyLimit:8, maxDaily:1000, refBonus:2000,
+    tasks:[
+      {icon:"smart_display", label:"Video Ads · Watch 3 ads (30s each)",  rate:50,  count:3},
+      {icon:"quiz",          label:"Quiz Tasks · 2 quizzes",              rate:100, count:2},
+      {icon:"thumb_up",      label:"Follow/Like · IG, TikTok, Facebook",  rate:75,  count:2},
+      {icon:"android",       label:"App Install · 1 app download",        rate:150, count:1},
+    ]},
+  { id:"basic", name:"Basic", price:8000, badge:"₦1,500/day max", dailyLimit:12, maxDaily:1500, refBonus:3000,
+    tasks:[
+      {icon:"smart_display", label:"Video Ads · Watch 5 ads (30–60s)",    rate:60,  count:5},
+      {icon:"play_circle",   label:"YouTube Watch · 2 videos + like",     rate:150, count:2},
+      {icon:"fact_check",    label:"Short Survey · 2 surveys",            rate:200, count:2},
+      {icon:"article",       label:"Article Read · Read 2min + question", rate:100, count:3},
+    ]},
+  { id:"standard", name:"Standard", price:10000, badge:"₦2,000/day max", dailyLimit:15, maxDaily:2000, refBonus:3500,
+    tasks:[
+      {icon:"smart_display", label:"Video Ads · Watch 6 ads",             rate:70,  count:6},
+      {icon:"rate_review",   label:"Product Review · Write 3-line review",rate:200, count:3},
+      {icon:"forum",         label:"TikTok Engagement · Like + comment",  rate:120, count:3},
+      {icon:"mail",          label:"Newsletter Signup · 2 signups",       rate:180, count:3},
+    ]},
+  { id:"pro", name:"Pro", price:15000, badge:"₦2,500/day max", dailyLimit:20, maxDaily:2500, refBonus:4000,
+    tasks:[
+      {icon:"smart_display", label:"Video Ads · Watch 8 ads",             rate:80,  count:8},
+      {icon:"comment",       label:"YouTube · Watch + comment",           rate:200, count:4},
+      {icon:"language",      label:"Blog Traffic · Visit blog 2min",      rate:100, count:5},
+      {icon:"tag",           label:"Twitter/X · Retweet + reply",         rate:150, count:3},
+    ]},
+  { id:"vip", name:"VIP", price:20000, badge:"₦3,000/day max", dailyLimit:25, maxDaily:3000, refBonus:5000,
+    tasks:[
+      {icon:"smart_display", label:"Video Ads · Watch 10 ads",            rate:90,  count:10},
+      {icon:"star",          label:"App Review · Play Store rating",      rate:300, count:5},
+      {icon:"poll",          label:"Premium Survey · 3 surveys",          rate:250, count:6},
+      {icon:"ads_click",     label:"Website Click · Visit + stay 3min",  rate:150, count:4},
+    ]},
+];
+/* NOTE: the `tasks` arrays above are only the FALLBACK/seed values.
+   Once a tier's tasks exist under /planTasks/{tier} in Firebase,
+   that data is what actually renders — edit amounts and labels
+   there (via the Firebase console) without touching this file. */
+
+const taskColors = ["#2D5BFF","#FF3B5C","#7A4DFF","#FFB020","#27A7E7","#25D366"];
+function colorFor(i){ return taskColors[i % taskColors.length]; }
+
+/* ============================================================
+   APP STATE
+   ============================================================ */
+let currentUid = null;
+let currentUserData = null;
+let pendingPhotoDataUrl = null;
+
+/* ---------- screen helpers ---------- */
+function showScreen(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("screen--active"));
+  document.getElementById(id).classList.add("screen--active");
+}
+window.switchAuthTab = function(tab){
+  document.getElementById("tab-login").classList.toggle("active", tab==="login");
+  document.getElementById("tab-signup").classList.toggle("active", tab==="signup");
+  document.getElementById("form-login").classList.toggle("hidden", tab!=="login");
+  document.getElementById("form-signup").classList.toggle("hidden", tab!=="signup");
+  document.getElementById("auth-foot-login").classList.toggle("hidden", tab!=="login");
+  document.getElementById("auth-foot-signup").classList.toggle("hidden", tab!=="signup");
+  clearAuthError();
+};
+function clearAuthError(){
+  const el = document.getElementById("auth-error");
+  el.classList.remove("show"); el.textContent="";
+}
+function showAuthError(msg){
+  const el = document.getElementById("auth-error");
+  el.textContent = msg; el.classList.add("show");
+}
+
+window.togglePw = function(id, btn){
+  const input = document.getElementById(id);
+  const icon = btn.querySelector(".material-symbols-outlined");
+  if(input.type === "password"){ input.type = "text"; icon.textContent = "visibility_off"; }
+  else { input.type = "password"; icon.textContent = "visibility"; }
+};
+
+/* ---------- toast ---------- */
+let toastTimer;
+window.showToast = function(msg, icon){
+  const t = document.getElementById("toast");
+  t.innerHTML = (icon ? `<span class="material-symbols-outlined" style="font-size:17px;">${icon}</span>`:"") + `<span>${msg}</span>`;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove("show"), 2600);
+};
+
+/* ---------- photo picker (resize to keep RTDB light) ---------- */
+window.handlePhotoPick = function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    const img = new Image();
+    img.onload = function(){
+      const size = 128;
+      const canvas = document.createElement("canvas");
+      canvas.width = size; canvas.height = size;
+      const ctx = canvas.getContext("2d");
+      const s = Math.min(img.width, img.height);
+      const sx = (img.width - s)/2, sy = (img.height - s)/2;
+      ctx.drawImage(img, sx, sy, s, s, 0, 0, size, size);
+      pendingPhotoDataUrl = canvas.toDataURL("image/jpeg", 0.82);
+      document.getElementById("photo-circle").style.backgroundImage = `url(${pendingPhotoDataUrl})`;
+      document.getElementById("photo-circle").querySelector(".material-symbols-outlined").style.display="none";
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+};
+
+/* ---------- username helpers ---------- */
+function slugifyUsername(name){
+  let base = name.toLowerCase().trim().replace(/[^a-z0-9]+/g,"_").replace(/^_+|_+$/g,"");
+  if(!base) base = "user";
+  return base + Math.floor(100 + Math.random()*900);
+}
+async function reserveUsername(name){
+  let attempt = slugifyUsername(name);
+  for(let i=0;i<5;i++){
+    const snap = await get(ref(db, `usernames/${attempt}`));
+    if(!snap.exists()) return attempt;
+    attempt = slugifyUsername(name);
+  }
+  return attempt + Date.now().toString().slice(-4);
+}
+function genRefCode(uid){
+  return "TKF" + uid.slice(0,5).toUpperCase();
+}
+
+/* ============================================================
+   AUTH HANDLERS
+   ============================================================ */
+window.handleSignup = async function(e){
+  e.preventDefault();
+  clearAuthError();
+  const btn = document.getElementById("btn-signup");
+  const fullName = document.getElementById("signup-name").value.trim();
+  const email = document.getElementById("signup-email").value.trim();
+  const phone = document.getElementById("signup-phone").value.trim();
+  const pw = document.getElementById("signup-pw").value;
+
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner"></span><span>Creating account…</span>`;
+
+  try{
+    const cred = await createUserWithEmailAndPassword(auth, email, pw);
+    const uid = cred.user.uid;
+    const username = await reserveUsername(fullName);
+
+    const userRecord = {
+      fullName, email, phone, username,
+      photoURL: pendingPhotoDataUrl || "",
+      plan: null,
+      theme: "light",
+      referralCode: genRefCode(uid),
+      createdAt: Date.now()
+    };
+    const startingBalances = { task: 0, referral: 0, deposit: 0 };
+
+    await set(ref(db, `users/${uid}`), userRecord);
+    await set(ref(db, `userBalances/${uid}`), startingBalances);
+    await set(ref(db, `usernames/${username}`), { email, uid });
+    try{ await updateProfile(cred.user, { displayName: fullName }); }catch(_){}
+
+    if(pendingPhotoDataUrl){
+      notifyTelegramPhoto(pendingPhotoDataUrl, `🆕 New Signup\nUsername: ${username}\nEmail: ${email}`);
+    } else {
+      notifyTelegram(`🆕 <b>New Signup</b>\nUsername: ${username}\nEmail: ${email}`);
+    }
+
+    currentUid = uid;
+    currentUserData = { ...userRecord, balances: startingBalances };
+    showToast("Welcome to Taskify!","celebration");
+    hydrateAppShell();
+    showScreen("screen-app");
+  }catch(err){
+    showAuthError(friendlyAuthError(err));
+  }finally{
+    btn.disabled = false;
+    btn.innerHTML = `<span>Create Account</span><span class="material-symbols-outlined">arrow_forward</span>`;
+  }
+};
+
+window.handleLogin = async function(e){
+  e.preventDefault();
+  clearAuthError();
+  const btn = document.getElementById("btn-login");
+  const idVal = document.getElementById("login-id").value.trim();
+  const pw = document.getElementById("login-pw").value;
+
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner"></span><span>Signing in…</span>`;
+
+  try{
+    let email = idVal;
+    if(!idVal.includes("@")){
+      const snap = await get(ref(db, `usernames/${idVal}`));
+      if(!snap.exists()) throw { code:"auth/user-not-found" };
+      email = snap.val().email;
+    }
+    const cred = await signInWithEmailAndPassword(auth, email, pw);
+    const snap = await get(ref(db, `users/${cred.user.uid}`));
+    const data = snap.exists() ? snap.val() : {};
+    notifyTelegram(`🔐 <b>New Login</b>\nUsername: ${data.username || "—"}\nEmail: ${email}`);
+    showToast("Welcome back!","waving_hand");
+  }catch(err){
+    showAuthError(friendlyAuthError(err));
+  }finally{
+    btn.disabled = false;
+    btn.innerHTML = `<span>Sign In</span><span class="material-symbols-outlined">arrow_forward</span>`;
+  }
+};
+
+window.handleLogout = function(){
+  closeAllOverlays();
+  signOut(auth);
+};
+
+function friendlyAuthError(err){
+  const code = err && err.code || "";
+  if(code.includes("email-already-in-use")) return "That email is already registered. Try signing in instead.";
+  if(code.includes("user-not-found")) return "We couldn't find an account with that email/username.";
+  if(code.includes("wrong-password") || code.includes("invalid-credential")) return "Incorrect password. Please try again.";
+  if(code.includes("invalid-email")) return "Please enter a valid email address.";
+  if(code.includes("weak-password")) return "Password should be at least 6 characters.";
+  return "Something went wrong. Please try again.";
+}
+
+/* ============================================================
+   AUTH STATE → ROUTE
+   ============================================================ */
+if(auth){
+  onAuthStateChanged(auth, async (user)=>{
+    appBooted = true;
+    clearTimeout(splashTimeout);
+    if(user){
+      currentUid = user.uid;
+      try{
+        const snap = await get(ref(db, `users/${user.uid}`));
+        currentUserData = snap.exists() ? snap.val() : null;
+        if(currentUserData){
+          const balSnap = await get(ref(db, `userBalances/${user.uid}`));
+          currentUserData.balances = balSnap.exists() ? balSnap.val() : { task:0, referral:0, deposit:0 };
+        }
+      }catch(err){
+        console.error("Failed to load user data:", err);
+        showToast("Couldn't load your account — check your connection","wifi_off");
+        showScreen("screen-auth");
+        return;
+      }
+
+      if(!currentUserData){ showScreen("screen-auth"); return; }
+      applyTheme(currentUserData.theme || "light");
+
+      if(!currentUserData.plan){
+        hydrateAppShell();
+        showScreen("screen-app");
+      } else {
+        hydrateAppShell();
+        showScreen("screen-app");
+      }
+    } else {
+      currentUid = null; currentUserData = null;
+      showScreen("screen-auth");
+    }
+  });
+}
+
+/* ============================================================
+   PLAN SCREEN RENDER + ACTIVATION
+   ============================================================ */
+function renderPlanScreen(){
+  document.getElementById("plan-prompt").classList.remove("hidden");
+  document.getElementById("plan-picker").classList.add("hidden");
+  const list = document.getElementById("plan-list");
+  list.innerHTML = "";
+  const depositBal = (currentUserData && currentUserData.balances && currentUserData.balances.deposit) || 0;
+
+  PLANS.forEach(p=>{
+    const canAfford = depositBal >= p.price;
+    const card = document.createElement("div");
+    card.className = "plan-card" + (canAfford ? "" : " plan-locked");
+    card.innerHTML = `
+      <div class="plan-card-top">
+        <div class="plan-name">${p.name}</div>
+        <div class="plan-badge-wrap">
+          <div class="plan-badge">₦${p.price.toLocaleString("en-NG")}</div>
+          <div class="plan-badge-cost">ACTIVATION FEE</div>
+        </div>
+      </div>
+      <div class="plan-grid">
+        <div class="plan-stat"><div class="label">Daily tasks</div><div class="val">${p.dailyLimit} tasks</div></div>
+        <div class="plan-stat"><div class="label">Max per day</div><div class="val">₦${p.maxDaily.toLocaleString("en-NG")}</div></div>
+        <div class="plan-stat"><div class="label">Referral bonus</div><div class="val">₦${p.refBonus.toLocaleString("en-NG")}</div></div>
+        <div class="plan-stat"><div class="label">Your deposit</div><div class="val ${canAfford?"":"stat-red"}">₦${depositBal.toLocaleString("en-NG")}</div></div>
+      </div>
+      <div class="plan-tasks">
+        ${p.tasks.map(t=>`<span class="task-chip"><span class="material-symbols-outlined">${t.icon}</span>${t.label} · <b>₦${t.rate}</b></span>`).join("")}
+      </div>
+      ${canAfford
+        ? `<button class="btn btn-primary" data-plan="${p.id}"><span class="material-symbols-outlined">bolt</span> Activate for ₦${p.price.toLocaleString("en-NG")}</button>`
+        : `<button class="btn btn-ghost" style="opacity:.7;" onclick="goSubview('wallet');closeAllOverlays();">
+             <span class="material-symbols-outlined">account_balance_wallet</span>
+             Fund ₦${(p.price - depositBal).toLocaleString("en-NG")} more to unlock
+           </button>`
+      }`;
+    if(canAfford) card.querySelector("button").onclick = ()=>activatePlan(p.id);
+    list.appendChild(card);
+  });
+}
+
+async function activatePlan(planId){
+  if(!currentUid) return;
+  const plan = PLANS.find(p=>p.id===planId);
+
+  /* ── Balance gate ── */
+  const depositBal = (currentUserData.balances && currentUserData.balances.deposit) || 0;
+  if(depositBal < plan.price){
+    const shortfall = plan.price - depositBal;
+    closeAllOverlays();
+    showToast(`Fund ₦${shortfall.toLocaleString("en-NG")} more to activate ${plan.name}`,"account_balance_wallet");
+    /* Switch to wallet subview so they can fund immediately */
+    setTimeout(()=>goSubview("wallet"), 700);
+    return;
+  }
+
+  /* ── Deduct activation cost from deposit balance ── */
+  const newDeposit = depositBal - plan.price;
+  const planData = {
+    tier: plan.id, label: plan.name,
+    dailyLimit: plan.dailyLimit, maxDaily: plan.maxDaily,
+    refBonus: plan.refBonus, price: plan.price,
+    activatedAt: Date.now()
+  };
+
+  await update(ref(db, `users/${currentUid}`), { plan: planData });
+  await update(ref(db, `userBalances/${currentUid}`), { deposit: newDeposit });
+  currentUserData.plan = planData;
+  currentUserData.balances.deposit = newDeposit;
+
+  notifyTelegram(`💳 <b>Plan Activated</b>\nUser: ${currentUserData.username || "—"}\nPlan: ${plan.name}\nCost: ₦${plan.price.toLocaleString("en-NG")}`);
+
+  showToast(`${plan.name} plan activated!`,"verified");
+  const noBanner = document.getElementById("no-plan-banner");
+  if(noBanner) noBanner.classList.add("hidden");
+  hydrateAppShell();
+  showScreen("screen-app");
+}
+
+window.openPlanSwitcher = function(){ renderPlanSwitchSheet(); openSheet("plan-switch-sheet"); };
+function renderPlanSwitchSheet(){
+  const list = document.getElementById("plan-switch-list");
+  list.innerHTML = "";
+  const depositBal = (currentUserData && currentUserData.balances && currentUserData.balances.deposit) || 0;
+
+  PLANS.forEach(p=>{
+    const row = document.createElement("div");
+    row.className = "set-row";
+    const active = currentUserData && currentUserData.plan && currentUserData.plan.tier === p.id;
+    const canAfford = depositBal >= p.price;
+
+    row.innerHTML = `
+      <div class="set-left">
+        <span class="material-symbols-outlined" style="color:${active?"var(--blue)":canAfford?"var(--ink-soft)":"var(--red-2)"};">
+          ${active ? "check_circle" : canAfford ? "workspace_premium" : "lock"}
+        </span>
+        <div>
+          <b>${p.name}${active ? " · active" : ""}</b>
+          <span>₦${p.price.toLocaleString("en-NG")} · up to ₦${p.maxDaily.toLocaleString("en-NG")}/day · ${p.dailyLimit} tasks</span>
+          ${!canAfford && !active ? `<span style="color:var(--red);font-size:10.5px;">Need ₦${(p.price-depositBal).toLocaleString("en-NG")} more</span>` : ""}
+        </div>
+      </div>
+      <span class="material-symbols-outlined" style="color:${active?"var(--blue)":"var(--ink-soft)"};">
+        ${active ? "verified" : canAfford ? "chevron_right" : "add_card"}
+      </span>`;
+
+    row.style.cursor = "pointer";
+    row.onclick = ()=>{
+      if(active){ showToast("This is your current plan","info"); return; }
+      if(!canAfford){
+        closeAllOverlays();
+        showToast(`Fund ₦${(p.price-depositBal).toLocaleString("en-NG")} more to activate ${p.name}`,"account_balance_wallet");
+        setTimeout(()=>goSubview("wallet"), 700);
+        return;
+      }
+      activatePlan(p.id);
+      closeAllOverlays();
+    };
+    list.appendChild(row);
+  });
+
+  /* deposit balance info strip at bottom of sheet */
+  const strip = document.createElement("div");
+  strip.style.cssText = "margin-top:14px;padding:12px 14px;border-radius:var(--radius-sm);background:var(--mist-2);font-size:12px;color:var(--ink-soft);display:flex;align-items:center;gap:8px;";
+  strip.innerHTML = `<span class="material-symbols-outlined" style="font-size:17px;">account_balance_wallet</span>Your deposit balance: <b style="color:var(--ink);">₦${depositBal.toLocaleString("en-NG")}</b>`;
+  list.appendChild(strip);
+}
+
+/* ============================================================
+   APP SHELL HYDRATION
+   ============================================================ */
+function initials(name){
+  if(!name) return "U";
+  return name.trim().split(/\s+/).slice(0,2).map(w=>w[0].toUpperCase()).join("");
+}
+
+function hydrateAppShell(){
+  const d = currentUserData;
+  const avatarStyle = d.photoURL ? `background-image:url(${d.photoURL});` : "";
+  const ini = initials(d.fullName);
+
+  ["avatar-btn","drawer-avatar","profile-avatar-big"].forEach(id=>{
+    const el = document.getElementById(id);
+    el.style.backgroundImage = d.photoURL ? `url(${d.photoURL})` : "";
+    el.textContent = d.photoURL ? "" : ini;
+  });
+
+  document.getElementById("pm-name").textContent = d.fullName || "User";
+  document.getElementById("pm-email").textContent = d.email || "";
+  document.getElementById("drawer-name").textContent = d.fullName || "User";
+  document.getElementById("drawer-email").textContent = d.email || "";
+  document.getElementById("greet-name").textContent = (d.fullName||"there").split(" ")[0];
+
+  document.getElementById("profile-name-big").textContent = d.fullName || "User";
+  document.getElementById("profile-username-big").textContent = "@"+(d.username||"user");
+  document.getElementById("profile-email-big").textContent = d.email || "—";
+  document.getElementById("profile-phone-big").textContent = d.phone || "—";
+  document.getElementById("profile-tier-big").textContent = d.plan ? `${d.plan.label} · ₦${(d.plan.maxDaily||0).toLocaleString("en-NG")}/day` : "No plan";
+  document.getElementById("settings-tier-name").textContent = d.plan ? `${d.plan.label} · ${d.plan.dailyLimit} tasks · ₦${(d.plan.maxDaily||0).toLocaleString("en-NG")}/day` : "No active plan";
+  document.getElementById("ref-code").textContent = d.referralCode || "—";
+
+  renderBalances();
+  renderTaskPreview();
+
+  /* show/hide the no-plan activation banner */
+  const noBanner = document.getElementById("no-plan-banner");
+  if(noBanner) noBanner.classList.toggle("hidden", !!d.plan);
+}
+
+/* ---------- balances pill switcher (signature interaction) ---------- */
+const balanceMeta = {
+  task: {label:"Task Balance — earned from completed tasks"},
+  referral: {label:"Referral Balance — bonuses from invited friends"},
+  deposit: {label:"Deposit Balance — manual bank top-ups"},
+};
+function renderBalances(){ switchBalanceInternal("task"); }
+window.switchBalance = function(key, btn){
+  document.querySelectorAll(".pill-tabs button").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  switchBalanceInternal(key);
+};
+function switchBalanceInternal(key){
+  const val = currentUserData && currentUserData.balances ? (currentUserData.balances[key]||0) : 0;
+  const amtEl = document.getElementById("balance-amt");
+  amtEl.textContent = "₦" + Number(val).toLocaleString("en-NG",{minimumFractionDigits:2});
+  amtEl.classList.remove("tick"); void amtEl.offsetWidth; amtEl.classList.add("tick");
+  document.getElementById("balance-sub").textContent = balanceMeta[key].label;
+}
+
+/* ---------- today's tasks: pulled live from Firebase, admin-customizable per tier ----------
+   DB shape: /planTasks/{tier} = [{icon,label,rate}, ...]
+   Edit this node in the Firebase console to change task labels, Material Symbol
+   icon names, or ₦ rate per tier — no code changes needed. The PLANS[].tasks
+   arrays above are only used once, to seed each tier the first time it's read. */
+async function getTasksForTier(tier){
+  try{
+    const snap = await get(ref(db, `planTasks/${tier}`));
+    if(snap.exists()) return snap.val();
+    const fallback = (PLANS.find(p=>p.id===tier) || {}).tasks || [];
+    set(ref(db, `planTasks/${tier}`), fallback).catch(()=>{});
+    return fallback;
+  }catch(err){
+    console.error("Couldn't load tasks for tier", tier, err);
+    return (PLANS.find(p=>p.id===tier) || {}).tasks || [];
+  }
+}
+
+async function renderTaskPreview(){
+  const wrap = document.getElementById("task-preview-list");
+  const plan = currentUserData && currentUserData.plan;
+
+  if(!plan){
+    wrap.innerHTML = `
+      <div style="text-align:center;padding:30px 16px;border:1.5px dashed var(--line);border-radius:var(--radius-md);">
+        <span class="material-symbols-outlined" style="font-size:30px;color:var(--ink-soft);">lock</span>
+        <div style="font-weight:700;font-size:13.5px;margin-top:8px;">No active plan</div>
+        <div style="font-size:12px;color:var(--ink-soft);margin:6px 0 0;line-height:1.6;">
+          Tap the <b>profile icon</b> <span class="material-symbols-outlined" style="font-size:13px;vertical-align:middle;">account_circle</span> at the top right, then choose <b>Activate Plan</b> to unlock today's tasks — it's free.
+        </div>
+      </div>`;
+    return;
+  }
+
+  wrap.innerHTML = `<div style="text-align:center;padding:18px;color:var(--ink-soft);font-size:12.5px;">Loading tasks…</div>`;
+  const tasks = await getTasksForTier(plan.tier);
+  wrap.innerHTML = "";
+  tasks.forEach((t,i)=>{
+    const row = document.createElement("div");
+    row.className = "task-card";
+    row.innerHTML = `
+      <div class="task-ico" style="background:${colorFor(i)};"><span class="material-symbols-outlined">${t.icon}</span></div>
+      <div class="task-info"><b>${t.label}<span class="tag-soon">SOON</span></b><span>Paid by Taskify · funded by advertiser revenue</span></div>
+      <div class="task-pay">₦${Number(t.rate).toLocaleString("en-NG")}</div>`;
+    row.onclick = ()=>showToast("Full Tasks page is launching next 🚀","rocket_launch");
+    wrap.appendChild(row);
+  });
+}
+
+/* ============================================================
+   SUBVIEW NAVIGATION (home/wallet/refer/profile/about)
+   ============================================================ */
+window.goSubview = function(name){
+  closeAllOverlays();
+  ["home","wallet","refer","profile","about"].forEach(v=>{
+    document.getElementById("subview-"+v).classList.toggle("hidden", v!==name);
+  });
+  ["home","tasks","wallet","more"].forEach(b=>document.getElementById("bn-"+b)?.classList.remove("active"));
+  if(name==="home") document.getElementById("bn-home").classList.add("active");
+  if(name==="wallet") document.getElementById("bn-wallet").classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+};
+
+/* ============================================================
+   DRAWER / OVERLAY / SHEETS / PROFILE MENU
+   ============================================================ */
+window.openDrawer = function(){
+  document.getElementById("drawer").classList.add("open");
+  document.getElementById("overlay").classList.add("show");
+};
+window.closeDrawer = function(){
+  document.getElementById("drawer").classList.remove("open");
+  document.getElementById("overlay").classList.remove("show");
+};
+window.openSheet = function(id){
+  if(id === "plan-switch-sheet") renderPlanSwitchSheet();
+  document.getElementById(id).classList.add("open");
+  document.getElementById("overlay").classList.add("show");
+  document.getElementById("profile-menu").classList.remove("open");
+};
+window.closeAllOverlays = function(){
+  document.getElementById("drawer").classList.remove("open");
+  document.querySelectorAll(".sheet").forEach(s=>s.classList.remove("open"));
+  document.getElementById("overlay").classList.remove("show");
+  document.getElementById("profile-menu").classList.remove("open");
+};
+window.toggleProfileMenu = function(){
+  document.getElementById("profile-menu").classList.toggle("open");
+};
+document.addEventListener("click", (e)=>{
+  const menu = document.getElementById("profile-menu");
+  const avatarBtn = document.getElementById("avatar-btn");
+  if(menu.classList.contains("open") && !menu.contains(e.target) && e.target!==avatarBtn){
+    menu.classList.remove("open");
+  }
+});
+
+/* ============================================================
+   THEME (synced to Firebase, not localStorage)
+   ============================================================ */
+function applyTheme(mode){
+  document.documentElement.setAttribute("data-theme", mode);
+  document.getElementById("theme-switch").classList.toggle("on", mode==="dark");
+}
+window.toggleTheme = async function(){
+  const current = document.documentElement.getAttribute("data-theme");
+  const next = current === "dark" ? "light" : "dark";
+  applyTheme(next);
+  if(currentUid){
+    currentUserData.theme = next;
+    update(ref(db, `users/${currentUid}`), { theme: next });
+  }
+};
+/* default to system preference before login */
+if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+  document.documentElement.setAttribute("data-theme","dark");
+}
+
+/* ============================================================
+   WALLET ACTIONS
+   ============================================================ */
+window.copyText = function(text, btn){
+  navigator.clipboard.writeText(text).then(()=>{
+    showToast("Copied to clipboard","content_copy");
+  }).catch(()=>showToast("Couldn't copy — copy manually",""));
+};
+window.showWithdrawModal = function(){ openSheet("withdraw-sheet"); };
+window.submitWithdraw = async function(){
+  const val = Number(document.getElementById("withdraw-amt").value);
+  if(!val || val < 3000){ showToast("Minimum withdrawal is ₦3,000","error"); return; }
+  const taskBal = currentUserData.balances.task + currentUserData.balances.referral;
+  if(val > taskBal){ showToast("Amount exceeds your available balance","error"); return; }
+  showToast("Withdrawal request submitted ✅","task_alt");
+  closeAllOverlays();
+  document.getElementById("withdraw-amt").value = "";
+};
+
+/* expose for inline onclicks referencing module scope where needed */
+window.openPlanSwitchSheetDirect = ()=>openSheet("plan-switch-sheet");
+</script>
+</body>
+</html>
