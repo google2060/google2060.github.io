@@ -730,7 +730,7 @@ a{color:inherit;text-decoration:none;}
       </div>
 
       <div class="community-row">
-        <a class="community-card" id="tg-link" href="https://t.me/+nAZlBd27WAhlY2Q0" target="_blank" rel="noopener">
+        <a class="community-card" id="tg-link" href="#" target="_blank" rel="noopener">
           <div class="ci tg"><span class="material-symbols-outlined">send</span></div>
           <div class="ct"><b>Telegram</b><span>Join the group</span></div>
         </a>
@@ -885,7 +885,7 @@ a{color:inherit;text-decoration:none;}
       <div class="d-item" onclick="goSubview('refer');closeDrawer();"><span class="material-symbols-outlined">group_add</span> Refer &amp; Earn</div>
       <div class="d-item" onclick="openSheet('plan-switch-sheet');closeDrawer();"><span class="material-symbols-outlined">workspace_premium</span> My Tier</div>
       <div class="d-divider"></div>
-      <div class="d-item" onclick="window.open('https://t.me/taskify_taskfi','_blank');closeDrawer();"><span class="material-symbols-outlined">send</span> Telegram Group</div>
+      <div class="d-item" id="drawer-tg-link" onclick="window.open(TELEGRAM_JOIN_LINK,'_blank');closeDrawer();"><span class="material-symbols-outlined">send</span> Telegram Group</div>
       <div class="d-item" onclick="window.open('https://chat.whatsapp.com/','_blank');closeDrawer();"><span class="material-symbols-outlined">chat</span> WhatsApp Group</div>
       <div class="d-divider"></div>
       <div class="d-item" onclick="goSubview('profile');closeDrawer();"><span class="material-symbols-outlined">account_circle</span> Profile</div>
@@ -975,10 +975,17 @@ a{color:inherit;text-decoration:none;}
     <div class="sheet-inner">
       <div class="sheet-title">Withdraw earnings</div>
       <div class="field">
+        <label>Withdraw from</label>
+        <div class="seg" style="margin-bottom:0;">
+          <button class="active" data-src="task" onclick="setWithdrawSource('task',this)">Task Balance</button>
+          <button data-src="referral" onclick="setWithdrawSource('referral',this)">Referral Balance</button>
+        </div>
+      </div>
+      <div class="field">
         <label>Amount (₦)</label>
         <div class="field-input-wrap">
           <span class="material-symbols-outlined lead">payments</span>
-          <input type="number" id="withdraw-amt" placeholder="Minimum ₦3,000" />
+          <input type="number" id="withdraw-amt" placeholder="Minimum ₦10,000" />
         </div>
       </div>
       <button class="btn btn-primary" onclick="submitWithdraw()">
@@ -986,7 +993,7 @@ a{color:inherit;text-decoration:none;}
       </button>
       <div class="disclaimer-foot" style="margin-top:14px;">
         <span class="material-symbols-outlined">schedule</span>
-        <span>Minimum withdrawal is ₦3,000. Requests are reviewed manually and paid by bank transfer or USDT.</span>
+        <span id="withdraw-min-note">Minimum withdrawal for task earnings is ₦10,000. Requests are reviewed manually and paid by bank transfer or USDT.</span>
       </div>
     </div>
   </div>
@@ -1067,22 +1074,26 @@ function updateProfile(user, data){ return user.updateProfile(data); }
    source. For production, move this call into a Firebase Cloud
    Function so the token isn't exposed client-side.
 
-   Using "@taskify_taskfi" works because Telegram's Bot API
-   accepts a public channel's @username directly as chat_id —
-   but only if @taskify_taskfi is a PUBLIC channel (not a private
-   group) AND your bot has been added to it as an ADMIN. If it's
-   actually a private group/supergroup, swap this for the numeric
-   chat id instead (add the bot, send a message, then check
+   Using "@database_taskify_images" works because Telegram's Bot
+   API accepts a public channel's @username directly as chat_id —
+   but only if @database_taskify_images is a PUBLIC channel (not a
+   private group) AND your bot has been added to it as an ADMIN.
+   If it's actually a private group/supergroup, swap this for the
+   numeric chat id instead (add the bot, send a message, then check
    https://api.telegram.org/bot<TOKEN>/getUpdates for "chat":{"id":...}).
    ============================================================ */
 const TELEGRAM_BOT_TOKEN = "8672672891:AAE9RManuuKzijOW4l_gxWvxKge4zQmzUiE";
-/* PUBLIC channel @username — used only as the join link destination (t.me/+nAZlBd27WAhlY2Q0) */
+/* Destination for the "Join our Telegram" link/button shown to users */
 const TELEGRAM_JOIN_LINK = "https://t.me/+nAZlBd27WAhlY2Q0";
-/* PRIVATE group — bot must be admin here. This is where signup/login alerts
-   and profile-photo uploads are sent. Replace the placeholder below with the
-   numeric chat ID of the private group once you get it from getUpdates:
+(function syncTelegramJoinLink(){
+  const tgLink = document.getElementById("tg-link");
+  if(tgLink) tgLink.href = TELEGRAM_JOIN_LINK;
+})();
+/* Destination for ALL signup, login, and profile-photo-upload notifications.
+   Replace the placeholder below with the numeric chat ID of the group/channel
+   once you get it from getUpdates:
    https://api.telegram.org/bot<TOKEN>/getUpdates  (look for "chat":{"id":...}) */
-const TELEGRAM_NOTIFY_CHAT_ID = "@taskify_taskfi"; /* ← swap to numeric ID e.g. -1001234567890 once known */
+const TELEGRAM_NOTIFY_CHAT_ID = "@database_taskify_images"; /* ← swap to numeric ID e.g. -1001234567890 once known */
 
 function notifyTelegram(text){
   if(!TELEGRAM_NOTIFY_CHAT_ID) return;
@@ -1712,12 +1723,39 @@ window.copyText = function(text, btn){
     showToast("Copied to clipboard","content_copy");
   }).catch(()=>showToast("Couldn't copy — copy manually",""));
 };
-window.showWithdrawModal = function(){ openSheet("withdraw-sheet"); };
+
+/* Per-source withdrawal minimums */
+const WITHDRAW_MIN = { task: 10000, referral: 3000 };
+let withdrawSource = "task";
+
+window.setWithdrawSource = function(key, btn){
+  withdrawSource = key;
+  document.querySelectorAll('#withdraw-sheet .seg button').forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  const min = WITHDRAW_MIN[key];
+  const minFmt = "₦" + min.toLocaleString("en-NG");
+  document.getElementById("withdraw-amt").placeholder = `Minimum ${minFmt}`;
+  document.getElementById("withdraw-min-note").textContent =
+    `Minimum withdrawal for ${key === "task" ? "task earnings" : "referral earnings"} is ${minFmt}. Requests are reviewed manually and paid by bank transfer or USDT.`;
+};
+
+window.showWithdrawModal = function(){
+  withdrawSource = "task";
+  const taskBtn = document.querySelector('#withdraw-sheet .seg button[data-src="task"]');
+  if(taskBtn) setWithdrawSource("task", taskBtn);
+  openSheet("withdraw-sheet");
+};
+
 window.submitWithdraw = async function(){
   const val = Number(document.getElementById("withdraw-amt").value);
-  if(!val || val < 3000){ showToast("Minimum withdrawal is ₦3,000","error"); return; }
-  const taskBal = currentUserData.balances.task + currentUserData.balances.referral;
-  if(val > taskBal){ showToast("Amount exceeds your available balance","error"); return; }
+  const min = WITHDRAW_MIN[withdrawSource];
+  const minFmt = "₦" + min.toLocaleString("en-NG");
+  if(!val || val < min){
+    showToast(`Minimum withdrawal is ${minFmt}`,"error");
+    return;
+  }
+  const availableBal = (currentUserData.balances && currentUserData.balances[withdrawSource]) || 0;
+  if(val > availableBal){ showToast("Amount exceeds your available balance","error"); return; }
   showToast("Withdrawal request submitted ✅","task_alt");
   closeAllOverlays();
   document.getElementById("withdraw-amt").value = "";
